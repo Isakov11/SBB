@@ -1,12 +1,17 @@
 package org.hino.sbb.dto;
 
 
+import org.hino.sbb.model.ScheduleNode;
+
+import java.util.Set;
+
 public class TrainDTO extends AbstractDTO {
 
     private String name;
 
     private String number;
 
+    private Set<ScheduleNodeDTO> trainSchedule;
 
     public TrainDTO() {
     }
@@ -15,6 +20,13 @@ public class TrainDTO extends AbstractDTO {
         super.setId(id);
         this.name = name;
         this.number = number;
+    }
+
+    public TrainDTO(long id, String name, String number, Set<ScheduleNodeDTO> trainSchedule) {
+        super.setId(id);
+        this.name = name;
+        this.number = number;
+        this.trainSchedule = trainSchedule;
     }
 
     public String getName() {
@@ -33,7 +45,13 @@ public class TrainDTO extends AbstractDTO {
         this.number = number;
     }
 
+    public Set<ScheduleNodeDTO> getTrainSchedule() {
+        return trainSchedule;
+    }
 
+    public void setTrainSchedule(Set<ScheduleNodeDTO> trainSchedule) {
+        this.trainSchedule = trainSchedule;
+    }
 
     @Override
     public String toString() {

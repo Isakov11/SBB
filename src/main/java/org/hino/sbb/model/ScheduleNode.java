@@ -32,6 +32,15 @@ public class ScheduleNode extends AbstractEntity{
     public ScheduleNode() {
     }
 
+    public ScheduleNode(long id, Train train, long stationOrder, Station station, LocalDateTime arrivalTime, LocalDateTime departureTime) {
+        super.setId(id);
+        this.train = train;
+        this.stationOrder = stationOrder;
+        this.station = station;
+        this.arrivalTime = arrivalTime;
+        this.departureTime = departureTime;
+    }
+
     public Train getTrain() {
         return train;
     }

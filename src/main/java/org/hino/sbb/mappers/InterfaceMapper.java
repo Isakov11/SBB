@@ -13,6 +13,6 @@ public interface InterfaceMapper<T extends AbstractDTO, E extends AbstractEntity
 
     public T toDto(E entity);
 
-    public List<T> toDto(Collection<E> collection);
+    public Collection<T> toDto(Collection<E> collection);
 
 }

@@ -39,12 +39,19 @@
                     </div>
                     <div class="row">
                         <label for="road_id">Road number</label>
-                        <input type="text" class="form-control" name="road_id" id="road_id" value="${dto.road_id}"/>
+                        <input type="text" class="form-control" name="road_id" id="road_id" value="${dto.roadId}"/>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Save</button>
             </form>
         </div>
+        <c:if test="${empty dto.id}">
+            <a href="./"  role="button" class="btn btn-primary btn-lg">Back</a>
+        </c:if>
+        <c:if test="${!empty dto.id}">
+            <a href="../"  role="button" class="btn btn-primary btn-lg">Back</a>
+        </c:if>
+        <!-- <a href="../"  role="button" class="btn btn-primary btn-lg">Back</a> -->
     </div>
 </body>
 </html>

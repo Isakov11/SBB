@@ -17,7 +17,7 @@ public class Station extends AbstractEntity{
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "station")
+    @OneToMany(mappedBy = "station",fetch = FetchType.EAGER)
     private Set<ScheduleNode> stationSchedule;
 
     public Station() {

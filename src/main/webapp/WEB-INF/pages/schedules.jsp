@@ -30,16 +30,19 @@
             <tbody>
             <c:forEach var="entity" items="${DTOList}">
                 <tr>
-                    <td>${entity.train}</td>
-                    <td>${entity.station}</td>
-                    <td>${entity.arrivalTime}</td>
-                    <td>${entity.departureTime}</td>
+                    <td>Number: ${entity.train.number}
+                        <br>
+                        Name: ${entity.train.name}
+                    </td>
+                    <td>${entity.station.name}</td>
+                    <td>${entity.arrivalTime.toLocalDate()}  ${entity.arrivalTime.toLocalTime()}</td>
+                    <td>${entity.departureTime.toLocalDate()} ${entity.departureTime.toLocalTime()}</td>
                     <td>
-                        <form action="/${viewName}/edit/${entity.id}" method="get">
+                        <form action="../${viewName}/edit/${entity.id}" method="get">
                             <button type="submit" class="btn btn-primary">Edit</button>
                         </form>
                         <br>
-                        <form action="/${viewName}/delete/${entity.id}" method="get">
+                        <form action="../${viewName}/delete/${entity.id}" method="get">
                             <button type="submit" class="btn btn-primary">Delete</button>
                         </form>
                     </td>
@@ -47,8 +50,9 @@
             </c:forEach>
             </tbody>
         </table>
-        <a href="/${viewName}/add"  role="button" class="btn btn-primary btn-lg">Save</a>
+        <a href="../${viewName}/add"  role="button" class="btn btn-primary btn-lg">Add schedule</a>
     </div>
+    <a href="/"  role="button" class="btn btn-primary btn-lg">Back to admin page</a>
 </div>
 </body>
 </html>
