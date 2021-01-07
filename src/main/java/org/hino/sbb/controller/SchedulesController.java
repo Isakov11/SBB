@@ -86,7 +86,9 @@ public class SchedulesController {
     }
 
     @PostMapping(path = "/" + viewName + "/add")
-    public ModelAndView CreateSchedules(@ModelAttribute("dto") ScheduleNodeDTO dto) {
+    public ModelAndView CreateSchedules(@ModelAttribute("dto") ScheduleNodeDTO dto,
+                                        @ModelAttribute("trainId") long trainId) {
+
         ScheduleNode entity = mapper.toEntity(dto);
 
         service.create(entity);
