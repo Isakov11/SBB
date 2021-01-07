@@ -2,6 +2,7 @@ package org.hino.sbb.mappers;
 
 import org.hino.sbb.dto.TrainDTO;
 import org.hino.sbb.model.Train;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
@@ -10,6 +11,8 @@ import java.util.List;
 
 @Component
 public class TrainMapper implements InterfaceMapper<TrainDTO, Train> {
+    @Autowired
+    ScheduleNodeMapper scheduleNodeMapper;
 
     @Override
     public Train toEntity(TrainDTO dto) {
@@ -25,7 +28,8 @@ public class TrainMapper implements InterfaceMapper<TrainDTO, Train> {
         return new TrainDTO(
                 entity.getId(),
                 entity.getName(),
-                entity.getNumber()
+                entity.getNumber(),
+                scheduleNodeMapper.toDto(entity.getTrainSchedule())
         );
     }
 
@@ -36,7 +40,8 @@ public class TrainMapper implements InterfaceMapper<TrainDTO, Train> {
             TrainDTO resultDTO = new TrainDTO(
                     entity.getId(),
                     entity.getName(),
-                    entity.getNumber()
+                    entity.getNumber(),
+                    scheduleNodeMapper.toDto(entity.getTrainSchedule())
             );
             resultCollection.add(resultDTO);
         }

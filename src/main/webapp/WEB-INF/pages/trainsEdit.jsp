@@ -45,6 +45,13 @@
                 <button type="submit" class="btn btn-primary">Save</button>
             </form>
         </div>
+        <c:if test="${empty dto.id}">
+            <a href="./"  role="button" class="btn btn-primary btn-lg">Back</a>
+        </c:if>
+        <c:if test="${!empty dto.id}">
+            <a href="../"  role="button" class="btn btn-primary btn-lg">Back</a>
+        </c:if>
+        <!-- <a href="../"  role="button" class="btn btn-primary btn-lg">Back</a> -->
     </div>
 </body>
 </html>

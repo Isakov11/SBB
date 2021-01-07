@@ -11,26 +11,33 @@
     <title>Admin page</title>
 </head>
 <body>
-    <div class="container">
-        <div class="col justify-content-md-center">
-            <div>
+    <div class="container-fluid">
+        <div class="row text-center">
+            <div class="col">
                 <h1>Admin page</h1>
             </div>
-            <div class="row">
-                <a href="/stations"  role="button" class="btn btn-primary btn-lg">Stations list</a>
+        </div>
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8">
+                <div >
+                    <a href="stations"  role="button" class="btn btn-primary btn-lg">Stations list</a>
+                </div>
+                <br>
+                <div>
+                    <a href="passengers"  role="button" class="btn btn-primary btn-lg">All passengers list</a>
+                </div>
+                <br>
+                <div>
+                    <a href="trains"  role="button" class="btn btn-primary btn-lg">Trains list</a>
+                </div>
+                <br>
+                <div>
+                    <a href="schedules"  role="button" class="btn btn-primary btn-lg">Schedules</a>
+                </div>
             </div>
-            <br>
-            <div class="row">
-                <a href="/passengers"  role="button" class="btn btn-primary btn-lg">All passengers list</a>
-            </div>
-            <br>
-            <div class="row">
-                <a href="/trains"  role="button" class="btn btn-primary btn-lg">Trains list</a>
-            </div>
-            <br>
-            <div class="row">
-                <a href="/schedules"  role="button" class="btn btn-primary btn-lg">Schedules</a>
-            </div>
+            <div class="col-2"></div>
+
         </div>
     </div>
 </body>

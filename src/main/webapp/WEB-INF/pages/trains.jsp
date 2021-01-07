@@ -22,6 +22,7 @@
             <tr>
                 <th scope="col">Number</th>
                 <th scope="col">Name</th>
+                <th scope="col">Schedule</th>
                 <th scope="col">Action</th>
             </tr>
             </thead>
@@ -30,12 +31,16 @@
                 <tr>
                     <td>${entity.number}</td>
                     <td>${entity.name}</td>
+                    <td><c:forEach var="sched" items="${entity.trainSchedule}">
+                            ${sched.toString()}<br>
+                        </c:forEach>
+                    </td>
                     <td>
-                        <form action="/${viewName}/edit/${entity.id}" method="get">
+                        <form action="../${viewName}/edit/${entity.id}" method="get">
                             <button type="submit" class="btn btn-primary">Edit</button>
                         </form>
                         <br>
-                        <form action="/${viewName}/delete/${entity.id}" method="get">
+                        <form action="../${viewName}/delete/${entity.id}" method="get">
                             <button type="submit" class="btn btn-primary">Delete</button>
                         </form>
                     </td>
@@ -43,8 +48,9 @@
             </c:forEach>
             </tbody>
         </table>
-        <a href="/trains/add"  role="button" class="btn btn-primary btn-lg">Add train</a>
+        <a href="../${viewName}/add"  role="button" class="btn btn-primary btn-lg">Add train</a>
     </div>
+    <a href="/"  role="button" class="btn btn-primary btn-lg">Back to admin page</a>
 </div>
 </body>
 </html>
