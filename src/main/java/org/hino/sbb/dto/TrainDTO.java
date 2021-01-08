@@ -1,8 +1,5 @@
 package org.hino.sbb.dto;
 
-
-import org.hino.sbb.model.ScheduleNode;
-
 import java.util.Set;
 
 public class TrainDTO extends AbstractDTO {
@@ -56,6 +53,7 @@ public class TrainDTO extends AbstractDTO {
     @Override
     public String toString() {
         return "TrainDTO{" +
+                "id= " + super.getId() +
                 "name='" + name + '\'' +
                 ", number='" + number + '\'' +
                 '}';

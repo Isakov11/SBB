@@ -2,6 +2,8 @@ package org.hino.sbb.dao;
 
 import org.hino.sbb.model.ScheduleNode;
 import org.hino.sbb.model.Station;
+import org.hino.sbb.model.Train;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,7 +14,11 @@ import java.util.List;
 @Repository
 @Transactional
 public class ScheduleNodeDAO {
+    @Autowired
+    StationDAO stationDAO;
 
+    @Autowired
+    TrainDAO trainDAO;
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -28,6 +34,17 @@ public class ScheduleNodeDAO {
 
     @Transactional
     public ScheduleNode create(ScheduleNode entity){
+
+        //---------------------------------------
+
+        Station station = stationDAO.findById(entity.getStation().getId());
+        entityManager.merge(station);
+        entity.setStation(station);
+
+        Train train = trainDAO.findById(entity.getTrain().getId());
+        entityManager.merge(train);
+        entity.setTrain(train);
+        //---------------------------------------
         entityManager.persist(entity);
         return entity;
     }
