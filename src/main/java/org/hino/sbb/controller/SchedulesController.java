@@ -8,6 +8,7 @@ import org.hino.sbb.mappers.StationMapper;
 import org.hino.sbb.mappers.TrainMapper;
 import org.hino.sbb.model.ScheduleNode;
 import org.hino.sbb.model.Station;
+import org.hino.sbb.model.Train;
 import org.hino.sbb.service.SchedulesService;
 import org.hino.sbb.service.StationService;
 import org.hino.sbb.service.TrainService;
@@ -16,6 +17,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -42,6 +45,8 @@ public class SchedulesController {
 
     @Autowired
     private ScheduleNodeMapper mapper;
+
+    public SchedulesController(){}
 
     @GetMapping(value = "/" + viewName)
     public ModelAndView allSchedules() {
@@ -86,11 +91,28 @@ public class SchedulesController {
     }
 
     @PostMapping(path = "/" + viewName + "/add")
-    public ModelAndView CreateSchedules(@ModelAttribute("dto") ScheduleNodeDTO dto,
-                                        @ModelAttribute("trainId") long trainId) {
-
-        ScheduleNode entity = mapper.toEntity(dto);
-
+    public ModelAndView CreateSchedules(/*@ModelAttribute("dto") ScheduleNodeDTO dto,*/
+                                        @ModelAttribute("trainId") long trainId,
+                                        @ModelAttribute("stationId") long stationId,
+                                        @ModelAttribute("stationOrder") long stationOrder,
+                                        @ModelAttribute("arrivalpicker") String arrivalTimeString,
+                                        @ModelAttribute("departurepicker") String departureTimeString
+                                                ){
+        //TODO Убрать
+        //-----------------------------------------------------------------------------------------------
+        Train train = trainService.findById(trainId);
+        Station station = stationService.findById(stationId);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
+        LocalDateTime arrivalTime = null;
+        LocalDateTime departureTime = null;
+        if (arrivalTimeString !=null && !arrivalTimeString.equals(""))        {
+            arrivalTime = LocalDateTime.parse(arrivalTimeString,formatter);
+        }
+        if (departureTimeString !=null && !departureTimeString.equals(""))        {
+            departureTime = LocalDateTime.parse(departureTimeString,formatter);
+        }
+        ScheduleNode entity = new ScheduleNode(0,train,stationOrder,station,arrivalTime,departureTime);
+        //------------------------------------------------------------------------------------------------
         service.create(entity);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/" + viewName);

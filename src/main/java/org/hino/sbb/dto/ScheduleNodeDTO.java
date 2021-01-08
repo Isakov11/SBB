@@ -18,7 +18,8 @@ public class ScheduleNodeDTO extends AbstractDTO {
     public ScheduleNodeDTO() {
     }
 
-    public ScheduleNodeDTO(long id, TrainDTO train, long stationOrder, StationDTO station, LocalDateTime arrivalTime, LocalDateTime departureTime) {
+    public ScheduleNodeDTO(long id, TrainDTO train, long stationOrder, StationDTO station,
+                           LocalDateTime arrivalTime, LocalDateTime departureTime) {
         super.setId(id);
         this.train = train;
         this.stationOrder = stationOrder;
@@ -26,6 +27,7 @@ public class ScheduleNodeDTO extends AbstractDTO {
         this.arrivalTime = arrivalTime;
         this.departureTime = departureTime;
     }
+
 
     public TrainDTO getTrain() {
         return train;

@@ -14,7 +14,7 @@ import java.util.List;
 
 @Controller
 public class PassengerController {
-//TODO Class not completed
+//TODO Class not complete yet
     @Autowired
     private PassengerDAO passengerDAO;
     @Autowired

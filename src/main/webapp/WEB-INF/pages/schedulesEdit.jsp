@@ -55,12 +55,12 @@
                 </div>
                 <div class="col">
                     <label for="order">Station order</label>
-                    <input type="text" class="form-control" name="order" id="order" value="${dto.stationOrder}"/>
+                    <input type="text" class="form-control" name="stationOrder" id="order" value="${stationOrder}0"/>
                 </div>
                 <div class="col">
                     <div class="form-group">
                         <label for="station">Station</label>
-                        <select class="form-control" id="station">
+                        <select class="form-control" name="stationId"  id="station">
                             <c:forEach var="station" items="${stationsList}">
                                 <option value="${station.id}">${station.name}</option>
                             </c:forEach>
@@ -71,7 +71,7 @@
                     <label for="arrivalpicker">Arrival time</label>
                     <div class="form-group">
                         <div class="input-group date" id="arrivalpicker">
-                            <input type="text" class="form-control" value="${dto.arrivalTime}"/>
+                            <input type="text" class="form-control" name="arrivalpicker"/>
                             <span class="input-group-addon">
                             <span class="glyphicon glyphicon-calendar"></span>
                                 <script type="text/javascript">
@@ -83,19 +83,13 @@
                                 </script>
                             </span>
                         </div>
-                        <script type="text/javascript">
-                            function getDate(){
-                                return $('#arrivalpicker').data('date')
-                            }
-                        </script>
-                        <button type="button" class="btn btn-primary" onclick="alert(getDate())">script</button>
                     </div>
                 </div>
                 <div class="col">
                     <label for="departurepicker">Departure time</label>
                     <div class="form-group">
                         <div class='input-group date' id='departurepicker'>
-                            <input type='text' class="form-control" value="${dto.departureTime}"/>
+                            <input type='text' class="form-control" name="departurepicker"/>
                             <span class="input-group-addon">
                             <span class="glyphicon glyphicon-calendar"></span>
                             </span>
@@ -111,7 +105,7 @@
                 </div>
                 </div>
             <br>
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="submit" class="btn btn-primary" >Save</button>
             <br>
         </div>
     </form>
