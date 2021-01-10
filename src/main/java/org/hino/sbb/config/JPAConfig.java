@@ -19,7 +19,7 @@ import java.util.Properties;
 @EnableTransactionManagement
 @ComponentScan(basePackages = {"org.hino.sbb"})
 public class JPAConfig {
-
+    //TODO Вынести в property, value аннотации
     @Bean
     public DataSource dataSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -53,6 +53,7 @@ public class JPAConfig {
     public EntityManagerFactory entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean factoryBean =
                 new LocalContainerEntityManagerFactoryBean();
+        //TODO сменить
         factoryBean.setPackagesToScan("testgroup.filmography.dao");
         factoryBean.setDataSource(dataSource());
         factoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());

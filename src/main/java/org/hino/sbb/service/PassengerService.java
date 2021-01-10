@@ -1,9 +1,7 @@
 package org.hino.sbb.service;
 
-import org.hino.sbb.dao.ScheduleNodeDAO;
-import org.hino.sbb.dao.StationDAO;
-import org.hino.sbb.model.ScheduleNode;
-import org.hino.sbb.model.Station;
+import org.hino.sbb.dao.PassengerDAO;
+import org.hino.sbb.model.Passenger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,32 +10,32 @@ import java.util.List;
 
 @Service
 @Transactional
-public class SchedulesService {
+public class PassengerService {
 
     @Autowired
-    private ScheduleNodeDAO dao;
+    private PassengerDAO dao;
 
-    public SchedulesService() {
+    public PassengerService() {
     }
 
-    public List<ScheduleNode> findAll() {
+    public List<Passenger> findAll() {
         return dao.findAll();
     }
 
-    public ScheduleNode findById(long id) {
+    public Passenger findById(long id) {
         return dao.findById(id);
     }
 
-    public ScheduleNode create(ScheduleNode entity) {
+    public Passenger create(Passenger entity) {
         return dao.create(entity);
     }
 
-    public ScheduleNode update(ScheduleNode entity) {
+    public Passenger update(Passenger entity) {
         return dao.update(entity);
     }
 
-    public ScheduleNode delete(long id) {
-        ScheduleNode entity = dao.findById(id);
+    public Passenger delete(long id) {
+        Passenger entity = dao.findById(id);
         if (entity == null){
             return null;
         }

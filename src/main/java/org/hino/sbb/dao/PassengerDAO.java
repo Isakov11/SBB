@@ -1,6 +1,7 @@
 package org.hino.sbb.dao;
 
 import org.hino.sbb.model.Passenger;
+import org.hino.sbb.model.Station;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,8 +25,7 @@ public class PassengerDAO {
 
     @Transactional (readOnly = true)
     public Passenger findById(long id){
-        TypedQuery<Passenger> query = entityManager.createNamedQuery(Passenger.FIND_By_Id,Passenger.class);
-        return query.setParameter("id", id).getSingleResult();
+        return entityManager.find(Passenger.class, id);
     }
 
     @Transactional

@@ -2,7 +2,6 @@ package org.hino.sbb.controller;
 
 import org.hino.sbb.dto.TrainDTO;
 import org.hino.sbb.mappers.TrainMapper;
-import org.hino.sbb.model.Station;
 import org.hino.sbb.model.Train;
 import org.hino.sbb.service.TrainService;
 import org.springframework.beans.factory.annotation.Autowired;

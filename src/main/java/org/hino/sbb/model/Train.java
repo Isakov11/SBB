@@ -21,7 +21,7 @@ public class Train extends AbstractEntity{
     public Train() {
     }
 
-    @OneToMany(mappedBy = "train", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "train", fetch = FetchType.LAZY)
     private Set<ScheduleNode> trainSchedule;
 
     public Train(long id, String name, String number) {

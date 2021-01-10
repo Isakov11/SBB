@@ -4,6 +4,7 @@
 <!doctype html>
 <html lang="en">
 <head>
+    <link rel="icon" type="image/png" href="/resources/favicon.png" />
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -26,11 +27,11 @@
        </tr>
        </thead>
        <tbody>
-            <c:forEach var="entity" items="${DTOList}">
+            <c:forEach var="dto" items="${DTOList}">
                 <tr>
-                    <td>${entity.name}</td>
-                    <td>${entity.secondName}</td>
-                    <td>${entity.birthDate}</td>
+                    <td>${dto.name}</td>
+                    <td>${dto.secondName}</td>
+                    <td>${dto.birthDate}</td>
                 </tr>
             </c:forEach>
        </tbody>
