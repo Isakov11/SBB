@@ -35,12 +35,16 @@
                 </c:if>
                 <div class="form-col">
                     <div class="row">
-                        <label for="name">Station name</label>
+                        <label for="name">First name</label>
                         <input type="text" class="form-control" name="name" id="name" value="${dto.name}"/>
                     </div>
                     <div class="row">
-                        <label for="road_id">Road number</label>
-                        <input type="text" class="form-control" name="road_id" id="road_id" value="${dto.roadId}"/>
+                        <label for="secondName">Second name</label>
+                        <input type="text" class="form-control" name="secondName" id="secondName" value="${dto.secondName}"/>
+                    </div>
+                    <div class="row">
+                        <label for="birthDate">Birth date</label>
+                        <input type="text" class="form-control" name="birthDate" id="birthDate" value="${dto.birthDate}"/>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Save</button>

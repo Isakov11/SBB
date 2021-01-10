@@ -14,6 +14,7 @@ import org.hino.sbb.service.StationService;
 import org.hino.sbb.service.TrainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,7 +25,7 @@ import java.util.List;
 import java.util.Set;
 
 @Controller
-@ControllerAdvice
+
 public class SchedulesController {
     private final String viewName = "schedules";
 

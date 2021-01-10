@@ -3,6 +3,7 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <head>
+    <link rel="icon" type="image/png" href="/resources/favicon.png" />
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -11,15 +12,15 @@
     <link rel="stylesheet" href="/resources/css/bootstrap.4.5.3.min.css">
 
     <link rel="stylesheet" type="text/css" media="screen"
-          href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+          href="/resources/css/bootstrap.3.3.1.min.css"/>
+    <link rel="stylesheet" href="/resources/css/font-awesome.4.3.0.min.css">
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css" rel="stylesheet">
+    <link href="/resources/css/bootstrap-datetimepicker.4.17.47.css" rel="stylesheet">
 
-    <script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="/resources/js/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="/resources/js/bootstrap.3.3.1.min.js"></script>
+    <script type="text/javascript" src="/resources/js/moment-with-locales.2.29.1.min.js"></script>
+    <script type="text/javascript" src="/resources/js/bootstrap-datetimepicker.4.17.47.min.js"></script>
 
     <c:if test="${empty dto.id}">
         <title>Add</title>
@@ -117,7 +118,6 @@
     <c:if test="${!empty dto.id}">
         <a href="../"  role="button" class="btn btn-primary btn-lg">Back</a>
     </c:if>
-    <!-- <a href="../"  role="button" class="btn btn-primary btn-lg">Back</a> -->
 </div>
 </body>
 </html>

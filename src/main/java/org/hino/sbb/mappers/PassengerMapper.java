@@ -9,12 +9,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Component
-public class PassengerMapper {
+public class PassengerMapper implements InterfaceMapper<PassengerDTO, Passenger>  {
 
         public Passenger toEntity(PassengerDTO dto) {
             return new Passenger(
                     dto.getId(),
-                    dto.getDeleted(),
                     dto.getVersion(),
                     dto.getName(),
                     dto.getSecondName(),
@@ -25,7 +24,6 @@ public class PassengerMapper {
         public PassengerDTO toDto(Passenger entity) {
             return new PassengerDTO(
                     entity.getId(),
-                    entity.getDeleted(),
                     entity.getVersion(),
                     entity.getName(),
                     entity.getSecondName(),
@@ -37,7 +35,6 @@ public class PassengerMapper {
             for (Passenger entity: collection) {
                 PassengerDTO resultDTO = new PassengerDTO(
                         entity.getId(),
-                        entity.getDeleted(),
                         entity.getVersion(),
                         entity.getName(),
                         entity.getSecondName(),

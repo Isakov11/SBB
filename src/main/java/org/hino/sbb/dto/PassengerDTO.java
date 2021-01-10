@@ -4,11 +4,9 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 
-public class PassengerDTO {
+public class PassengerDTO extends AbstractDTO {
 
     private Long id;
-
-    private Boolean deleted;
 
     private Integer version;
 
@@ -21,9 +19,8 @@ public class PassengerDTO {
     public PassengerDTO() {
     }
 
-    public PassengerDTO(Long id, Boolean deleted, Integer version, String name, String secondName, LocalDate birthDate) {
+    public PassengerDTO(Long id, Integer version, String name, String secondName, LocalDate birthDate) {
         this.id = id;
-        this.deleted = deleted;
         this.version = version;
         this.name = name;
         this.secondName = secondName;
@@ -32,10 +29,6 @@ public class PassengerDTO {
 
     public Long getId() {
         return id;
-    }
-
-    public Boolean getDeleted() {
-        return deleted;
     }
 
     public Integer getVersion() {
