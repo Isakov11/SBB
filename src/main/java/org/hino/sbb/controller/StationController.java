@@ -1,8 +1,6 @@
 package org.hino.sbb.controller;
 
 import org.hino.sbb.dto.StationDTO;
-import org.hino.sbb.mappers.StationMapper;
-import org.hino.sbb.model.Station;
 import org.hino.sbb.service.StationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,12 +18,10 @@ public class StationController  {
     @Autowired
     private StationService service;
 
-    @Autowired
-    private StationMapper mapper;
 
     @GetMapping(value = "/" + viewName)
     public ModelAndView allStations() {
-        List<StationDTO> dtoList = mapper.toDto(service.findAll());
+        List<StationDTO> dtoList = service.findAllDTO();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName(viewName);
         modelAndView.addObject("DTOList", dtoList);
@@ -35,21 +31,14 @@ public class StationController  {
 
     @GetMapping(path = "/" + viewName + "/{id}")
     public ModelAndView StationById(@PathVariable("id") long id) {
-        Station entity = service.findById(id);
-        if (entity != null){
-            StationDTO dto = mapper.toDto(service.findById(id));
-            List<StationDTO> dtoList  = new LinkedList<>();
-            dtoList.add(dto);
-            ModelAndView modelAndView = new ModelAndView();
-            modelAndView.setViewName(viewName);
-            modelAndView.addObject("DTOList", dtoList);
-            modelAndView.addObject("viewName", viewName);
-            return modelAndView;
-        }else{
-            ModelAndView modelAndView = new ModelAndView();
-            modelAndView.setViewName("error");
-            return modelAndView;
-        }
+        StationDTO dto = service.findDTObyId(id);
+        List<StationDTO> dtoList = new LinkedList<>();
+        dtoList.add(dto);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName(viewName);
+        modelAndView.addObject("DTOList", dtoList);
+        modelAndView.addObject("viewName", viewName);
+        return modelAndView;
     }
 
     @GetMapping(value = "/" + viewName + "/add")
@@ -62,8 +51,8 @@ public class StationController  {
 
     @PostMapping(path = "/" + viewName + "/add")
     public ModelAndView CreateStation(@ModelAttribute("dto") StationDTO dto) {
-        Station entity = mapper.toEntity(dto);
-        service.create(entity);
+
+        service.create(dto);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/" + viewName);
         return modelAndView;
@@ -72,12 +61,7 @@ public class StationController  {
     @GetMapping (value = "/" + viewName + "/edit/{id}")
     public ModelAndView GetEditStation(@PathVariable("id") long id) {
         ModelAndView modelAndView = new ModelAndView();
-        Station entity = service.findById(id);
-        if (entity == null){
-            modelAndView.setViewName("error");
-            return modelAndView;
-        }
-        StationDTO dto = mapper.toDto(entity);
+        StationDTO dto = service.findDTObyId(id);
         modelAndView.setViewName(viewName + "Edit");
         modelAndView.addObject("viewName", viewName);
         modelAndView.addObject("dto", dto);
@@ -88,19 +72,14 @@ public class StationController  {
     public ModelAndView EditStation(@ModelAttribute("dto") StationDTO dto) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/" + viewName);
-        service.update(mapper.toEntity(dto));
+        service.update(dto);
         return modelAndView;
     }
 
     @GetMapping (value = "/" + viewName + "/delete/{id}")
     public ModelAndView DeleteStationById(@PathVariable("id") long id) {
-        Station entity = service.delete(id);
+        StationDTO dto = service.deleteRetDTO(id);
         ModelAndView modelAndView = new ModelAndView();
-
-        if (entity == null){
-            modelAndView.setViewName("error");
-            return modelAndView;
-        }
         modelAndView.setViewName("redirect:/" + viewName);
         return modelAndView;
     }

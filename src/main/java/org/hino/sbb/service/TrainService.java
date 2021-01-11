@@ -1,8 +1,8 @@
 package org.hino.sbb.service;
 
-import org.hino.sbb.dao.StationDAO;
 import org.hino.sbb.dao.TrainDAO;
-import org.hino.sbb.model.Station;
+import org.hino.sbb.dto.TrainDTO;
+import org.hino.sbb.mappers.TrainMapper;
 import org.hino.sbb.model.Train;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,28 +17,57 @@ public class TrainService {
     @Autowired
     private TrainDAO dao;
 
-    public TrainService() {
+    @Autowired
+    private TrainMapper mapper;
 
-    }
-    @Transactional
+    public TrainService() { }
+
+    @Transactional (readOnly = true)
     public List<Train> findAll() {
         return dao.findAll();
     }
-    @Transactional
+
+    @Transactional (readOnly = true)
+    public List<TrainDTO> findAllDTO() {
+        List<TrainDTO> dtoList = mapper.toDto(dao.findAll());
+        return dtoList;
+    }
+
+    @Transactional (readOnly = true)
     public Train findById(long id) {
         return dao.findById(id);
     }
-    @Transactional
+
+    @Transactional (readOnly = true)
+    public TrainDTO findDTObyId(long id) {
+        return mapper.toDto(dao.findById(id));
+    }
+
     public Train create(Train train) {
         return dao.create(train);
     }
-    @Transactional
+
+    public TrainDTO create(TrainDTO dto) {
+        Train entity = mapper.toEntity(dto);
+        return mapper.toDto(dao.create(entity));
+    }
+
     public Train update(Train train) {
         return dao.update(train);
     }
-    @Transactional
+
+    public TrainDTO update(TrainDTO dto) {
+        Train entity = mapper.toEntity(dto);
+        return mapper.toDto(dao.update(entity));
+    }
+
     public Train delete(long id) {
         Train train = dao.findById(id);
         return dao.delete(train);
+    }
+
+    public TrainDTO deleteRetDTO(long id) {
+        Train train = dao.findById(id);
+        return mapper.toDto(dao.delete(train));
     }
 }

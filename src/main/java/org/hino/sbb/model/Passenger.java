@@ -2,6 +2,7 @@ package org.hino.sbb.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Table(name = "passengers")
@@ -10,9 +11,6 @@ import java.time.LocalDate;
 })
 public class Passenger extends AbstractEntity {
     public static final String FIND_ALL = "Passenger.findAll";
-
-    @Column(name = "version")
-    private Integer version;
 
     @Column(name = "name")
     private String name;
@@ -23,12 +21,14 @@ public class Passenger extends AbstractEntity {
     @Column(name = "birth_date")
     private LocalDate birthDate;
 
+    @OneToMany(mappedBy = "passenger",fetch=FetchType.LAZY, orphanRemoval = true)
+    private Set<Ticket> tickets;
+
     public Passenger() {
     }
 
-    public Passenger(long id, Integer version, String name, String secondName, LocalDate birthDate) {
+    public Passenger(long id, String name, String secondName, LocalDate birthDate) {
         super.setId(id);
-        this.version = version;
         this.name = name;
         this.secondName = secondName;
         this.birthDate = birthDate;
@@ -58,12 +58,12 @@ public class Passenger extends AbstractEntity {
         return birthDate;
     }
 
-    public Integer getVersion() {
-        return version;
+    public Set<Ticket> getTickets() {
+        return tickets;
     }
 
-    public void setVersion(Integer version) {
-        this.version = version;
+    public void setTickets(Set<Ticket> tickets) {
+        this.tickets = tickets;
     }
 
     @Override

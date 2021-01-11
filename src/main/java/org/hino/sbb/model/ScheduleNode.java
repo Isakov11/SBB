@@ -12,14 +12,14 @@ import java.time.LocalDateTime;
 public class ScheduleNode extends AbstractEntity{
     public static final String FIND_ALL = "ScheduleNode.findAll";
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(fetch=FetchType.LAZY, optional = false)
     @JoinColumn(name = "train_id")
     private Train train;
 
     @Column(name = "station_order")
     private long stationOrder;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(fetch=FetchType.LAZY, optional = false)
     @JoinColumn(name = "station_id")
     private Station station;
 

@@ -1,14 +1,16 @@
 package org.hino.sbb.dto;
 
+import org.hino.sbb.model.Ticket;
+
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.Set;
 
 
 public class PassengerDTO extends AbstractDTO {
 
     private Long id;
 
-    private Integer version;
 
     private String name;
 
@@ -16,12 +18,13 @@ public class PassengerDTO extends AbstractDTO {
 
     private LocalDate birthDate;
 
+    private Set<Ticket> tickets;
+
     public PassengerDTO() {
     }
 
-    public PassengerDTO(Long id, Integer version, String name, String secondName, LocalDate birthDate) {
+    public PassengerDTO(Long id, String name, String secondName, LocalDate birthDate) {
         this.id = id;
-        this.version = version;
         this.name = name;
         this.secondName = secondName;
         this.birthDate = birthDate;
@@ -31,9 +34,6 @@ public class PassengerDTO extends AbstractDTO {
         return id;
     }
 
-    public Integer getVersion() {
-        return version;
-    }
 
     public String getName() {
         return name;
@@ -52,12 +52,12 @@ public class PassengerDTO extends AbstractDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PassengerDTO passenger = (PassengerDTO) o;
-        return Objects.equals(getId(), passenger.getId()) && Objects.equals(getVersion(), passenger.getVersion());
+        return Objects.equals(getId(), passenger.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getVersion());
+        return Objects.hash(getId());
     }
 
     @Override
