@@ -1,3 +1,4 @@
+<%@ page import="org.hino.sbb.dto.TrainDTO" %>
 <!doctype html>
 <html lang="en">
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>

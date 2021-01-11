@@ -1,8 +1,6 @@
 package org.hino.sbb.controller;
 
 import org.hino.sbb.dto.TrainDTO;
-import org.hino.sbb.mappers.TrainMapper;
-import org.hino.sbb.model.Train;
 import org.hino.sbb.service.TrainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,12 +18,9 @@ public class TrainController {
     @Autowired
     private TrainService service;
 
-    @Autowired
-    private TrainMapper mapper;
-
-    @GetMapping(value = "/" + viewName)
+        @GetMapping(value = "/" + viewName)
     public ModelAndView allTrains() {
-        List<TrainDTO> dtoList = mapper.toDto(service.findAll());
+        List<TrainDTO> dtoList = service.findAllDTO();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName(viewName);
         modelAndView.addObject("DTOList", dtoList);
@@ -35,21 +30,14 @@ public class TrainController {
 
     @GetMapping(path = "/" + viewName + "/{id}")
     public ModelAndView TrainById(@PathVariable("id") long id) {
-        Train entity = service.findById(id);
-        if (entity != null){
-            TrainDTO dto = mapper.toDto(service.findById(id));
-            List<TrainDTO> dtoList  = new LinkedList<>();
-            dtoList.add(dto);
-            ModelAndView modelAndView = new ModelAndView();
-            modelAndView.setViewName(viewName);
-            modelAndView.addObject("DTOList", dtoList);
-            modelAndView.addObject("viewName", viewName);
-            return modelAndView;
-        }else{
-            ModelAndView modelAndView = new ModelAndView();
-            modelAndView.setViewName("error");
-            return modelAndView;
-        }
+        TrainDTO dto = service.findDTObyId(id);
+        List<TrainDTO> dtoList = new LinkedList<>();
+        dtoList.add(dto);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName(viewName);
+        modelAndView.addObject("DTOList", dtoList);
+        modelAndView.addObject("viewName", viewName);
+        return modelAndView;
     }
 
     @GetMapping(value = "/" + viewName + "/add")
@@ -62,8 +50,7 @@ public class TrainController {
 
     @PostMapping(path = "/" + viewName + "/add")
     public ModelAndView CreateTrain(@ModelAttribute("dto") TrainDTO dto) {
-        Train entity = mapper.toEntity(dto);
-        service.create(entity);
+        service.create(dto);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/" + viewName);
         return modelAndView;
@@ -72,14 +59,7 @@ public class TrainController {
     @GetMapping (value = "/" + viewName + "/edit/{id}")
     public ModelAndView GetEditTrain(@PathVariable("id") long id) {
         ModelAndView modelAndView = new ModelAndView();
-        Train entity = service.findById(id);
-
-        if (entity == null){
-            modelAndView.setViewName("error");
-            return modelAndView;
-        }
-
-        TrainDTO dto = mapper.toDto(entity);
+        TrainDTO dto = service.findDTObyId(id);
         modelAndView.setViewName(viewName + "Edit");
         modelAndView.addObject("dto", dto);
         modelAndView.addObject("viewName", viewName);
@@ -90,19 +70,14 @@ public class TrainController {
     public ModelAndView EditTrain(@ModelAttribute("dto") TrainDTO dto) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/" + viewName);
-        service.update(mapper.toEntity(dto));
+        service.update(dto);
         return modelAndView;
     }
 
     @GetMapping (value = "/" + viewName + "/delete/{id}")
     public ModelAndView DeleteTrainById(@PathVariable("id") long id) {
-        Train entity =  service.delete(id);
+        TrainDTO dto = service.deleteRetDTO(id);
         ModelAndView modelAndView = new ModelAndView();
-
-        if (entity == null){
-            modelAndView.setViewName("error");
-            return modelAndView;
-        }
         modelAndView.setViewName("redirect:/" + viewName);
         return modelAndView;
     }

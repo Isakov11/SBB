@@ -10,11 +10,10 @@ import java.util.List;
 
 @Component
 public class PassengerMapper implements InterfaceMapper<PassengerDTO, Passenger>  {
-
+        //TODO PassengerMapper
         public Passenger toEntity(PassengerDTO dto) {
             return new Passenger(
                     dto.getId(),
-                    dto.getVersion(),
                     dto.getName(),
                     dto.getSecondName(),
                     dto.getBirthDate()
@@ -24,7 +23,6 @@ public class PassengerMapper implements InterfaceMapper<PassengerDTO, Passenger>
         public PassengerDTO toDto(Passenger entity) {
             return new PassengerDTO(
                     entity.getId(),
-                    entity.getVersion(),
                     entity.getName(),
                     entity.getSecondName(),
                     entity.getBirthDate()
@@ -35,7 +33,6 @@ public class PassengerMapper implements InterfaceMapper<PassengerDTO, Passenger>
             for (Passenger entity: collection) {
                 PassengerDTO resultDTO = new PassengerDTO(
                         entity.getId(),
-                        entity.getVersion(),
                         entity.getName(),
                         entity.getSecondName(),
                         entity.getBirthDate()

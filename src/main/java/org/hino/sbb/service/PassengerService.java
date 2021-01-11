@@ -15,13 +15,14 @@ public class PassengerService {
     @Autowired
     private PassengerDAO dao;
 
-    public PassengerService() {
-    }
+    public PassengerService() {}
 
+    @Transactional (readOnly = true)
     public List<Passenger> findAll() {
         return dao.findAll();
     }
 
+    @Transactional (readOnly = true)
     public Passenger findById(long id) {
         return dao.findById(id);
     }

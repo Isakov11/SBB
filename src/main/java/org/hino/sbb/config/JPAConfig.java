@@ -24,7 +24,7 @@ public class JPAConfig {
     public DataSource dataSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/sbb");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/sbb?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Europe/Moscow");
         dataSource.setUsername("operator");
         dataSource.setPassword("Qwerty123");
 
@@ -54,7 +54,7 @@ public class JPAConfig {
         LocalContainerEntityManagerFactoryBean factoryBean =
                 new LocalContainerEntityManagerFactoryBean();
         //TODO сменить
-        factoryBean.setPackagesToScan("testgroup.filmography.dao");
+        factoryBean.setPackagesToScan("org.hino.sbb.dao");
         factoryBean.setDataSource(dataSource());
         factoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         factoryBean.setJpaProperties(hibernateProperties());

@@ -1,7 +1,11 @@
 package org.hino.sbb.service;
 
 import org.hino.sbb.dao.StationDAO;
+import org.hino.sbb.dto.StationDTO;
+import org.hino.sbb.dto.TrainDTO;
+import org.hino.sbb.mappers.StationMapper;
 import org.hino.sbb.model.Station;
+import org.hino.sbb.model.Train;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,30 +19,58 @@ public class StationService {
     @Autowired
     private StationDAO dao;
 
-    public StationService() {
-    }
-    @Transactional
+    @Autowired
+    private StationMapper mapper;
+
+    public StationService() {}
+
+    @Transactional (readOnly = true)
     public List<Station> findAll() {
         return dao.findAll();
     }
-    @Transactional
+
+    @Transactional (readOnly = true)
+    public List<StationDTO> findAllDTO() {
+        List<StationDTO> dtoList = mapper.toDto(dao.findAll());
+        return dtoList;
+    }
+
+    @Transactional (readOnly = true)
     public Station findById(long id) {
         return dao.findById(id);
     }
-    @Transactional
+
+    @Transactional (readOnly = true)
+    public StationDTO findDTObyId(long id) {
+        return mapper.toDto(dao.findById(id));
+    }
+
     public Station create(Station station) {
         return dao.create(station);
     }
-    @Transactional
+
+    public StationDTO create(StationDTO dto) {
+        return mapper.toDto(dao.create(mapper.toEntity(dto)));
+    }
+
     public Station update(Station station) {
         return dao.update(station);
     }
-    @Transactional
+
+    public StationDTO update(StationDTO dto) {
+        return mapper.toDto(dao.update(mapper.toEntity(dto)));
+    }
+
     public Station delete(long id) {
-        Station station = dao.findById(id);
-        if (station == null){
+        Station entity = dao.findById(id);
+        if (entity == null){
             return null;
         }
-        return dao.delete(station);
+        return dao.delete(entity);
+    }
+
+    public StationDTO deleteRetDTO(long id) {
+        Station entity = dao.findById(id);
+        return mapper.toDto(dao.delete(entity));
     }
 }

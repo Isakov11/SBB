@@ -18,11 +18,18 @@ public class Train extends AbstractEntity{
 
     @Column(name = "number")
     private String number;
+
+    @Column(name = "seats_number")
+    private long seatsNumber;
+
+    @OneToMany(mappedBy = "train", fetch = FetchType.LAZY, orphanRemoval = true)
+    private Set<ScheduleNode> trainSchedule;
+
+    @OneToMany(mappedBy = "ticketTrain", fetch = FetchType.LAZY, orphanRemoval = true)
+    private Set<Ticket> tickets;
+
     public Train() {
     }
-
-    @OneToMany(mappedBy = "train", fetch = FetchType.LAZY)
-    private Set<ScheduleNode> trainSchedule;
 
     public Train(long id, String name, String number) {
         super.setId(id);
@@ -52,5 +59,21 @@ public class Train extends AbstractEntity{
 
     public void setNumber(String number) {
         this.number = number;
+    }
+
+    public long getSeatsNumber() {
+        return seatsNumber;
+    }
+
+    public void setSeatsNumber(long seatsNumber) {
+        this.seatsNumber = seatsNumber;
+    }
+
+    public Set<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(Set<Ticket> tickets) {
+        this.tickets = tickets;
     }
 }
