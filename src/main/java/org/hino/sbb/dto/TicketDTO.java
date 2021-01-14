@@ -4,17 +4,46 @@ import org.hino.sbb.model.Passenger;
 import org.hino.sbb.model.Train;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class TicketDTO extends AbstractDTO {
 
+    private String passengerName;
+
+    private String passengerSecondName;
+
+    private LocalDate birthDate;
+
     private LocalDateTime purchaseTime;
 
-    private TrainDTO ticketTrain;
-
-    private PassengerDTO passenger;
+    private String trainNumber;
 
     public TicketDTO() {
+    }
+
+    public String getPassengerName() {
+        return passengerName;
+    }
+
+    public void setPassengerName(String passengerName) {
+        this.passengerName = passengerName;
+    }
+
+    public String getPassengerSecondName() {
+        return passengerSecondName;
+    }
+
+    public void setPassengerSecondName(String passengerSecondName) {
+        this.passengerSecondName = passengerSecondName;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
     }
 
     public LocalDateTime getPurchaseTime() {
@@ -25,19 +54,11 @@ public class TicketDTO extends AbstractDTO {
         this.purchaseTime = purchaseTime;
     }
 
-    public TrainDTO getTicketTrain() {
-        return ticketTrain;
+    public String getTrainNumber() {
+        return trainNumber;
     }
 
-    public void setTicketTrain(TrainDTO ticketTrain) {
-        this.ticketTrain = ticketTrain;
-    }
-
-    public PassengerDTO getPassenger() {
-        return passenger;
-    }
-
-    public void setPassenger(PassengerDTO passenger) {
-        this.passenger = passenger;
+    public void setTrainNumber(String trainNumber) {
+        this.trainNumber = trainNumber;
     }
 }

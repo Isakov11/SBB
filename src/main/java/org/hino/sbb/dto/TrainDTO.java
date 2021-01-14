@@ -1,5 +1,7 @@
 package org.hino.sbb.dto;
 
+
+import java.util.LinkedList;
 import java.util.Set;
 
 public class TrainDTO extends AbstractDTO {
@@ -8,7 +10,9 @@ public class TrainDTO extends AbstractDTO {
 
     private String number;
 
-    private Set<ScheduleNodeDTO> trainSchedule;
+    private long seatsNumber;
+
+    private LinkedList<TrainScheduleDTO> trainRoute;
 
     public TrainDTO() {
     }
@@ -19,12 +23,13 @@ public class TrainDTO extends AbstractDTO {
         this.number = number;
     }
 
-    public TrainDTO(long id, String name, String number, Set<ScheduleNodeDTO> trainSchedule) {
+    public TrainDTO(long id, String name, String number, long seatsNumber) {
         super.setId(id);
         this.name = name;
         this.number = number;
-        this.trainSchedule = trainSchedule;
+        this.seatsNumber = seatsNumber;
     }
+
 
     public String getName() {
         return name;
@@ -42,12 +47,20 @@ public class TrainDTO extends AbstractDTO {
         this.number = number;
     }
 
-    public Set<ScheduleNodeDTO> getTrainSchedule() {
-        return trainSchedule;
+    public long getSeatsNumber() {
+        return seatsNumber;
     }
 
-    public void setTrainSchedule(Set<ScheduleNodeDTO> trainSchedule) {
-        this.trainSchedule = trainSchedule;
+    public void setSeatsNumber(long seatsNumber) {
+        this.seatsNumber = seatsNumber;
+    }
+
+    public LinkedList<TrainScheduleDTO> getTrainRoute() {
+        return trainRoute;
+    }
+
+    public void setTrainRoute(LinkedList<TrainScheduleDTO> trainRoute) {
+        this.trainRoute = trainRoute;
     }
 
     @Override

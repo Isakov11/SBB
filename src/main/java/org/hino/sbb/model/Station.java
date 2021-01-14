@@ -1,6 +1,7 @@
 package org.hino.sbb.model;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -18,7 +19,7 @@ public class Station extends AbstractEntity{
     private String name;
 
     @OneToMany(mappedBy = "station",fetch=FetchType.LAZY)
-    private Set<ScheduleNode> stationSchedule;
+    private List<ScheduleNode> stationSchedule;
 
     public Station() {
     }
@@ -50,11 +51,11 @@ public class Station extends AbstractEntity{
         this.roadId = roadId;
     }
 
-    public Set<ScheduleNode> getStationSchedule() {
+    public List<ScheduleNode> getStationSchedule() {
         return stationSchedule;
     }
 
-    public void setStationSchedule(Set<ScheduleNode> stationSchedule) {
+    public void setStationSchedule(List<ScheduleNode> stationSchedule) {
         this.stationSchedule = stationSchedule;
     }
 }

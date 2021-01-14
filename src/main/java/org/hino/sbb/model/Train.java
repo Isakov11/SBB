@@ -22,26 +22,27 @@ public class Train extends AbstractEntity{
     @Column(name = "seats_number")
     private long seatsNumber;
 
-    @OneToMany(mappedBy = "train", fetch = FetchType.LAZY, orphanRemoval = true)
-    private Set<ScheduleNode> trainSchedule;
+    @OneToMany(mappedBy = "train", fetch = FetchType.LAZY)
+    private List<ScheduleNode> trainSchedule;
 
-    @OneToMany(mappedBy = "ticketTrain", fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "ticketTrain", fetch = FetchType.LAZY)
     private Set<Ticket> tickets;
 
     public Train() {
     }
 
-    public Train(long id, String name, String number) {
+    public Train(long id, String name, String number, long seatsNumber) {
         super.setId(id);
         this.name = name;
         this.number = number;
+        this.seatsNumber = seatsNumber;
     }
 
-    public Set<ScheduleNode> getTrainSchedule() {
+    public List<ScheduleNode> getTrainSchedule() {
         return trainSchedule;
     }
 
-    public void setTrainSchedule(Set<ScheduleNode> trainSchedule) {
+    public void setTrainSchedule(List<ScheduleNode> trainSchedule) {
         this.trainSchedule = trainSchedule;
     }
 

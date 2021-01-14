@@ -11,7 +11,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Controller
-@ControllerAdvice
 public class TrainController {
     private final String viewName = "trains";
 

@@ -49,9 +49,9 @@
                         <label for="trainId">Train</label>
                         <select class="form-control" name="trainId" id="trainId">
                             <c:forEach var="train" items="${trainsList}">
-                                <c:if test="${train.id eq dto.train.id}">
+                                <c:if test="${train.id eq dto.trainId}">
                                     <c:set var = "selected" scope = "request" value = "selected "/></c:if>
-                                <c:if test="${train.id ne dto.train.id}">
+                                <c:if test="${train.id ne dto.trainId}">
                                     <c:set var = "selected" scope = "request" value = ""/></c:if>
                                 <option ${selected}value="${train.id}">${train.number} ${train.name}</option>
                             </c:forEach>
@@ -59,63 +59,22 @@
                     </div>
                 </div>
                 <div class="col">
-                    <label for="order">Station order</label>
-                    <input type="text" class="form-control" name="stationOrder" id="order" value="${dto.stationOrder}"/>
-                </div>
-                <div class="col">
                     <div class="form-group">
-                        <label for="station">Station</label>
-                        <select class="form-control" name="stationId"  id="station">
-                            <c:forEach var="station" items="${stationsList}">
-                                <c:if test="${station.id eq dto.station.id}">
-                                    <c:set var = "selectedSt" scope = "request" value = "selected "/></c:if>
-                                <c:if test="${station.id ne dto.station.id}">
-                                    <c:set var = "selectedSt" scope = "request" value = ""/></c:if>
-                                <option ${selectedSt}value="${station.id}">${station.name}</option>
+                        <label for="passenger">Passenger</label>
+                        <select class="form-control" name="passengerId"  id="passenger">
+                            <c:forEach var="passenger" items="${passengersList}">
+                                <c:if test="${passenger.id eq dto.passengerId}">
+                                    <c:set var = "selectedP" scope = "request" value = "selected "/></c:if>
+                                <c:if test="${passenger.id ne dto.passengerId}">
+                                    <c:set var = "selectedP" scope = "request" value = ""/></c:if>
+                                <option ${selectedP}value="${passenger.id}">${passenger.name} ${passenger.secondName} ${passenger.birthDate}</option>
                             </c:forEach>
                         </select>
                     </div>
                 </div>
-                <div class="col">
-                    <label for="arrivalTime">Arrival time</label>
-                    <div class="form-group">
-                        <div class="input-group date" id="arrivalTime">
-                            <input type="text" class="form-control" name="arrivalTime" />
-                            <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-calendar"></span>
-                                <script type="text/javascript">
-                                    $(function () {
-                                        $('#arrivalTime').datetimepicker({
-                                            locale: 'ru'
-                                        });
-                                    });
-                                </script>
-                            </span>
-                        </div>
-                        <input type="hidden" id="dtp_input1" value="" name="dtp_input1" />
-                    </div>
-                </div>
-                <div class="col">
-                    <label for="departureTime">Departure time</label>
-                    <div class="form-group">
-                        <div class='input-group date' id='departureTime'>
-                            <input type='text' class="form-control" name="departureTime"/>
-                            <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
-                        </div>
-                    </div>
-                    <script type="text/javascript">
-                        $(function () {
-                            $('#departureTime').datetimepicker({
-                                locale: 'ru'
-                            });
-                        });
-                    </script>
-                </div>
                 </div>
             <br>
-                <button type="submit" class="btn btn-primary" >Save</button>
+                <button type="submit" class="btn btn-primary">Save</button>
             <br>
         </div>
 

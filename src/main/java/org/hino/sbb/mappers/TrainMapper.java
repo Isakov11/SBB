@@ -1,63 +1,49 @@
 package org.hino.sbb.mappers;
 
-import org.hino.sbb.dto.ScheduleNodeDTO;
 import org.hino.sbb.dto.TrainDTO;
+import org.hino.sbb.dto.TrainScheduleDTO;
+import org.hino.sbb.model.ScheduleNode;
+import org.hino.sbb.model.Station;
 import org.hino.sbb.model.Train;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import java.util.*;
 
-@Component
-public class TrainMapper implements InterfaceMapper<TrainDTO, Train> {
-    //TODO TrainMapper
-    @Autowired
-    ScheduleNodeMapper scheduleNodeMapper;
 
-    @Override
-    public Train toEntity(TrainDTO dto) {
-        return new Train(
-                dto.getId(),
-                dto.getName(),
-                dto.getNumber()
-        );
-    }
+@Mapper(componentModel = "spring")
+public interface TrainMapper {
 
-    @Override
-    public TrainDTO toDto(Train entity) {
-        //TODO Убрать
-        Set<ScheduleNodeDTO> schedule = new HashSet<>();
-        if (entity.getTrainSchedule() != null){
-            schedule = scheduleNodeMapper.toDto(entity.getTrainSchedule());
-        }else{
-            schedule= new HashSet<>();
+    @Mapping(source = "trainRoute", target = "trainSchedule")
+    Train toEntity (TrainDTO dto);
+
+    @Mapping(source = "trainSchedule", target = "trainRoute")
+    TrainDTO toDto (Train entity);
+
+    List<TrainDTO> toDto (Collection<Train> entity);
+
+    default LinkedList<TrainScheduleDTO> scheduleEntityToTrainSchedule(List<ScheduleNode> trainSchedule){
+        LinkedList<TrainScheduleDTO> result = new LinkedList<>();
+        for(ScheduleNode scheduleNode: trainSchedule){
+            TrainScheduleDTO trainScheduleDTO = new TrainScheduleDTO();
+            trainScheduleDTO.setStationName(scheduleNode.getStation().getName());
+            trainScheduleDTO.setArrivalTime(scheduleNode.getArrivalTime());
+            trainScheduleDTO.setDepartureTime(scheduleNode.getDepartureTime());
+            result.add(trainScheduleDTO);
         }
-
-        return new TrainDTO(
-                entity.getId(),
-                entity.getName(),
-                entity.getNumber(),
-                schedule
-        );
+        return result;
     }
 
-    @Override
-    public List<TrainDTO> toDto(Collection<Train> collection) {
-        List resultCollection  = new LinkedList();
-        for (Train entity: collection) {
-            //TODO Убрать
-            Set<ScheduleNodeDTO> schedule = new HashSet<>();
-            if (entity.getTrainSchedule() != null){
-                schedule = scheduleNodeMapper.toDto(entity.getTrainSchedule());
-            }
-            TrainDTO resultDTO = new TrainDTO(
-                    entity.getId(),
-                    entity.getName(),
-                    entity.getNumber(),
-                    schedule
-            );
-            resultCollection.add(resultDTO);
+    /*default List<ScheduleNode> trainScheduleToschedule(List<TrainScheduleDTO> stations){
+        // TODO Всегда возвращает 0 поправить
+        List<ScheduleNode> scheduleNodes = new LinkedList<>();
+        for(TrainScheduleDTO dto: stations){
+            ScheduleNode ScheduleNodeEntity = new ScheduleNode();
+            Station station = new Station();
+            station.setName("0");
+            ScheduleNodeEntity.setStation(station);
+            scheduleNodes.add(ScheduleNodeEntity);
         }
-        return resultCollection;
-    }
+        return scheduleNodes;
+    }*/
 }

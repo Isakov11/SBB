@@ -2,7 +2,6 @@ package org.hino.sbb.service;
 
 import org.hino.sbb.dao.StationDAO;
 import org.hino.sbb.dto.StationDTO;
-import org.hino.sbb.dto.TrainDTO;
 import org.hino.sbb.mappers.StationMapper;
 import org.hino.sbb.model.Station;
 import org.hino.sbb.model.Train;
@@ -10,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -50,7 +50,9 @@ public class StationService {
     }
 
     public StationDTO create(StationDTO dto) {
-        return mapper.toDto(dao.create(mapper.toEntity(dto)));
+        Station entity = mapper.toEntity(dto);
+        entity.setStationSchedule(new LinkedList<>());
+        return mapper.toDto(dao.create(entity));
     }
 
     public Station update(Station station) {
@@ -58,7 +60,9 @@ public class StationService {
     }
 
     public StationDTO update(StationDTO dto) {
-        return mapper.toDto(dao.update(mapper.toEntity(dto)));
+        Station entity = mapper.toEntity(dto);
+        entity.setStationSchedule(new LinkedList<>());
+        return mapper.toDto(dao.update(entity));
     }
 
     public Station delete(long id) {

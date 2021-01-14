@@ -12,27 +12,32 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/resources/css/bootstrap.4.5.3.min.css">
 
-    <title>Passenger</title>
+    <title>Schedules</title>
 </head>
 <body>
 
 <div class="container">
-   <div class="row justify-content-md-center">
-   <table class="table table-striped table-bordered">
-       <thead>
-       <tr>
-           <th scope="col">Name</th>
-           <th scope="col">Second name</th>
-           <th scope="col">Birth date</th>
-           <th scope="col">Action</th>
-       </tr>
-       </thead>
-       <tbody>
+    <div class="row justify-content-md-center">
+        <table class="table table-striped table-bordered">
+            <thead>
+            <tr>
+                <th scope="col">Passenger</th>
+                <th scope="col">Purchase time</th>
+                <th scope="col">Train number</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
             <c:forEach var="dto" items="${DTOList}">
                 <tr>
-                    <td>${dto.name}</td>
-                    <td>${dto.secondName}</td>
-                    <td>${dto.birthDate}</td>
+                    <td>Name: ${dto.passengerName}
+                        <br>
+                        Second name: ${dto.passengerSecondName}
+                        <br>
+                        Birth date: ${dto.birthDate}
+                    </td>
+                    <td>${dto.purchaseTime}</td>
+                    <td>${dto.trainNumber}</td>
                     <td>
                         <form action="../${viewName}/edit/${dto.id}" method="get">
                             <button type="submit" class="btn btn-primary">Edit</button>
@@ -44,11 +49,11 @@
                     </td>
                 </tr>
             </c:forEach>
-       </tbody>
-   </table>
-       <a href="../${viewName}/add"  role="button" class="btn btn-primary btn-lg">Add passenger</a>
-   </div>
+            </tbody>
+        </table>
+        <a href="../${viewName}/add"  role="button" class="btn btn-primary btn-lg">Add ticket</a>
+    </div>
+    <a href="/"  role="button" class="btn btn-primary btn-lg">Back to admin page</a>
 </div>
-<a href="/"  role="button" class="btn btn-primary btn-lg">Back to admin page</a>
 </body>
 </html>

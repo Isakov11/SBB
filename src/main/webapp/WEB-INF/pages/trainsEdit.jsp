@@ -42,6 +42,10 @@
                         <label for="name">Train name</label>
                         <input type="text" class="form-control" name="name" id="name" value="${dto.name}"/>
                     </div>
+                    <div class="row">
+                        <label for="seatsNumber">Train capacity</label>
+                        <input type="text" class="form-control" name="seatsNumber" id="seatsNumber" value="${dto.seatsNumber}"/>
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Save</button>
             </form>
