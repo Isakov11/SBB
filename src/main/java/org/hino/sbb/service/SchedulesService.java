@@ -1,9 +1,8 @@
 package org.hino.sbb.service;
 
 import org.hino.sbb.dao.ScheduleNodeDAO;
-import org.hino.sbb.dao.StationDAO;
+import org.hino.sbb.dto.ScheduleCreateDTO;
 import org.hino.sbb.dto.ScheduleNodeDTO;
-import org.hino.sbb.dto.StationDTO;
 import org.hino.sbb.mappers.ScheduleNodeMapper;
 import org.hino.sbb.model.ScheduleNode;
 import org.hino.sbb.model.Station;
@@ -58,32 +57,45 @@ public class SchedulesService {
         return dao.create(entity);
     }
 
-    public ScheduleNode create(long trainId,long stationOrder,long stationId,
-                               String arrivalTimeString, String departureTimeString) {
+    public ScheduleNodeDTO create(ScheduleCreateDTO scheduleCreateDTO) {
         //-----------------------------------------------------------------------------------------------
-        Train train = trainService.findById(trainId);
-        Station station = stationService.findById(stationId);
+        Train train = trainService.findById(scheduleCreateDTO.getTrainId());
+        Station station = stationService.findById(scheduleCreateDTO.getStationId());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
         LocalDateTime arrivalTime = null;
         LocalDateTime departureTime = null;
-        if (arrivalTimeString !=null && !arrivalTimeString.equals(""))        {
-            arrivalTime = LocalDateTime.parse(arrivalTimeString,formatter);
+        if (scheduleCreateDTO.getArrivalTime() != null && !scheduleCreateDTO.getArrivalTime().equals(""))        {
+            arrivalTime = LocalDateTime.parse(scheduleCreateDTO.getArrivalTime(),formatter);
         }
-        if (departureTimeString !=null && !departureTimeString.equals(""))        {
-            departureTime = LocalDateTime.parse(departureTimeString,formatter);
+        if (scheduleCreateDTO.getDepartureTime() !=null && !scheduleCreateDTO.getDepartureTime().equals(""))        {
+            departureTime = LocalDateTime.parse(scheduleCreateDTO.getDepartureTime(),formatter);
         }
-        ScheduleNode entity = new ScheduleNode(0,train,stationOrder,station,arrivalTime,departureTime);
+        ScheduleNode entity = new ScheduleNode(0,train,scheduleCreateDTO.getStationOrder(),station,arrivalTime,departureTime);
         //------------------------------------------------------------------------------------------------
 
-        return dao.create(entity);
+        return mapper.toDto(dao.create(entity));
     }
 
     public ScheduleNode update(ScheduleNode entity) {
         return dao.update(entity);
     }
 
-    public ScheduleNodeDTO update(ScheduleNodeDTO dto) {
-        return mapper.toDto(dao.update(mapper.toEntity(dto)));
+    public ScheduleNodeDTO update(ScheduleCreateDTO scheduleCreateDTO) {
+        //-----------------------------------------------------------------------------------------------
+        Train train = trainService.findById(scheduleCreateDTO.getTrainId());
+        Station station = stationService.findById(scheduleCreateDTO.getStationId());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
+        LocalDateTime arrivalTime = null;
+        LocalDateTime departureTime = null;
+        if (scheduleCreateDTO.getArrivalTime() != null && !scheduleCreateDTO.getArrivalTime().equals(""))        {
+            arrivalTime = LocalDateTime.parse(scheduleCreateDTO.getArrivalTime(),formatter);
+        }
+        if (scheduleCreateDTO.getDepartureTime() !=null && !scheduleCreateDTO.getDepartureTime().equals(""))        {
+            departureTime = LocalDateTime.parse(scheduleCreateDTO.getDepartureTime(),formatter);
+        }
+        ScheduleNode entity = new ScheduleNode(0,train,scheduleCreateDTO.getStationOrder(),station,arrivalTime,departureTime);
+        //------------------------------------------------------------------------------------------------
+        return mapper.toDto(dao.update(entity));
     }
 
     public ScheduleNode delete(long id) {

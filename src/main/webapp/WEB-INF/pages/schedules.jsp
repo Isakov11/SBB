@@ -29,21 +29,21 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach var="entity" items="${DTOList}">
+            <c:forEach var="dto" items="${DTOList}">
                 <tr>
-                    <td>Number: ${entity.train.number}
+                    <td>Number: ${dto.train.number}
                         <br>
-                        Name: ${entity.train.name}
+                        Name: ${dto.train.name}
                     </td>
-                    <td>${entity.station.name}</td>
-                    <td>${entity.arrivalTime.toLocalDate()}  ${entity.arrivalTime.toLocalTime()}</td>
-                    <td>${entity.departureTime.toLocalDate()} ${entity.departureTime.toLocalTime()}</td>
+                    <td>${dto.station.name}</td>
+                    <td>${dto.arrivalTime.toLocalDate()}  ${dto.arrivalTime.toLocalTime()}</td>
+                    <td>${dto.departureTime.toLocalDate()} ${dto.departureTime.toLocalTime()}</td>
                     <td>
-                        <form action="../${viewName}/edit/${entity.id}" method="get">
+                        <form action="../${viewName}/edit/${dto.id}" method="get">
                             <button type="submit" class="btn btn-primary">Edit</button>
                         </form>
                         <br>
-                        <form action="../${viewName}/delete/${entity.id}" method="get">
+                        <form action="../${viewName}/delete/${dto.id}" method="get">
                             <button type="submit" class="btn btn-primary">Delete</button>
                         </form>
                     </td>

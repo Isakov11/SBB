@@ -5,7 +5,11 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name="tickets")
+@NamedQueries({
+        @NamedQuery(name = "Ticket.findAll", query = "SELECT t FROM Ticket t")
+})
 public class Ticket extends AbstractEntity {
+    public static final String FIND_ALL = "Ticket.findAll";
 
     @Column(name = "purchase_time")
     private LocalDateTime purchaseTime;
@@ -17,6 +21,16 @@ public class Ticket extends AbstractEntity {
     @ManyToOne(fetch= FetchType.LAZY, optional = false)
     @JoinColumn(name = "passenger_id")
     private Passenger passenger;
+
+    public Ticket(LocalDateTime purchaseTime, Train ticketTrain, Passenger passenger) {
+        this.purchaseTime = purchaseTime;
+        this.ticketTrain = ticketTrain;
+        this.passenger = passenger;
+    }
+
+    public Ticket() {
+
+    }
 
     public LocalDateTime getPurchaseTime() {
         return purchaseTime;

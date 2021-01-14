@@ -1,5 +1,6 @@
 package org.hino.sbb.controller;
 
+import org.hino.sbb.dto.ScheduleCreateDTO;
 import org.hino.sbb.dto.ScheduleNodeDTO;
 import org.hino.sbb.dto.StationDTO;
 import org.hino.sbb.dto.TrainDTO;
@@ -68,15 +69,9 @@ public class SchedulesController {
     }
 
     @PostMapping(path = "/" + viewName + "/add")
-    public ModelAndView CreateSchedules(
-                                        @ModelAttribute("trainId") long trainId,
-                                        @ModelAttribute("stationId") long stationId,
-                                        @ModelAttribute("stationOrder") long stationOrder,
-                                        @ModelAttribute("arrivalpicker") String arrivalTimeString,
-                                        @ModelAttribute("departurepicker") String departureTimeString
-                                                ){
+    public ModelAndView CreateSchedules(@ModelAttribute("ScheduleCreateDTO") ScheduleCreateDTO scheduleCreateDTO){
 
-        service.create(trainId,stationOrder, stationId, arrivalTimeString, departureTimeString);
+        service.create(scheduleCreateDTO);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/" + viewName);
         return modelAndView;
@@ -86,17 +81,24 @@ public class SchedulesController {
     public ModelAndView GetEditSchedules(@PathVariable("id") long id) {
         ModelAndView modelAndView = new ModelAndView();
         ScheduleNodeDTO dto = service.findDTObyId(id);
+
         modelAndView.setViewName(viewName + "Edit");
         modelAndView.addObject("viewName", viewName);
+
+        List<TrainDTO> trainsList = trainService.findAllDTO();
+        List<StationDTO> stationsList = stationService.findAllDTO();
+
+        modelAndView.addObject("stationsList", stationsList);
+        modelAndView.addObject("trainsList", trainsList);
         modelAndView.addObject("dto", dto);
         return modelAndView;
     }
 
     @PostMapping(value = "/" + viewName + "/edit")
-    public ModelAndView EditSchedules(@ModelAttribute("dto") ScheduleNodeDTO dto) {
+    public ModelAndView EditSchedules(@ModelAttribute("ScheduleCreateDTO") ScheduleCreateDTO scheduleCreateDTO) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/" + viewName);
-        service.update(dto);
+        service.update(scheduleCreateDTO);
         return modelAndView;
     }
 

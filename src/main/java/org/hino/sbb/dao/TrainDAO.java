@@ -17,7 +17,6 @@ public class TrainDAO {
 
     @Transactional (readOnly = true)
     public List<Train> findAll(){
-        List<Train> temp = entityManager.createNamedQuery(Train.FIND_ALL,Train.class).getResultList();
         return entityManager.createNamedQuery(Train.FIND_ALL,Train.class).getResultList();
     }
 
@@ -26,19 +25,16 @@ public class TrainDAO {
         return entityManager.find(Train.class, id);
     }
 
-    @Transactional
     public Train create(Train train){
         entityManager.persist(train);
         return train;
     }
 
-    @Transactional
     public Train update(Train train){
         entityManager.merge(train);
         return train;
     }
 
-    @Transactional
     public Train delete(Train train){
         if (entityManager.contains(train)) {
             entityManager.remove(train);

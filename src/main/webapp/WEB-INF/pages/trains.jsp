@@ -23,25 +23,27 @@
             <tr>
                 <th scope="col">Number</th>
                 <th scope="col">Name</th>
+                <th scope="col">Seats number</th>
                 <th scope="col">Schedule</th>
                 <th scope="col">Action</th>
             </tr>
             </thead>
             <tbody>
-            <c:forEach var="entity" items="${DTOList}">
+            <c:forEach var="dto" items="${DTOList}">
                 <tr>
-                    <td>${entity.number}</td>
-                    <td>${entity.name}</td>
-                    <td><c:forEach var="sched" items="${entity.trainSchedule}">
+                    <td>${dto.number}</td>
+                    <td>${dto.name}</td>
+                    <td>${dto.seatsNumber}</td>
+                    <td><c:forEach var="sched" items="${dto.trainRoute}">
                             ${sched.toString()}<br>
                         </c:forEach>
                     </td>
                     <td>
-                        <form action="../${viewName}/edit/${entity.id}" method="get">
+                        <form action="../${viewName}/edit/${dto.id}" method="get">
                             <button type="submit" class="btn btn-primary">Edit</button>
                         </form>
                         <br>
-                        <form action="../${viewName}/delete/${entity.id}" method="get">
+                        <form action="../${viewName}/delete/${dto.id}" method="get">
                             <button type="submit" class="btn btn-primary">Delete</button>
                         </form>
                     </td>

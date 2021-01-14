@@ -9,43 +9,55 @@ import java.util.Set;
 
 public class PassengerDTO extends AbstractDTO {
 
-    private Long id;
-
-
     private String name;
 
     private String secondName;
 
-    private LocalDate birthDate;
+    private String birthDate;
 
-    private Set<Ticket> tickets;
+    /*private Set<PassengerTicketDTO> tickets;*/
 
     public PassengerDTO() {
     }
 
-    public PassengerDTO(Long id, String name, String secondName, LocalDate birthDate) {
-        this.id = id;
+    public PassengerDTO(long id, String name, String secondName, String birthDate) {
+        super.setId(id);
         this.name = name;
         this.secondName = secondName;
         this.birthDate = birthDate;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getSecondName() {
         return secondName;
     }
 
-    public LocalDate getBirthDate() {
+    public void setSecondName(String secondName) {
+        this.secondName = secondName;
+    }
+
+    public String getBirthDate() {
         return birthDate;
     }
+
+    public void setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    /*public Set<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(Set<Ticket> tickets) {
+        this.tickets = tickets;
+    }*/
 
     @Override
     public boolean equals(Object o) {

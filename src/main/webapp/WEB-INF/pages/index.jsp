@@ -35,6 +35,10 @@
                 <div>
                     <a href="schedules"  role="button" class="btn btn-primary btn-lg">Schedules</a>
                 </div>
+                <br>
+                <div>
+                    <a href="tickets"  role="button" class="btn btn-primary btn-lg">Tickets</a>
+                </div>
             </div>
             <div class="col-2"></div>
 

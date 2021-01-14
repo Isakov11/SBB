@@ -25,19 +25,16 @@ public class StationDAO {
         return entityManager.find(Station.class, id);
     }
 
-    @Transactional
     public Station create(Station station){
         entityManager.persist(station);
         return station;
     }
 
-    @Transactional
     public Station update(Station station){
         entityManager.merge(station);
         return station;
     }
 
-    @Transactional
     public Station delete(Station station){
         if (entityManager.contains(station)) {
             entityManager.remove(station);

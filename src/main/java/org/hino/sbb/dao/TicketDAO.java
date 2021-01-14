@@ -1,6 +1,6 @@
 package org.hino.sbb.dao;
 
-import org.hino.sbb.model.ScheduleNode;
+import org.hino.sbb.model.Ticket;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,32 +10,32 @@ import java.util.List;
 
 @Repository
 @Transactional
-public class ScheduleNodeDAO {
+public class TicketDAO {
 
     @PersistenceContext
     private EntityManager entityManager;
 
     @Transactional (readOnly = true)
-    public List<ScheduleNode> findAll(){
-        return entityManager.createNamedQuery(ScheduleNode.FIND_ALL,ScheduleNode.class).getResultList();
+    public List<Ticket> findAll(){
+        return entityManager.createNamedQuery(Ticket.FIND_ALL,Ticket.class).getResultList();
     }
 
     @Transactional (readOnly = true)
-    public ScheduleNode findById(long id)  {
-        return entityManager.find(ScheduleNode.class, id);
+    public Ticket findById(long id)  {
+        return entityManager.find(Ticket.class, id);
     }
 
-    public ScheduleNode create(ScheduleNode entity){
+    public Ticket create(Ticket entity){
         entityManager.persist(entity);
         return entity;
     }
 
-    public ScheduleNode update(ScheduleNode entity){
+    public Ticket update(Ticket entity){
         entityManager.merge(entity);
         return entity;
     }
 
-    public ScheduleNode delete(ScheduleNode entity){
+    public Ticket delete(Ticket entity){
         if (entityManager.contains(entity)) {
             entityManager.remove(entity);
         } else {

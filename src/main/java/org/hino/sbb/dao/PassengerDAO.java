@@ -28,19 +28,16 @@ public class PassengerDAO {
         return entityManager.find(Passenger.class, id);
     }
 
-    @Transactional
     public Passenger create(Passenger passenger){
         entityManager.persist(passenger);
         return passenger;
     }
 
-    @Transactional
     public Passenger update(Passenger passenger){
         entityManager.merge(passenger);
         return passenger;
     }
 
-    @Transactional
     public Passenger delete(Passenger passenger){
         if (entityManager.contains(passenger)) {
             entityManager.remove(passenger);

@@ -2,25 +2,23 @@ package org.hino.sbb.mappers;
 
 import org.hino.sbb.dto.TicketDTO;
 import org.hino.sbb.model.Ticket;
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
 
-@Component
-public class TicketMapper implements InterfaceMapper<TicketDTO, Ticket> {
-    //TODO   TicketMapper
-    @Override
-    public Ticket toEntity(TicketDTO dto) {
-        return null;
-    }
 
-    @Override
-    public TicketDTO toDto(Ticket entity) {
-        return null;
-    }
+@Mapper(componentModel = "spring")
+public interface TicketMapper {
 
-    @Override
-    public Collection<TicketDTO> toDto(Collection<Ticket> collection) {
-        return null;
-    }
+    @Mappings({
+            @Mapping(source = "ticketTrain.number", target = "trainNumber"),
+            @Mapping(source = "passenger.name", target = "passengerName"),
+            @Mapping(source = "passenger.secondName", target = "passengerSecondName"),
+
+    })
+    TicketDTO toDto (Ticket entity);
+    List<TicketDTO> toDto (Collection<Ticket> entity);
 }

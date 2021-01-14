@@ -38,10 +38,6 @@
                         <label for="name">Station name</label>
                         <input type="text" class="form-control" name="name" id="name" value="${dto.name}"/>
                     </div>
-                    <div class="row">
-                        <label for="road_id">Road number</label>
-                        <input type="text" class="form-control" name="road_id" id="road_id" value="${dto.roadId}"/>
-                    </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Save</button>
             </form>
@@ -53,5 +49,6 @@
             <a href="../"  role="button" class="btn btn-primary btn-lg">Back</a>
         </c:if>
     </div>
+
 </body>
 </html>

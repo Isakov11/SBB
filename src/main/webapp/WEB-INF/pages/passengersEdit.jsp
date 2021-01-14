@@ -57,5 +57,9 @@
             <a href="../"  role="button" class="btn btn-primary btn-lg">Back</a>
         </c:if>
     </div>
+    <c:if test="${empty dto.id}">
+        <a href="./"  role="button" class="btn btn-primary btn-lg">Back</a></c:if>
+    <c:if test="${!empty dto.id}">
+        <a href="../"  role="button" class="btn btn-primary btn-lg">Back</a></c:if>
 </body>
 </html>
