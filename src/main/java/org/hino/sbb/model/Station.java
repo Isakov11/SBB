@@ -40,7 +40,7 @@ public class Station extends AbstractEntity{
 
     @Override
     public String toString() {
-        return roadId + name;
+        return name;
     }
 
     public long getRoadId() {

@@ -1,10 +1,5 @@
 package org.hino.sbb.dto;
 
-import org.hino.sbb.model.Passenger;
-import org.hino.sbb.model.Train;
-
-import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class TicketDTO extends AbstractDTO {
@@ -13,14 +8,13 @@ public class TicketDTO extends AbstractDTO {
 
     private String passengerSecondName;
 
-    private LocalDate birthDate;
+    private String birthDate;
 
     private LocalDateTime purchaseTime;
 
     private String trainNumber;
 
-    public TicketDTO() {
-    }
+    public TicketDTO() {}
 
     public String getPassengerName() {
         return passengerName;
@@ -38,11 +32,11 @@ public class TicketDTO extends AbstractDTO {
         this.passengerSecondName = passengerSecondName;
     }
 
-    public LocalDate getBirthDate() {
+    public String getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
+    public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
 

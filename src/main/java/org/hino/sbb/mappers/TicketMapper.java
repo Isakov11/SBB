@@ -9,16 +9,15 @@ import org.mapstruct.Mappings;
 import java.util.Collection;
 import java.util.List;
 
-
 @Mapper(componentModel = "spring")
 public interface TicketMapper {
-
     @Mappings({
             @Mapping(source = "ticketTrain.number", target = "trainNumber"),
-            @Mapping(source = "passenger.name", target = "passengerName"),
+            @Mapping(source = "passenger.name",     target = "passengerName"),
             @Mapping(source = "passenger.secondName", target = "passengerSecondName"),
-
+            @Mapping(source = "passenger.birthDate", dateFormat = "yyyy-MM-dd",target = "birthDate")
     })
     TicketDTO toDto (Ticket entity);
+
     List<TicketDTO> toDto (Collection<Ticket> entity);
 }

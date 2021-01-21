@@ -32,7 +32,7 @@
                 <tr>
                     <td>${dto.name}</td>
                     <td>${dto.secondName}</td>
-                    <td>${dto.birthDate}</td>
+                    <td>${dto.birthDate.toString()}</td>
                     <td>
                         <form action="../${viewName}/edit/${dto.id}" method="get">
                             <button type="submit" class="btn btn-primary">Edit</button>

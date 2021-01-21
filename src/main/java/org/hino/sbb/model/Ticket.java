@@ -28,9 +28,7 @@ public class Ticket extends AbstractEntity {
         this.passenger = passenger;
     }
 
-    public Ticket() {
-
-    }
+    public Ticket() {}
 
     public LocalDateTime getPurchaseTime() {
         return purchaseTime;

@@ -9,18 +9,15 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
-@Transactional
 public class TicketDAO {
 
     @PersistenceContext
     private EntityManager entityManager;
 
-    @Transactional (readOnly = true)
     public List<Ticket> findAll(){
         return entityManager.createNamedQuery(Ticket.FIND_ALL,Ticket.class).getResultList();
     }
 
-    @Transactional (readOnly = true)
     public Ticket findById(long id)  {
         return entityManager.find(Ticket.class, id);
     }

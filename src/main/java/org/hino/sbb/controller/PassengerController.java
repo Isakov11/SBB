@@ -33,7 +33,7 @@ private final String viewName = "passengers";
     }
 
     @GetMapping(path = "/" + viewName + "/{id}")
-    public ModelAndView PassengerById(@PathVariable("id") long id) {
+    public ModelAndView passengerById(@PathVariable("id") long id) {
         PassengerDTO dto = service.findDTOById(id);
         List<PassengerDTO> dtoList = new LinkedList<>();
         dtoList.add(dto);
@@ -53,7 +53,7 @@ private final String viewName = "passengers";
     }
 
     @PostMapping(path = "/" + viewName + "/add")
-    public ModelAndView CreatePassenger(@ModelAttribute("dto") PassengerDTO dto) {
+    public ModelAndView createPassenger(@ModelAttribute("dto") PassengerDTO dto) {
         service.create(dto);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/" + viewName);
@@ -61,7 +61,7 @@ private final String viewName = "passengers";
     }
 
     @GetMapping (value = "/" + viewName + "/edit/{id}")
-    public ModelAndView GetEditPassenger(@PathVariable("id") long id) {
+    public ModelAndView getEditPassenger(@PathVariable("id") long id) {
         ModelAndView modelAndView = new ModelAndView();
         PassengerDTO dto = service.findDTOById(id);
         modelAndView.setViewName(viewName + "Edit");
@@ -71,7 +71,7 @@ private final String viewName = "passengers";
     }
 
     @PostMapping(value = "/" + viewName + "/edit")
-    public ModelAndView EditPassenger(@ModelAttribute("dto") PassengerDTO dto) {
+    public ModelAndView editPassenger(@ModelAttribute("dto") PassengerDTO dto) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/" + viewName);
         service.update(dto);
@@ -79,7 +79,7 @@ private final String viewName = "passengers";
     }
 
     @GetMapping (value = "/" + viewName + "/delete/{id}")
-    public ModelAndView DeletePassengerById(@PathVariable("id") long id) {
+    public ModelAndView deletePassengerById(@PathVariable("id") long id) {
         Passenger entity = service.delete(id);
         ModelAndView modelAndView = new ModelAndView();
         if (entity == null){

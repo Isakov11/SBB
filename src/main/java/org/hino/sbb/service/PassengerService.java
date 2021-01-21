@@ -43,17 +43,29 @@ public class PassengerService {
 
     @Transactional (readOnly = true)
     public PassengerDTO findDTOById(long id) {
-        return mapper.toDto(dao.findById(id));
+        return mapper.toDto(findById(id));
+    }
+
+    public Passenger findByAllCols(Passenger entity){
+        return dao.findByAllCols(entity);
+    }
+
+    public Passenger findByDTOAllCols(PassengerDTO dto){
+        return findByAllCols(mapper.toEntity(dto));
     }
 
     public Passenger create(Passenger entity) {
-        return dao.create(entity);
+        Passenger passenger = findByAllCols(entity);
+        if (passenger == null){
+            return dao.create(entity);
+        }
+        return passenger;
     }
 
     public PassengerDTO create(PassengerDTO dto) {
         Passenger entity = mapper.toEntity(dto);
         entity.setTickets(new HashSet<>());
-        return mapper.toDto(dao.create(entity));
+        return mapper.toDto(create(entity));
     }
 
     public Passenger update(Passenger entity) {
@@ -63,7 +75,7 @@ public class PassengerService {
     public PassengerDTO update(PassengerDTO dto) {
         Passenger entity = mapper.toEntity(dto);
         entity.setTickets(new HashSet<>());
-        return mapper.toDto(dao.update(entity));
+        return mapper.toDto(update(entity));
     }
 
     public Passenger delete(long id) {
@@ -73,4 +85,11 @@ public class PassengerService {
         }
         return dao.delete(entity);
     }
+
+    @Transactional (readOnly = true)
+    public boolean isPassengerRegisteredOnTrain(PassengerDTO passenger ,long trainId){
+        return dao.isPassengerRegisteredOnTrain(mapper.toEntity(passenger), trainId);
+    }
+
+
 }

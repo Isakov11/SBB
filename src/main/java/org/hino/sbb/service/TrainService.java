@@ -3,11 +3,13 @@ package org.hino.sbb.service;
 import org.hino.sbb.dao.TrainDAO;
 import org.hino.sbb.dto.TrainDTO;
 import org.hino.sbb.mappers.TrainMapper;
+import org.hino.sbb.model.ScheduleNode;
 import org.hino.sbb.model.Train;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,6 +22,9 @@ public class TrainService {
 
     @Autowired
     private TrainMapper mapper;
+
+    @Autowired
+    private SchedulesService schedulesService;
 
     public TrainService() { }
 
@@ -72,5 +77,30 @@ public class TrainService {
     public TrainDTO deleteRetDTO(long id) {
         Train train = dao.findById(id);
         return mapper.toDto(dao.delete(train));
+    }
+
+    public List<TrainDTO> getTrainsByStationId(long id){
+        return mapper.toDto(dao.getTrainsByStationId(id));
+    }
+
+    public List<TrainDTO> getTrainsByDepartAndArrivalStationIds(long departId,long arrivalId)  {
+        List<Train> trainsFromDAO = dao.getTrainsByDepartAndArrivalStationIds(departId, arrivalId);
+        List<Train> trainsResultList = new LinkedList<>();
+        for (Train train : trainsFromDAO){
+           Long departOrder = schedulesService.getStationOrder(departId,train.getId());
+           Long arrivalOrder = schedulesService.getStationOrder(arrivalId,train.getId());
+           if (departOrder < arrivalOrder){
+               trainsResultList.add(train);
+           }
+        }
+        return mapper.toDto(trainsResultList);
+    }
+
+    public boolean isTrainHasFreeSeats(long trainId){
+        return dao.isTrainHasFreeSeats(trainId);
+    }
+
+    public LocalDateTime getTrainDepartureTimeFromStation(long trainId, long stationId){
+        return dao.getTrainDepartureTimeFromStation(trainId, stationId);
     }
 }

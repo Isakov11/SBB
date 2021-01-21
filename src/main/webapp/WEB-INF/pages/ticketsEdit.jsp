@@ -23,68 +23,60 @@
     <script type="text/javascript" src="/resources/js/moment-with-locales.2.29.1.min.js"></script>
     <script type="text/javascript" src="/resources/js/bootstrap-datetimepicker.4.17.47.min.js"></script>
 
-    <c:if test="${empty dto.id}">
-        <title>Add</title></c:if>
-    <c:if test="${!empty dto.id}">
-        <title>Edit</title></c:if>
+    <title>Add ticket</title>
 </head>
 <body>
+    <c:url value="/${viewName}/add" var="var"/>
 
 <div class="container">
-    <c:if test="${empty dto.id}">
-        <c:url value="/${viewName}/add" var="var"/>
-    </c:if>
-    <c:if test="${!empty dto.id}">
-        <c:url value="/${viewName}/edit" var="var"/>
-    </c:if>
-    <div class="wrapper">
-    <form action="${var}" method="post">
-        <div class="container">
-            <div class="row justify-content-md-center">
-                <c:if test="${!empty dto.id}">
-                    <input type="hidden" name="id" value="${dto.id}">
-                </c:if>
-                <div class="col">
-                    <div class="form-group">
-                        <label for="trainId">Train</label>
-                        <select class="form-control" name="trainId" id="trainId">
-                            <c:forEach var="train" items="${trainsList}">
-                                <c:if test="${train.id eq dto.trainId}">
-                                    <c:set var = "selected" scope = "request" value = "selected "/></c:if>
-                                <c:if test="${train.id ne dto.trainId}">
-                                    <c:set var = "selected" scope = "request" value = ""/></c:if>
-                                <option ${selected}value="${train.id}">${train.number} ${train.name}</option>
-                            </c:forEach>
-                        </select>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-group">
-                        <label for="passenger">Passenger</label>
-                        <select class="form-control" name="passengerId"  id="passenger">
-                            <c:forEach var="passenger" items="${passengersList}">
-                                <c:if test="${passenger.id eq dto.passengerId}">
-                                    <c:set var = "selectedP" scope = "request" value = "selected "/></c:if>
-                                <c:if test="${passenger.id ne dto.passengerId}">
-                                    <c:set var = "selectedP" scope = "request" value = ""/></c:if>
-                                <option ${selectedP}value="${passenger.id}">${passenger.name} ${passenger.secondName} ${passenger.birthDate}</option>
-                            </c:forEach>
-                        </select>
-                    </div>
-                </div>
-                </div>
-            <br>
-                <button type="submit" class="btn btn-primary">Save</button>
-            <br>
+    <form action="/wizard/findtrain" method="get">
+        <!---------------------------------------------------------------------------------------------->
+        <div class="col">
+            <h1>Select departure and destination stations, and travel date</h1><br>
+            <div class="form-group">
+                <label for="departStationId">Departure Station</label>
+                <select class="form-control" name="departStationId" id="departStationId">
+                    <c:forEach var="depStation" items="${stationList}">
+                        <option value="${depStation.id}">${depStation.name}</option>
+                    </c:forEach>
+                </select>
+            </div>
         </div>
-
+        <div class="col">
+            <div class="form-group">
+                <label for="arrivalStationId">Arrival Station</label>
+                <select class="form-control" name="arrivalStationId" id="arrivalStationId">
+                    <c:forEach var="arrStation" items="${stationList}">
+                        <option value="${arrStation.id}">${arrStation.name}</option>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
+        <div class="col">
+            <label for="DepartDate">Departure date</label>
+            <div class="form-group">
+                <div class="input-group date" id="DepartDate">
+                    <input type="text" class="form-control" name="DepartDate" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                            <script type="text/javascript">
+                                $(function () {
+                                    $('#DepartDate').datetimepicker()({
+                                        locale: 'ru', format: 'LT'
+                                    });
+                                });
+                            </script>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!---------------------------------------------------------------------------------------------->
+        <button type="submit" class="btn btn-primary">Find</button>
     </form>
+
+
+</div>
+    <a href="./"  role="button" class="btn btn-primary btn-lg">Back</a>
     </div>
-</div>
-    <c:if test="${empty dto.id}">
-        <a href="./"  role="button" class="btn btn-primary btn-lg">Back</a></c:if>
-    <c:if test="${!empty dto.id}">
-        <a href="../"  role="button" class="btn btn-primary btn-lg">Back</a></c:if>
-</div>
 </body>
 </html>

@@ -105,4 +105,8 @@ public class SchedulesService {
         }
         return dao.delete(entity);
     }
+
+    public Long getStationOrder(long stationId, long trainId){
+        return dao.getStationOrder(stationId, trainId);
+    }
 }
