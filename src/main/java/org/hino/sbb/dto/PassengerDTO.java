@@ -20,8 +20,7 @@ public class PassengerDTO extends AbstractDTO {
     public PassengerDTO() {
     }
 
-    public PassengerDTO(long id, String name, String secondName, String birthDate) {
-        super.setId(id);
+    public PassengerDTO(String name, String secondName, String birthDate) {
         this.name = name;
         this.secondName = secondName;
         this.birthDate = birthDate;

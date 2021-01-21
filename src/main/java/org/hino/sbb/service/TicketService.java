@@ -1,6 +1,7 @@
 package org.hino.sbb.service;
 
 import org.hino.sbb.dao.TicketDAO;
+import org.hino.sbb.dto.PassengerDTO;
 import org.hino.sbb.dto.TicketCreateDTO;
 import org.hino.sbb.dto.TicketDTO;
 import org.hino.sbb.mappers.TicketMapper;
@@ -53,7 +54,19 @@ public class TicketService {
         return dao.create(entity);
     }
 
-    public TicketDTO create(TicketCreateDTO ticketDTO) {
+    public Ticket create(PassengerDTO passengerDTO, long trainId) {
+        Train train = trainService.findById(trainId);
+        Passenger passenger = passengerService.findByDTOAllCols(passengerDTO);
+        Ticket entity = new Ticket(LocalDateTime.now(), train, passenger);
+        return create(entity);
+    }
+
+    /*public Ticket create(Train train, Passenger passenger) {
+        Ticket entity = new Ticket(LocalDateTime.now(), train, passenger);
+        return create(entity);
+    }*/
+
+    /*public TicketDTO create(TicketCreateDTO ticketDTO) {
         //-----------------------------------------------------------------------------------------------
         Train train = trainService.findById(ticketDTO.getTrainId());
         Passenger passenger = passengerService.findById(ticketDTO.getPassengerId());
@@ -62,7 +75,7 @@ public class TicketService {
         //------------------------------------------------------------------------------------------------
 
         return mapper.toDto(dao.create(entity));
-    }
+    }*/
 
     public Ticket update(Ticket entity) {
         return dao.update(entity);

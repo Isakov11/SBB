@@ -29,7 +29,7 @@ public class StationController  {
     }
 
     @GetMapping(path = "/" + viewName + "/{id}")
-    public ModelAndView StationById(@PathVariable("id") long id) {
+    public ModelAndView stationById(@PathVariable("id") long id) {
         StationDTO dto = service.findDTObyId(id);
         List<StationDTO> dtoList = new LinkedList<>();
         dtoList.add(dto);
@@ -49,7 +49,7 @@ public class StationController  {
     }
 
     @PostMapping(path = "/" + viewName + "/add")
-    public ModelAndView CreateStation(@ModelAttribute("dto") StationDTO dto) {
+    public ModelAndView createStation(@ModelAttribute("dto") StationDTO dto) {
 
         service.create(dto);
         ModelAndView modelAndView = new ModelAndView();
@@ -58,7 +58,7 @@ public class StationController  {
     }
 
     @GetMapping (value = "/" + viewName + "/edit/{id}")
-    public ModelAndView GetEditStation(@PathVariable("id") long id) {
+    public ModelAndView getEditStation(@PathVariable("id") long id) {
         ModelAndView modelAndView = new ModelAndView();
         StationDTO dto = service.findDTObyId(id);
         modelAndView.setViewName(viewName + "Edit");
@@ -68,7 +68,7 @@ public class StationController  {
     }
 
     @PostMapping(value = "/" + viewName + "/edit")
-    public ModelAndView EditStation(@ModelAttribute("dto") StationDTO dto) {
+    public ModelAndView editStation(@ModelAttribute("dto") StationDTO dto) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/" + viewName);
         service.update(dto);
@@ -76,7 +76,7 @@ public class StationController  {
     }
 
     @GetMapping (value = "/" + viewName + "/delete/{id}")
-    public ModelAndView DeleteStationById(@PathVariable("id") long id) {
+    public ModelAndView deleteStationById(@PathVariable("id") long id) {
         StationDTO dto = service.deleteRetDTO(id);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/" + viewName);

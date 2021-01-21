@@ -34,24 +34,20 @@
                         <br>
                         Second name: ${dto.passengerSecondName}
                         <br>
-                        Birth date: ${dto.birthDate}
+                        Birth date: ${dto.birthDate.toString()}
                     </td>
                     <td>${dto.purchaseTime}</td>
                     <td>${dto.trainNumber}</td>
                     <td>
-                        <form action="../${viewName}/edit/${dto.id}" method="get">
-                            <button type="submit" class="btn btn-primary">Edit</button>
-                        </form>
-                        <br>
                         <form action="../${viewName}/delete/${dto.id}" method="get">
-                            <button type="submit" class="btn btn-primary">Delete</button>
+                            <button type="submit" class="btn btn-primary">Cancel ticket</button>
                         </form>
                     </td>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
-        <a href="../${viewName}/add"  role="button" class="btn btn-primary btn-lg">Add ticket</a>
+
     </div>
     <a href="/"  role="button" class="btn btn-primary btn-lg">Back to admin page</a>
 </div>

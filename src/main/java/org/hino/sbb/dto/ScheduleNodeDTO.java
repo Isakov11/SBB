@@ -1,6 +1,5 @@
 package org.hino.sbb.dto;
 
-
 import java.time.LocalDateTime;
 
 public class ScheduleNodeDTO extends AbstractDTO {
@@ -15,8 +14,7 @@ public class ScheduleNodeDTO extends AbstractDTO {
 
     private LocalDateTime departureTime;
 
-    public ScheduleNodeDTO() {
-    }
+    public ScheduleNodeDTO() {}
 
     public ScheduleNodeDTO(long id, TrainDTO train, long stationOrder, StationDTO station,
                            LocalDateTime arrivalTime, LocalDateTime departureTime) {
@@ -27,7 +25,6 @@ public class ScheduleNodeDTO extends AbstractDTO {
         this.arrivalTime = arrivalTime;
         this.departureTime = departureTime;
     }
-
 
     public TrainDTO getTrain() {
         return train;

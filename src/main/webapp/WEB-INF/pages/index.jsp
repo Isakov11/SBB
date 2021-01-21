@@ -39,6 +39,10 @@
                 <div>
                     <a href="tickets"  role="button" class="btn btn-primary btn-lg">Tickets</a>
                 </div>
+                <br>
+                <div>
+                    <a href="../tickets/add"  role="button" class="btn btn-primary btn-lg">Add ticket</a>
+                </div>
             </div>
             <div class="col-2"></div>
 

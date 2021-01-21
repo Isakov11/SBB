@@ -4,15 +4,11 @@ import org.hino.sbb.dto.*;
 import org.hino.sbb.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 public class TicketController {
@@ -25,7 +21,12 @@ public class TicketController {
     private TrainService trainService;
 
     @Autowired
-    private PassengerService stationService;
+    private PassengerService passengerService;
+
+
+
+    @Autowired
+    private StationService stationService;
 
     public TicketController(){}
 
@@ -41,7 +42,7 @@ public class TicketController {
     }
 
     @GetMapping(path = "/" + viewName + "/{id}")
-    public ModelAndView TicketsById(@PathVariable("id") long id) {
+    public ModelAndView ticketsById(@PathVariable("id") long id) {
         TicketDTO dto = service.findDTObyId(id);
         List<TicketDTO> dtoList = new LinkedList<>();
         dtoList.add(dto);
@@ -59,23 +60,25 @@ public class TicketController {
         modelAndView.addObject("viewName", viewName);
 
         List<TrainDTO> trainsList = trainService.findAllDTO();
-        List<PassengerDTO> passengerList = stationService.findAllDTO();
+        List<StationDTO> stationList = stationService.findAllDTO();
+        List<PassengerDTO> passengerList = passengerService.findAllDTO();
         modelAndView.addObject("passengersList", passengerList);
         modelAndView.addObject("trainsList", trainsList);
+        modelAndView.addObject("stationList", stationList);
         return modelAndView;
     }
 
-    @PostMapping(path = "/" + viewName + "/add")
-    public ModelAndView CreateTicket(@ModelAttribute("TicketCreateDTO") TicketCreateDTO ticketCreateDTO){
+    /*@PostMapping(path = "/" + viewName + "/add")
+    public ModelAndView createTicket(@ModelAttribute("TicketCreateDTO") TicketCreateDTO ticketCreateDTO){
 
         service.create(ticketCreateDTO);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/" + viewName);
         return modelAndView;
-    }
+    }*/
 
     @GetMapping (value = "/" + viewName + "/edit/{id}")
-    public ModelAndView GetEditTicket(@PathVariable("id") long id) {
+    public ModelAndView getEditTicket(@PathVariable("id") long id) {
         ModelAndView modelAndView = new ModelAndView();
         TicketDTO dto = service.findDTObyId(id);
 
@@ -83,7 +86,7 @@ public class TicketController {
         modelAndView.addObject("viewName", viewName);
 
         List<TrainDTO> trainsList = trainService.findAllDTO();
-        List<PassengerDTO> passengerList = stationService.findAllDTO();
+        List<PassengerDTO> passengerList = passengerService.findAllDTO();
 
         modelAndView.addObject("passengersList", passengerList);
         modelAndView.addObject("trainsList", trainsList);
@@ -92,7 +95,7 @@ public class TicketController {
     }
 
     @PostMapping(value = "/" + viewName + "/edit")
-    public ModelAndView EditTicket(@ModelAttribute("TicketCreateDTO") TicketCreateDTO ticketCreateDTO) {
+    public ModelAndView editTicket(@ModelAttribute("TicketCreateDTO") TicketCreateDTO ticketCreateDTO) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/" + viewName);
         service.update(ticketCreateDTO);
@@ -100,10 +103,12 @@ public class TicketController {
     }
 
     @GetMapping (value = "/" + viewName + "/delete/{id}")
-    public ModelAndView DeleteTicketById(@PathVariable("id") long id) {
+    public ModelAndView deleteTicketById(@PathVariable("id") long id) {
         service.delete(id);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/" + viewName);
         return modelAndView;
     }
+
+
 }

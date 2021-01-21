@@ -1,26 +1,25 @@
 package org.hino.sbb.dao;
 
+import org.hino.sbb.model.Passenger;
 import org.hino.sbb.model.ScheduleNode;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import java.math.BigInteger;
 import java.util.List;
 
 @Repository
-@Transactional
 public class ScheduleNodeDAO {
 
     @PersistenceContext
     private EntityManager entityManager;
 
-    @Transactional (readOnly = true)
     public List<ScheduleNode> findAll(){
         return entityManager.createNamedQuery(ScheduleNode.FIND_ALL,ScheduleNode.class).getResultList();
     }
 
-    @Transactional (readOnly = true)
     public ScheduleNode findById(long id)  {
         return entityManager.find(ScheduleNode.class, id);
     }
@@ -42,5 +41,21 @@ public class ScheduleNodeDAO {
             entityManager.remove(entityManager.merge(entity));
         }
         return entity;
+    }
+
+    public long getStationOrder(long stationId, long trainId){
+        Integer order = -1;
+        try {
+            String query = "SELECT station_order FROM schedules WHERE station_id = :stationId AND train_id = :trainId";
+             order = (Integer) entityManager.createNativeQuery(query)
+                    .setParameter("stationId",stationId)
+                     .setParameter("trainId",trainId)
+                    .getSingleResult();
+        }
+        catch(NoResultException e){
+
+        }
+        return order.longValue();
+
     }
 }

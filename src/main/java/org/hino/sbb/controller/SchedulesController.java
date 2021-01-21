@@ -34,7 +34,6 @@ public class SchedulesController {
 
     @GetMapping(value = "/" + viewName)
     public ModelAndView allSchedules() {
-        //TODO  change to list
         Set<ScheduleNodeDTO> dtoList = service.findAllDTO();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName(viewName);
@@ -44,7 +43,7 @@ public class SchedulesController {
     }
 
     @GetMapping(path = "/" + viewName + "/{id}")
-    public ModelAndView SchedulesById(@PathVariable("id") long id) {
+    public ModelAndView schedulesById(@PathVariable("id") long id) {
         ScheduleNodeDTO dto = service.findDTObyId(id);
         List<ScheduleNodeDTO> dtoList = new LinkedList<>();
         dtoList.add(dto);
@@ -69,7 +68,7 @@ public class SchedulesController {
     }
 
     @PostMapping(path = "/" + viewName + "/add")
-    public ModelAndView CreateSchedules(@ModelAttribute("ScheduleCreateDTO") ScheduleCreateDTO scheduleCreateDTO){
+    public ModelAndView createSchedules(@ModelAttribute("ScheduleCreateDTO") ScheduleCreateDTO scheduleCreateDTO){
 
         service.create(scheduleCreateDTO);
         ModelAndView modelAndView = new ModelAndView();
@@ -78,7 +77,7 @@ public class SchedulesController {
     }
 
     @GetMapping (value = "/" + viewName + "/edit/{id}")
-    public ModelAndView GetEditSchedules(@PathVariable("id") long id) {
+    public ModelAndView getEditSchedules(@PathVariable("id") long id) {
         ModelAndView modelAndView = new ModelAndView();
         ScheduleNodeDTO dto = service.findDTObyId(id);
 
@@ -95,7 +94,7 @@ public class SchedulesController {
     }
 
     @PostMapping(value = "/" + viewName + "/edit")
-    public ModelAndView EditSchedules(@ModelAttribute("ScheduleCreateDTO") ScheduleCreateDTO scheduleCreateDTO) {
+    public ModelAndView editSchedules(@ModelAttribute("ScheduleCreateDTO") ScheduleCreateDTO scheduleCreateDTO) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/" + viewName);
         service.update(scheduleCreateDTO);
@@ -103,7 +102,7 @@ public class SchedulesController {
     }
 
     @GetMapping (value = "/" + viewName + "/delete/{id}")
-    public ModelAndView DeleteSchedulesById(@PathVariable("id") long id) {
+    public ModelAndView deleteSchedulesById(@PathVariable("id") long id) {
         service.delete(id);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/" + viewName);

@@ -24,6 +24,12 @@
         </dependency>
 
         <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
+
+        <dependency>
             <groupId>javax.persistence</groupId>
             <artifactId>javax.persistence-api</artifactId>
             <version>2.2</version>
@@ -34,7 +40,6 @@
             <artifactId>hibernate-core</artifactId>
             <version> 5.4.23.Final</version>
         </dependency>
-
 
         <dependency>
             <groupId>mysql</groupId>
@@ -75,11 +80,7 @@
             <artifactId>spring-webmvc</artifactId>
             <version>5.2.8.RELEASE</version>
         </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.2</version>
-        </dependency>
+
 
 
         <dependency>

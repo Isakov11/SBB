@@ -92,7 +92,6 @@
                                 </script>
                             </span>
                         </div>
-                        <input type="hidden" id="dtp_input1" value="" name="dtp_input1" />
                     </div>
                 </div>
                 <div class="col">
