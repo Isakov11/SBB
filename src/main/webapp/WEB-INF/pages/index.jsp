@@ -25,10 +25,6 @@
                 </div>
                 <br>
                 <div>
-                    <a href="passengers"  role="button" class="btn btn-primary btn-lg">All passengers list</a>
-                </div>
-                <br>
-                <div>
                     <a href="trains"  role="button" class="btn btn-primary btn-lg">Trains list</a>
                 </div>
                 <br>
@@ -37,11 +33,15 @@
                 </div>
                 <br>
                 <div>
-                    <a href="tickets"  role="button" class="btn btn-primary btn-lg">Tickets</a>
+                    <a href="tickets"  role="button" class="btn btn-primary btn-lg">Registered passengers</a>
                 </div>
                 <br>
                 <div>
-                    <a href="../tickets/add"  role="button" class="btn btn-primary btn-lg">Add ticket</a>
+                    <a href="wizard/step1"  role="button" class="btn btn-primary btn-lg">Add ticket</a>
+                </div>
+                <br>
+                <div>
+                    <a href="passengers"  role="button" class="btn btn-primary btn-lg">All passengers list</a>
                 </div>
             </div>
             <div class="col-2"></div>

@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -30,8 +32,15 @@ public class BusinessService {
 
 
 
-    public List<TrainDTO> getDirectTrains(long departStationId, long arrivalStationId, String date){
-        List<TrainDTO> crossTrains = trainService.getTrainsByDepartAndArrivalStationIds(departStationId,arrivalStationId);
+    public List<TrainDTO> getDirectTrains(long departStationId, long arrivalStationId, String departDate){
+        List<TrainDTO> crossTrains = null;
+        if (departDate == null || departDate.equals("")) {
+            crossTrains = trainService.getTrainsByDepartAndArrivalStationIds(departStationId, arrivalStationId);
+        }else{
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+            LocalDate ldepartDate = LocalDate.parse(departDate,formatter);
+            crossTrains = trainService.getTrainsByDepartAndArrivalStationIdsAndDate(departStationId, arrivalStationId,ldepartDate);
+        }
         return crossTrains;
     }
 

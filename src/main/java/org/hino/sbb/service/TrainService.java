@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
@@ -92,6 +93,18 @@ public class TrainService {
            if (departOrder < arrivalOrder){
                trainsResultList.add(train);
            }
+        }
+        return mapper.toDto(trainsResultList);
+    }
+    public List<TrainDTO> getTrainsByDepartAndArrivalStationIdsAndDate(long departId,long arrivalId, LocalDate departDate)  {
+        List<Train> trainsFromDAO = dao.getTrainsByDepartAndArrivalStationIdsAndDate(departId, arrivalId,departDate);
+        List<Train> trainsResultList = new LinkedList<>();
+        for (Train train : trainsFromDAO){
+            Long departOrder = schedulesService.getStationOrder(departId,train.getId());
+            Long arrivalOrder = schedulesService.getStationOrder(arrivalId,train.getId());
+            if (departOrder < arrivalOrder){
+                trainsResultList.add(train);
+            }
         }
         return mapper.toDto(trainsResultList);
     }

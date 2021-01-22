@@ -23,10 +23,10 @@
     <script type="text/javascript" src="/resources/js/moment-with-locales.2.29.1.min.js"></script>
     <script type="text/javascript" src="/resources/js/bootstrap-datetimepicker.4.17.47.min.js"></script>
 
-    <title>Add ticket</title>
+    <title>Select departure</title>
 </head>
 <body>
-    <c:url value="/${viewName}/add" var="var"/>
+    <c:url value="/wizard/step1" var="var"/>
 
 <div class="container">
     <form action="/wizard/findtrain" method="get">
@@ -61,8 +61,9 @@
                         <span class="glyphicon glyphicon-calendar"></span>
                             <script type="text/javascript">
                                 $(function () {
-                                    $('#DepartDate').datetimepicker()({
-                                        locale: 'ru', format: 'LT'
+
+                                    $('#DepartDate').datetimepicker({
+                                        format: 'DD.MM.YYYY', locale: 'ru'
                                     });
                                 });
                             </script>
@@ -76,7 +77,7 @@
 
 
 </div>
-    <a href="./"  role="button" class="btn btn-primary btn-lg">Back</a>
+    <a href="../"  role="button" class="btn btn-primary btn-lg">Back</a>
     </div>
 </body>
 </html>

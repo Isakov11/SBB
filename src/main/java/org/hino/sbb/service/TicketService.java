@@ -46,6 +46,16 @@ public class TicketService {
     }
 
     @Transactional (readOnly = true)
+    public List<Ticket> findByTrain(long trainId)  {
+        return dao.findByTrain(trainId);
+    }
+
+    @Transactional (readOnly = true)
+    public List<TicketDTO> findDTOByTrain(long trainId)  {
+        return mapper.toDto(findByTrain(trainId));
+    }
+
+    @Transactional (readOnly = true)
     public TicketDTO findDTObyId(long id) {
         return mapper.toDto(dao.findById(id));
     }
