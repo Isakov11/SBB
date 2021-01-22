@@ -9,7 +9,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.math.BigInteger;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -58,6 +60,21 @@ public class TrainDAO {
                 "AND id IN(SELECT train_id as id from schedules where station_id = :arrivalId)";
         List<Train> trains = entityManager.createNativeQuery(query, Train.class).setParameter("departId",departId)
                 .setParameter("arrivalId",arrivalId)
+                .getResultList();
+        return trains;
+    }
+
+    public List<Train> getTrainsByDepartAndArrivalStationIdsAndDate(long departId,long arrivalId, LocalDate departDate)  {
+        /*DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
+        String formattedDate = departDate.format(formatter);*/
+        String query = "SELECT * from trains where " +
+                "id IN(SELECT train_id as id from schedules where station_id = :departId " +
+                "and Date(departure_time) = \'" + departDate.toString() + "\') " +
+                "AND id IN(SELECT train_id as id from schedules where station_id = :arrivalId )";
+        List<Train> trains = entityManager.createNativeQuery(query, Train.class)
+                .setParameter("departId",departId)
+                .setParameter("arrivalId",arrivalId)
+                /*.setParameter("departDate",departDate.toString())*/
                 .getResultList();
         return trains;
     }

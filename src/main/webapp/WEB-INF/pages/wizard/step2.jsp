@@ -14,7 +14,7 @@
     <title>Direct trains list</title>
 </head>
 <body>
-    <c:url value="/tickets/directtrains" var="var"/>
+    <c:url value="/wizard/findtrain" var="var"/>
     <div class="container">
         <div class="row justify-content-md-center">
 

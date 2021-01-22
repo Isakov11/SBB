@@ -39,9 +39,11 @@ public class StationScheduleDTO {
 
     @Override
     public String toString() {
-        return
-                "Train Number='" + trainNumber + '\'' +
-                ", arrivalTime=" + arrivalTime +
-                ", departureTime=" + departureTime;
+        String result = "Train № " + trainNumber + ", "
+                + (arrivalTime == null ? "Initial station" : (arrivalTime.toLocalDate() + " " + arrivalTime.toLocalTime()))
+                + " — "
+                + (departureTime == null ? "Final station" : (departureTime.toLocalDate() + " " + departureTime.toLocalTime()));
+
+        return result;
     }
 }

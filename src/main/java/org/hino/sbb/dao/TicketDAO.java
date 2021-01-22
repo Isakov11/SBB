@@ -1,6 +1,7 @@
 package org.hino.sbb.dao;
 
 import org.hino.sbb.model.Ticket;
+import org.hino.sbb.model.Train;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +21,13 @@ public class TicketDAO {
 
     public Ticket findById(long id)  {
         return entityManager.find(Ticket.class, id);
+    }
+
+    public List<Ticket> findByTrain(long trainId)  {
+        List<Ticket> tickets = entityManager.createQuery("SELECT t FROM Ticket t WHERE t.ticketTrain.id = :trainId")
+                .setParameter("trainId",trainId)
+                .getResultList();
+        return tickets;
     }
 
     public Ticket create(Ticket entity){

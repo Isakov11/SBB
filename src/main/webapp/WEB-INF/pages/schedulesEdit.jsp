@@ -85,8 +85,9 @@
                             <span class="glyphicon glyphicon-calendar"></span>
                                 <script type="text/javascript">
                                     $(function () {
+                                        var now = moment();
                                         $('#arrivalTime').datetimepicker({
-                                            locale: 'ru'
+                                            format:'DD.MM.YYYY HH:mm', locale: 'ru',defaultDate: now
                                         });
                                     });
                                 </script>
@@ -106,8 +107,9 @@
                     </div>
                     <script type="text/javascript">
                         $(function () {
+                            var now = moment();
                             $('#departureTime').datetimepicker({
-                                locale: 'ru'
+                                format:'DD.MM.YYYY HH:mm', locale: 'ru',defaultDate: now
                             });
                         });
                     </script>
