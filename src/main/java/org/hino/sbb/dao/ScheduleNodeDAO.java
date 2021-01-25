@@ -1,13 +1,10 @@
 package org.hino.sbb.dao;
 
-import org.hino.sbb.model.Passenger;
 import org.hino.sbb.model.ScheduleNode;
 import org.springframework.stereotype.Repository;
-
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import java.math.BigInteger;
 import java.util.List;
 
 @Repository

@@ -21,10 +21,10 @@
 </head>
 <body>
     <c:if test="${empty dto.id}">
-        <c:url value="/${viewName}/add" var="var"/>
+        <c:url value="${viewName}/add" var="var"/>
     </c:if>
     <c:if test="${!empty dto.id}">
-        <c:url value="/${viewName}/edit" var="var"/>
+        <c:url value="${viewName}/edit" var="var"/>
     </c:if>
     <div class="container">
         <div class="row justify-content-md-center">
@@ -35,16 +35,16 @@
                 </c:if>
                 <div class="form-col">
                     <div class="row">
-                        <label for="number">Train number</label>
-                        <input type="text" class="form-control" name="number" id="number" value="${dto.number}"/>
+                        <label for="username">username</label>
+                        <input type="text" class="form-control" name="username" id="username" value="${dto.username}"/>
                     </div>
                     <div class="row">
-                        <label for="name">Train name</label>
-                        <input type="text" class="form-control" name="name" id="name" value="${dto.name}"/>
+                        <label for="password">password</label>
+                        <input type="text" class="form-control" name="password" id="password" value="${dto.password}"/>
                     </div>
                     <div class="row">
-                        <label for="seatsNumber">Train capacity</label>
-                        <input type="text" class="form-control" name="seatsNumber" id="seatsNumber" value="${dto.seatsNumber}"/>
+                        <label for="role">role</label>
+                        <input type="text" class="form-control" name="role" id="role" value="${dto.role}"/>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Save</button>
@@ -56,7 +56,6 @@
         <c:if test="${!empty dto.id}">
             <a href="../"  role="button" class="btn btn-primary btn-lg">Back</a>
         </c:if>
-        <!-- <a href="../"  role="button" class="btn btn-primary btn-lg">Back</a> -->
     </div>
 </body>
 </html>

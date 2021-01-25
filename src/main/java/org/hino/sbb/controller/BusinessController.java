@@ -19,6 +19,7 @@ import java.util.List;
 
 @Controller
 public class BusinessController {
+    private final String adminPage = "/admin/index";
 
     @Autowired
     private BusinessService businessService;
@@ -41,7 +42,7 @@ public class BusinessController {
 
         List<StationDTO> stationList = stationService.findAllDTO();
         modelAndView.addObject("stationList", stationList);
-
+        modelAndView.addObject("adminPage", adminPage);
         //modelAndView.addObject("viewName", "tickets");
         //List<TrainDTO> trainsList = trainService.findAllDTO();
         //List<PassengerDTO> passengerList = passengerService.findAllDTO();
@@ -51,7 +52,7 @@ public class BusinessController {
     }
 
     //Wizard step 2
-    @GetMapping(value = "/wizard/findtrain")
+    @GetMapping(value = "/wizard/trainfinder")
     public ModelAndView findTrainsForRoute(@RequestParam (name = "departStationId") long departStationId,
                                            @RequestParam (name = "arrivalStationId") long arrivalStationId,
                                            @RequestParam (name = "DepartDate", required = false) String departDate
@@ -61,11 +62,12 @@ public class BusinessController {
         modelAndView.setViewName("/wizard/step2");
         modelAndView.addObject("DTOList", trains);
         modelAndView.addObject("departStationId", departStationId);
+        modelAndView.addObject("adminPage", adminPage);
         return modelAndView;
     }
 
     //Wizard step 3
-    @GetMapping (value = "/wizard/selecttrain")
+    @GetMapping (value = "/wizard/trainselecter")
     public ModelAndView checkTrainAvailability(@RequestParam("trainId") long trainId,
                                                @RequestParam("departStationId") long departStationId) {
         ModelAndView modelAndView = new ModelAndView();
@@ -80,15 +82,16 @@ public class BusinessController {
             modelAndView.addObject("firstStation", firstStation);
             modelAndView.addObject("lastStation", lastStation);
             modelAndView.addObject("departStationId", departStationId);
+            modelAndView.addObject("adminPage", adminPage);
             modelAndView.setViewName("wizard/step3");
         }else{
-            modelAndView.setViewName("redirect:/");
+            modelAndView.setViewName("redirect:" + adminPage);
         }
         return modelAndView;
     }
 
     //Wizard step 4
-    @PostMapping(value = "/wizard/selectpassenger")
+    @PostMapping(value = "/wizard/passengerselecter")
     public ModelAndView BuyTicket(@RequestParam("trainId") long trainId,
                                   @RequestParam("departStationId") long departStationId,
                                   @RequestParam("name") String name,
@@ -99,14 +102,17 @@ public class BusinessController {
         PassengerDTO passengerDTO = new PassengerDTO(name,secondName,birthDate);
         boolean passengerCheck = businessService.isPassengerRegisteredOnTrain(passengerDTO,trainId);
         boolean trainCheck = businessService.checkTrainAvailability(trainId, departStationId);
+        String resultMessage;
         if (!passengerCheck && trainCheck) {
             ticketService.create(passengerDTO, trainId);
-            modelAndView.setViewName("redirect:/");
+            resultMessage = "Ticket successfully registered";
         }
         else{
-            modelAndView.setViewName("redirect:/");
+            resultMessage="Something goes wrong";
         }
+        modelAndView.setViewName("wizard/step3");
+        modelAndView.addObject("resultMessage", resultMessage);
+        modelAndView.addObject("adminPage", adminPage);
         return modelAndView;
     }
-
 }

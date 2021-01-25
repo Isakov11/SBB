@@ -55,11 +55,7 @@ public class PassengerService {
     }
 
     public Passenger create(Passenger entity) {
-        Passenger passenger = findByAllCols(entity);
-        if (passenger == null){
-            return dao.create(entity);
-        }
-        return passenger;
+        return dao.create(entity);
     }
 
     public PassengerDTO create(PassengerDTO dto) {
@@ -67,6 +63,17 @@ public class PassengerService {
         entity.setTickets(new HashSet<>());
         return mapper.toDto(create(entity));
     }
+    public Passenger findOrCreate(PassengerDTO dto) {
+        Passenger passenger = findByAllCols(mapper.toEntity(dto));
+        if (passenger == null){
+            Passenger entity = mapper.toEntity(dto);
+            entity.setTickets(new HashSet<>());
+            return create(entity);
+        }else{
+            return passenger;
+        }
+    }
+
 
     public Passenger update(Passenger entity) {
         return dao.update(entity);

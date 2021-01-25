@@ -21,10 +21,10 @@
 </head>
 <body>
     <c:if test="${empty dto.id}">
-        <c:url value="/${viewName}/add" var="var"/>
+        <c:url value="${viewName}/add" var="var"/>
     </c:if>
     <c:if test="${!empty dto.id}">
-        <c:url value="/${viewName}/edit" var="var"/>
+        <c:url value="${viewName}/edit" var="var"/>
     </c:if>
     <div class="container">
         <div class="row justify-content-md-center">

@@ -13,7 +13,8 @@ import java.util.List;
 
 @Controller
 public class TrainController {
-    private final String viewName = "trains";
+    private final String viewName = "/admin/trains";
+    private final String adminPage = "/index";
 
     @Autowired
     private TrainService service;
@@ -21,17 +22,18 @@ public class TrainController {
     @Autowired
     private BusinessService businessService;
 
-        @GetMapping(value = "/" + viewName)
+        @GetMapping(value = viewName)
     public ModelAndView allTrains() {
         List<TrainDTO> dtoList = service.findAllDTO();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName(viewName);
         modelAndView.addObject("DTOList", dtoList);
         modelAndView.addObject("viewName", viewName);
+        modelAndView.addObject("adminPage", adminPage);
         return modelAndView;
     }
 
-    @GetMapping(path = "/" + viewName + "/{id}")
+    @GetMapping(path = viewName + "/{id}")
     public ModelAndView trainById(@PathVariable("id") long id) {
         TrainDTO dto = service.findDTObyId(id);
         List<TrainDTO> dtoList = new LinkedList<>();
@@ -40,12 +42,13 @@ public class TrainController {
         modelAndView.setViewName(viewName);
         modelAndView.addObject("DTOList", dtoList);
         modelAndView.addObject("viewName", viewName);
+        modelAndView.addObject("adminPage", adminPage);
         return modelAndView;
     }
 
 
 
-    @GetMapping(value = "/" + viewName + "/add")
+    @GetMapping(value = viewName + "/add")
     public ModelAndView addPage() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName(viewName + "Edit");
@@ -53,15 +56,15 @@ public class TrainController {
         return modelAndView;
     }
 
-    @PostMapping(path = "/" + viewName + "/add")
+    @PostMapping(path = viewName + "/add")
     public ModelAndView createTrain(@ModelAttribute("dto") TrainDTO dto) {
         service.create(dto);
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/" + viewName);
+        modelAndView.setViewName("redirect:" + viewName);
         return modelAndView;
     }
 
-    @GetMapping (value = "/" + viewName + "/edit/{id}")
+    @GetMapping (value = viewName + "/edit/{id}")
     public ModelAndView getEditTrain(@PathVariable("id") long id) {
         ModelAndView modelAndView = new ModelAndView();
         TrainDTO dto = service.findDTObyId(id);
@@ -71,19 +74,19 @@ public class TrainController {
         return modelAndView;
     }
 
-    @PostMapping(value = "/" + viewName + "/edit")
+    @PostMapping(value = viewName + "/edit")
     public ModelAndView editTrain(@ModelAttribute("dto") TrainDTO dto) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/" + viewName);
+        modelAndView.setViewName("redirect:" + viewName);
         service.update(dto);
         return modelAndView;
     }
 
-    @GetMapping (value = "/" + viewName + "/delete/{id}")
+    @GetMapping (value = viewName + "/delete/{id}")
     public ModelAndView deleteTrainById(@PathVariable("id") long id) {
         TrainDTO dto = service.deleteRetDTO(id);
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/" + viewName);
+        modelAndView.setViewName("redirect:" + viewName);
         return modelAndView;
     }
 }

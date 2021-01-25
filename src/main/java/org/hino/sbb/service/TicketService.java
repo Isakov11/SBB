@@ -66,7 +66,7 @@ public class TicketService {
 
     public Ticket create(PassengerDTO passengerDTO, long trainId) {
         Train train = trainService.findById(trainId);
-        Passenger passenger = passengerService.findByDTOAllCols(passengerDTO);
+        Passenger passenger = passengerService.findOrCreate(passengerDTO);
         Ticket entity = new Ticket(LocalDateTime.now(), train, passenger);
         return create(entity);
     }

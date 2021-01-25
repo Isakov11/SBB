@@ -1,52 +1,44 @@
 package org.hino.sbb.controller;
 
-import org.hino.sbb.dto.ScheduleCreateDTO;
-import org.hino.sbb.dto.ScheduleNodeDTO;
-import org.hino.sbb.dto.StationDTO;
-import org.hino.sbb.dto.TrainDTO;
-import org.hino.sbb.service.SchedulesService;
-import org.hino.sbb.service.StationService;
-import org.hino.sbb.service.TrainService;
+import org.hino.sbb.dto.PassengerDTO;
+import org.hino.sbb.dto.UserDTO;
+import org.hino.sbb.model.Passenger;
+import org.hino.sbb.model.User;
+import org.hino.sbb.service.PassengerService;
+import org.hino.sbb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 @Controller
-
-public class SchedulesController {
-    private final String viewName = "/admin/schedules";
+public class UserController {
+    private final String viewName = "/admin/users";
     private final String adminPage = "/index";
-
     @Autowired
-    private TrainService trainService;
-
-    @Autowired
-    private StationService stationService;
-
-    @Autowired
-    private SchedulesService service;
-
-    public SchedulesController(){}
+    private UserService service;
 
     @GetMapping(value = viewName)
-    public ModelAndView allSchedules() {
-        Set<ScheduleNodeDTO> dtoList = service.findAllDTO();
+    public ModelAndView allUsers() {
+        List<UserDTO> dtoList = service.findAllDTO();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName(viewName);
         modelAndView.addObject("DTOList", dtoList);
         modelAndView.addObject("viewName", viewName);
+        modelAndView.addObject("adminPage", adminPage);
         return modelAndView;
     }
 
     @GetMapping(path = viewName + "/{id}")
-    public ModelAndView schedulesById(@PathVariable("id") long id) {
-        ScheduleNodeDTO dto = service.findDTObyId(id);
-        List<ScheduleNodeDTO> dtoList = new LinkedList<>();
+    public ModelAndView userById(@PathVariable("id") long id) {
+        UserDTO dto = service.findDTOById(id);
+        List<UserDTO> dtoList = new LinkedList<>();
         dtoList.add(dto);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName(viewName);
@@ -56,57 +48,49 @@ public class SchedulesController {
         return modelAndView;
     }
 
-    @GetMapping(value = viewName + "/add")
+    @GetMapping(value =  viewName + "/add")
     public ModelAndView addPage() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName(viewName + "Edit");
         modelAndView.addObject("viewName", viewName);
-
-        List<TrainDTO> trainsList = trainService.findAllDTO();
-        List<StationDTO> stationsList = stationService.findAllDTO();
-        modelAndView.addObject("stationsList", stationsList);
-        modelAndView.addObject("trainsList", trainsList);
+        modelAndView.addObject("adminPage", adminPage);
         return modelAndView;
     }
 
     @PostMapping(path = viewName + "/add")
-    public ModelAndView createSchedules(@ModelAttribute("ScheduleCreateDTO") ScheduleCreateDTO scheduleCreateDTO){
-
-        service.create(scheduleCreateDTO);
+    public ModelAndView createUser(@ModelAttribute("dto") UserDTO dto) {
+        service.create(dto);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:" + viewName);
         return modelAndView;
     }
 
     @GetMapping (value = viewName + "/edit/{id}")
-    public ModelAndView getEditSchedules(@PathVariable("id") long id) {
+    public ModelAndView getEditUser(@PathVariable("id") long id) {
         ModelAndView modelAndView = new ModelAndView();
-        ScheduleNodeDTO dto = service.findDTObyId(id);
-
+        UserDTO dto = service.findDTOById(id);
         modelAndView.setViewName(viewName + "Edit");
         modelAndView.addObject("viewName", viewName);
-
-        List<TrainDTO> trainsList = trainService.findAllDTO();
-        List<StationDTO> stationsList = stationService.findAllDTO();
-
-        modelAndView.addObject("stationsList", stationsList);
-        modelAndView.addObject("trainsList", trainsList);
         modelAndView.addObject("dto", dto);
         return modelAndView;
     }
 
     @PostMapping(value = viewName + "/edit")
-    public ModelAndView editSchedules(@ModelAttribute("ScheduleCreateDTO") ScheduleCreateDTO scheduleCreateDTO) {
+    public ModelAndView editUser(@ModelAttribute("dto") UserDTO dto) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:" + viewName);
-        service.update(scheduleCreateDTO);
+        service.update(dto);
         return modelAndView;
     }
 
     @GetMapping (value = viewName + "/delete/{id}")
-    public ModelAndView deleteSchedulesById(@PathVariable("id") long id) {
-        service.delete(id);
+    public ModelAndView deleteUserById(@PathVariable("id") long id) {
+        User entity = service.delete(id);
         ModelAndView modelAndView = new ModelAndView();
+        if (entity == null){
+            modelAndView.setViewName("error");
+            return modelAndView;
+        }
         modelAndView.setViewName("redirect:" + viewName);
         return modelAndView;
     }

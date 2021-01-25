@@ -53,7 +53,6 @@ public class JPAConfig {
     public EntityManagerFactory entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean factoryBean =
                 new LocalContainerEntityManagerFactoryBean();
-        //TODO сменить
         factoryBean.setPackagesToScan("org.hino.sbb.dao");
         factoryBean.setDataSource(dataSource());
         factoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());

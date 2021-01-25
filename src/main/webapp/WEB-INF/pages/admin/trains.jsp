@@ -61,13 +61,13 @@
                         <div class="container " >
                             <div class="row align-middle">
                                 <div class="col">
-                                    <form action="../${viewName}/edit/${dto.id}" method="get">
+                                    <form action="${viewName}/edit/${dto.id}" method="get">
                                         <button type="submit" class="btn btn-primary">Edit</button>
                                     </form>
                                 </div>
                                 <br>
                                 <div class="col">
-                                    <form action="../${viewName}/delete/${dto.id}" method="get">
+                                    <form action="${viewName}/delete/${dto.id}" method="get">
                                         <button type="submit" class="btn btn-primary">Delete</button>
                                     </form>
                                 </div>
@@ -81,11 +81,11 @@
     </div>
     <div class="col-sm-1">
         <div>
-            <a href="../${viewName}/add"  role="button" class="btn btn-primary btn-lg">Add train</a>
+            <a href="${viewName}/add"  role="button" class="btn btn-primary btn-lg">Add train</a>
         </div>
         <br>
         <div>
-            <a href="/"  role="button" class="btn btn-primary btn-lg">Back</a>
+            <a href="${adminPage}"  role="button" class="btn btn-primary btn-lg">Back</a>
         </div>
     </div>
     </div>

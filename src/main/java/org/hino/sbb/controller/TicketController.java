@@ -12,7 +12,8 @@ import java.util.List;
 
 @Controller
 public class TicketController {
-    private final String viewName = "tickets";
+    private final String viewName = "/admin/tickets";
+    private final String adminPage = "/index";
 
     @Autowired
     private TicketService service;
@@ -22,13 +23,14 @@ public class TicketController {
 
     public TicketController(){}
 
-    @GetMapping(value = "/" + viewName)
+    @GetMapping(value = viewName)
     public ModelAndView allTickets() {
         ModelAndView modelAndView = new ModelAndView();
         List<TrainDTO> trainList = trainService.findAllDTO();
         modelAndView.setViewName(viewName);
         modelAndView.addObject("viewName", viewName);
         modelAndView.addObject("trainList", trainList);
+        modelAndView.addObject("adminPage", adminPage);
         return modelAndView;
     }
 
@@ -43,16 +45,17 @@ public class TicketController {
         return modelAndView;
     }*/
 
-    @GetMapping(value = "/" + viewName + "/getlist")
+    @GetMapping(value = viewName + "/getlist")
     public ModelAndView ticketsByTrain(@RequestParam("trainId") long trainId) {
         List<TicketDTO> dtoList = service.findDTOByTrain(trainId);
         List<TrainDTO> trainList = trainService.findAllDTO();
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("/tickets");
+        modelAndView.setViewName(viewName);
         modelAndView.addObject("DTOList", dtoList);
         modelAndView.addObject("trainList", trainList);
         modelAndView.addObject("trainSelect", trainId);
         modelAndView.addObject("viewName", viewName);
+        modelAndView.addObject("adminPage", adminPage);
         return modelAndView;
     }
 
@@ -117,11 +120,11 @@ public class TicketController {
         return modelAndView;
     }*/
 
-    @GetMapping (value = "/" + viewName + "/delete/{id}")
+    @GetMapping (value = viewName + "/delete/{id}")
     public ModelAndView deleteTicketById(@PathVariable("id") long id) {
         service.delete(id);
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/" + viewName);
+        modelAndView.setViewName("redirect:" + viewName);
         return modelAndView;
     }
 
