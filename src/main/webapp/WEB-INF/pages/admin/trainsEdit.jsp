@@ -21,10 +21,10 @@
 </head>
 <body>
     <c:if test="${empty dto.id}">
-        <c:url value="/${viewName}/add" var="var"/>
+        <c:url value="${viewName}/add" var="var"/>
     </c:if>
     <c:if test="${!empty dto.id}">
-        <c:url value="/${viewName}/edit" var="var"/>
+        <c:url value="${viewName}/edit" var="var"/>
     </c:if>
     <div class="container">
         <div class="row justify-content-md-center">
@@ -35,16 +35,16 @@
                 </c:if>
                 <div class="form-col">
                     <div class="row">
-                        <label for="name">First name</label>
+                        <label for="number">Train number</label>
+                        <input type="text" class="form-control" name="number" id="number" value="${dto.number}"/>
+                    </div>
+                    <div class="row">
+                        <label for="name">Train name</label>
                         <input type="text" class="form-control" name="name" id="name" value="${dto.name}"/>
                     </div>
                     <div class="row">
-                        <label for="secondName">Second name</label>
-                        <input type="text" class="form-control" name="secondName" id="secondName" value="${dto.secondName}"/>
-                    </div>
-                    <div class="row">
-                        <label for="birthDate">Birth date</label>
-                        <input type="text" class="form-control" name="birthDate" id="birthDate" value="${dto.birthDate}"/>
+                        <label for="seatsNumber">Train capacity</label>
+                        <input type="text" class="form-control" name="seatsNumber" id="seatsNumber" value="${dto.seatsNumber}"/>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Save</button>
@@ -57,9 +57,5 @@
             <a href="../"  role="button" class="btn btn-primary btn-lg">Back</a>
         </c:if>
     </div>
-    <c:if test="${empty dto.id}">
-        <a href="./"  role="button" class="btn btn-primary btn-lg">Back</a></c:if>
-    <c:if test="${!empty dto.id}">
-        <a href="../"  role="button" class="btn btn-primary btn-lg">Back</a></c:if>
 </body>
 </html>

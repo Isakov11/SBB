@@ -14,7 +14,7 @@
     <title>Direct trains list</title>
 </head>
 <body>
-    <c:url value="/wizard/findtrain" var="var"/>
+    <c:url value="/wizard/trainfinder" var="var"/>
     <div class="container">
         <div class="row justify-content-md-center">
 
@@ -58,7 +58,7 @@
                             </table>
                         </td>
                         <td>
-                            <form action="/wizard/selecttrain" method="get">
+                            <form action="/wizard/trainselecter" method="get">
                                 <input type="hidden" name="departStationId" value="${departStationId}">
                                 <input type="hidden" name="trainId" value="${dto.id}">
                                 <button type="submit" class="btn btn-primary">Select train</button>
@@ -69,7 +69,7 @@
                 </tbody>
             </table>
         </div>
-            <a href="../"  role="button" class="btn btn-primary btn-lg">Back</a>
+            <a href="/wizard/step1"  role="button" class="btn btn-primary btn-lg">Back</a>
     </div>
 </body>
 </html>

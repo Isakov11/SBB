@@ -13,10 +13,10 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface PassengerMapper {
-    @Mapping(source ="birthDate", dateFormat = "yyyy-MM-dd",target = "birthDate")
+    @Mapping(source ="birthDate", dateFormat = "dd.MM.yyyy",target = "birthDate")
     Passenger toEntity (PassengerDTO dto);
 
-    @Mapping(source ="birthDate", dateFormat = "yyyy-MM-dd",target = "birthDate")
+    @Mapping(source ="birthDate", dateFormat = "dd.MM.yyyy",target = "birthDate")
     PassengerDTO toDto (Passenger entity);
     List<PassengerDTO> toDto (Collection<Passenger> entity);
 

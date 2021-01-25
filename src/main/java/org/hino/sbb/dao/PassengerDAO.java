@@ -1,20 +1,12 @@
 package org.hino.sbb.dao;
 
-import com.sun.org.apache.xpath.internal.operations.And;
 import org.hino.sbb.model.Passenger;
-import org.hino.sbb.model.Station;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
-
 
 @Repository
 public class PassengerDAO {

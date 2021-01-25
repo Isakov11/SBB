@@ -12,7 +12,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/resources/css/bootstrap.4.5.3.min.css">
 
-    <title>Station List</title>
+    <title>Schedules</title>
 </head>
 <body>
 
@@ -21,25 +21,29 @@
         <table class="table table-striped table-bordered">
             <thead>
             <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Schedule</th>
+                <th scope="col">Train</th>
+                <th scope="col">Station</th>
+                <th scope="col">Arrival time</th>
+                <th scope="col">Departure time</th>
                 <th scope="col">Action</th>
             </tr>
             </thead>
             <tbody>
             <c:forEach var="dto" items="${DTOList}">
                 <tr>
-                    <td>${dto.name}</td>
-                    <td><c:forEach var="sched" items="${dto.stationScheduleTable}">
-                        ${sched.toString()}<br>
-                    </c:forEach>
+                    <td>Number: ${dto.train.number}
+                        <br>
+                        Name: ${dto.train.name}
                     </td>
+                    <td>${dto.station.name}</td>
+                    <td>${dto.arrivalTime.toLocalDate()}  ${dto.arrivalTime.toLocalTime()}</td>
+                    <td>${dto.departureTime.toLocalDate()} ${dto.departureTime.toLocalTime()}</td>
                     <td>
-                        <form action="../${viewName}/edit/${dto.id}" method="get">
+                        <form action="${viewName}/edit/${dto.id}" method="get">
                             <button type="submit" class="btn btn-primary">Edit</button>
                         </form>
                         <br>
-                        <form action="../${viewName}/delete/${dto.id}" method="get">
+                        <form action="${viewName}/delete/${dto.id}" method="get">
                             <button type="submit" class="btn btn-primary">Delete</button>
                         </form>
                     </td>
@@ -47,9 +51,9 @@
             </c:forEach>
             </tbody>
         </table>
-        <a href="../${viewName}/add"  role="button" class="btn btn-primary btn-lg">Add station</a>
+        <a href="${viewName}/add"  role="button" class="btn btn-primary btn-lg">Add schedule</a>
     </div>
-    <a href="/"  role="button" class="btn btn-primary btn-lg">Back to admin page</a>
+    <a href="${adminPage}"  role="button" class="btn btn-primary btn-lg">Back to admin page</a>
 </div>
 </body>
 </html>

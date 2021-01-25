@@ -3,6 +3,7 @@
 <html lang="en">
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <head>
     <link rel="icon" type="image/png" href="/resources/favicon.png" />
     <!-- Required meta tags -->
@@ -29,7 +30,7 @@
     <c:url value="/wizard/step1" var="var"/>
 
 <div class="container">
-    <form action="/wizard/findtrain" method="get">
+    <form action="/wizard/trainfinder" method="get">
         <!---------------------------------------------------------------------------------------------->
         <div class="col">
             <h1>Select departure and destination stations, and travel date</h1><br>
@@ -76,8 +77,8 @@
     </form>
 
 
-</div>
-    <a href="../"  role="button" class="btn btn-primary btn-lg">Back</a>
+    </div>
+        <a href="${adminPage}"  role="button" class="btn btn-primary btn-lg">Back</a>
     </div>
 </body>
 </html>

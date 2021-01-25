@@ -22,7 +22,7 @@
             <h1>List of registered passengers</h1><br>
         </div>
         <div class="row my-sm-3">
-            <form  class="form-inline" action="/tickets/getlist" method="get">
+            <form  class="form-inline" action="${viewName}/getlist" method="get">
                 <label for="trainId">Select train: </label>
                 <div class="form-group mx-sm-3">
                     <select class="form-control" name="trainId" id="trainId">
@@ -64,7 +64,7 @@
                     </td>
                     <td>${dto.purchaseTime.toLocalDate()} ${dto.purchaseTime.toLocalTime()}</td>
                     <td>
-                        <form action="../${viewName}/delete/${dto.id}" method="get">
+                        <form action="${viewName}/delete/${dto.id}" method="get">
                             <button type="submit" class="btn btn-primary">Cancel ticket</button>
                         </form>
                     </td>
@@ -74,7 +74,8 @@
         </table>
 
     </div>
-    <a href="/"  role="button" class="btn btn-primary btn-lg">Back to admin page</a>
+    <a href="${adminPage}"  role="button" class="btn btn-primary btn-lg">Back to admin page</a>
+</div>
 </div>
 </body>
 </html>

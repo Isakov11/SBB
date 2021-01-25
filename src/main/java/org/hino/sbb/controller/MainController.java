@@ -3,18 +3,33 @@ package org.hino.sbb.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
-@ControllerAdvice
-public class MainController {
-    private String viewName = "index";
 
-    @GetMapping(value = "/")
-    public ModelAndView allStations() {
+public class MainController {
+
+    @GetMapping(value = "/login")
+    public ModelAndView loginPage() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName(viewName);
+        modelAndView.setViewName("/login");
         return modelAndView;
     }
+
+    /*@PostMapping(value = "/login")
+    public ModelAndView login() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("/login");
+        return modelAndView;
+    }*/
+
+    @GetMapping(value = {"/index","/"})
+    public ModelAndView indexPage() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("/index");
+        return modelAndView;
+    }
+
 }

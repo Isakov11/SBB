@@ -9,7 +9,7 @@ import javax.servlet.Filter;
 public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[]{JPAConfig.class};
+        return new Class[]{WebSecurityConfig.class, JPAConfig.class};
     }
 
     @Override

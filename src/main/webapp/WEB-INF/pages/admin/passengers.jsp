@@ -12,7 +12,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/resources/css/bootstrap.4.5.3.min.css">
 
-    <title>Passenger</title>
+    <title>Passengers</title>
 </head>
 <body>
 
@@ -34,11 +34,11 @@
                     <td>${dto.secondName}</td>
                     <td>${dto.birthDate.toString()}</td>
                     <td>
-                        <form action="../${viewName}/edit/${dto.id}" method="get">
+                        <form action="${viewName}/edit/${dto.id}" method="get">
                             <button type="submit" class="btn btn-primary">Edit</button>
                         </form>
                         <br>
-                        <form action="../${viewName}/delete/${dto.id}" method="get">
+                        <form action="${viewName}/delete/${dto.id}" method="get">
                             <button type="submit" class="btn btn-primary">Delete</button>
                         </form>
                     </td>
@@ -46,9 +46,9 @@
             </c:forEach>
        </tbody>
    </table>
-       <a href="../${viewName}/add"  role="button" class="btn btn-primary btn-lg">Add passenger</a>
+       <a href="${viewName}/add"  role="button" class="btn btn-primary btn-lg">Add passenger</a>
    </div>
 </div>
-<a href="/"  role="button" class="btn btn-primary btn-lg">Back to admin page</a>
+<a href="${adminPage}"  role="button" class="btn btn-primary btn-lg">Back to admin page</a>
 </body>
 </html>
