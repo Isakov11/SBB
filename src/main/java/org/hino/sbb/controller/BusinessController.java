@@ -4,6 +4,7 @@ import org.hino.sbb.dto.PassengerDTO;
 import org.hino.sbb.dto.StationDTO;
 import org.hino.sbb.dto.TrainDTO;
 import org.hino.sbb.model.Passenger;
+import org.hino.sbb.model.Ticket;
 import org.hino.sbb.model.Train;
 import org.hino.sbb.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,17 +101,31 @@ public class BusinessController {
                                   ) {
         ModelAndView modelAndView = new ModelAndView();
         PassengerDTO passengerDTO = new PassengerDTO(name,secondName,birthDate);
+
+        TrainDTO trainDTO = trainService.findDTObyId(trainId);
+        String firstStation = trainDTO.getTrainRoute().getFirst().getStationName();
+        String lastStation = trainDTO.getTrainRoute().getLast().getStationName();
+
         boolean passengerCheck = businessService.isPassengerRegisteredOnTrain(passengerDTO,trainId);
         boolean trainCheck = businessService.checkTrainAvailability(trainId, departStationId);
         String resultMessage;
         if (!passengerCheck && trainCheck) {
-            ticketService.create(passengerDTO, trainId);
-            resultMessage = "Ticket successfully registered";
+            Ticket ticket = ticketService.create(passengerDTO, trainId);
+            resultMessage = "Ticket № " + ticket.getId() + " successfully registered";
         }
         else{
             resultMessage="Something goes wrong";
+            if (!passengerCheck) {
+                resultMessage="Passenger already registered";
+            }
+            if (!trainCheck) {
+                resultMessage="Train left or less 10 minutes left before departure";
+            }
         }
         modelAndView.setViewName("wizard/step3");
+        modelAndView.addObject("trainDTO", trainDTO);
+        modelAndView.addObject("firstStation", firstStation);
+        modelAndView.addObject("lastStation", lastStation);
         modelAndView.addObject("resultMessage", resultMessage);
         modelAndView.addObject("adminPage", adminPage);
         return modelAndView;
