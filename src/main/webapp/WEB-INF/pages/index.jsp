@@ -9,63 +9,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="/resources/css/bootstrap.4.5.3.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <title>Index page</title>
 </head>
 <body>
+<jsp:include page="navigation.jsp"/>
+
     <div class="container-fluid">
-        <div class="row text-center">
-            <div class="col">
-                <sec:authorize access= "hasRole('ADMIN')">
-                    <h1>Admin page</h1>
-                </sec:authorize>
+        <div class="row justify-content-center">
+            <sec:authorize access="isAuthenticated()">
+                <h1>Admin page</h1>
+            </sec:authorize>
+        </div>
+        <div class="row justify-content-start">
+            <div class="col-2 justify-content-center">
+
+            </div>
+            <div class="col-8 justify-content-center">
+
             </div>
         </div>
-        <div class="row">
-            <div class="col-2"></div>
-            <div class="col-8">
-                <sec:authorize access="isAuthenticated()">
-                    <div>
-                        <a href="/admin/stations"  role="button" class="btn btn-primary btn-lg">Stations list</a>
-                    </div>
-                    <br>
-                    <div>
-                        <a href="/admin/trains"  role="button" class="btn btn-primary btn-lg">Trains list</a>
-                    </div>
-                    <br>
-                    <div>
-                        <a href="/admin/schedules"  role="button" class="btn btn-primary btn-lg">Schedules</a>
-                    </div>
-                    <br>
-                    <div>
-                        <a href="/admin/tickets"  role="button" class="btn btn-primary btn-lg">Registered passengers</a>
-                    </div>
-                    <br>
-                    <div>
-                        <a href="/admin/passengers"  role="button" class="btn btn-primary btn-lg">All passengers list</a>
-                    </div>
-                    <br>
-                    <div>
-                        <a href="/admin/users"  role="button" class="btn btn-primary btn-lg">Users</a>
-                    </div>
-                    <br>
-                </sec:authorize>
-                <div>
-                    <a href="/wizard/step1"  role="button" class="btn btn-primary btn-lg">Add ticket</a>
-                </div>
-                <br>
-                <sec:authorize access="!isAuthenticated()">
-                <div>
-                    <a href="/login"  role="button" class="btn btn-primary btn-lg">Login</a>
-                </div>
-                </sec:authorize>
-                <sec:authorize access="isAuthenticated()">
-                    <div>
-                        <a href="/logout"  role="button" class="btn btn-primary btn-lg">Logout</a>
-                    </div>
-                </sec:authorize>
-            </div>
-            </div>
     </div>
 </body>
 </html>

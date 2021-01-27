@@ -29,8 +29,8 @@
         <title>Edit</title></c:if>
 </head>
 <body>
-
-<div class="container">
+<jsp:include page ="../navigation.jsp"/>
+<div class="container-fluid">
     <c:if test="${empty dto.id}">
         <c:url value="${viewName}/add" var="var"/>
     </c:if>
@@ -116,17 +116,13 @@
                 </div>
                 </div>
             <br>
-                <button type="submit" class="btn btn-primary" >Save</button>
+                <button type="submit" class="btn btn-primary">Save</button>
             <br>
         </div>
 
     </form>
     </div>
 </div>
-    <c:if test="${empty dto.id}">
-        <a href="./"  role="button" class="btn btn-primary btn-lg">Back</a></c:if>
-    <c:if test="${!empty dto.id}">
-        <a href="../"  role="button" class="btn btn-primary btn-lg">Back</a></c:if>
 </div>
 </body>
 </html>
