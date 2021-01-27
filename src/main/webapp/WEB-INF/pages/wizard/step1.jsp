@@ -35,8 +35,8 @@
                 <div class="col-8 align-self-center justify-content-center">
                     <form action="/wizard/trainfinder" method="get">
                             <div class="row justify-content-center">
-                                <div class="form-group">
-                                    <label for="departStationId">Departure Station</label>
+                                <div class="col-sm-6">
+                                    <label for="departStationId" class="form-label">Departure Station</label>
                                     <select class="form-control" name="departStationId" id="departStationId">
                                         <c:forEach var="depStation" items="${stationList}">
                                             <option value="${depStation.id}">${depStation.name}</option>
@@ -44,9 +44,9 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="row justify-content-center">
-                                <div class="form-group">
-                                    <label for="arrivalStationId">Arrival Station</label>
+                            <div class="row justify-content-center my-sm-2">
+                                <div class="col-sm-6">
+                                    <label for="arrivalStationId" class="form-label">Arrival Station</label>
                                     <select class="form-control" name="arrivalStationId" id="arrivalStationId">
                                         <c:forEach var="arrStation" items="${stationList}">
                                             <option value="${arrStation.id}">${arrStation.name}</option>
@@ -54,13 +54,13 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="row justify-content-center">
-                                <div class="form-group">
-                                <label for="DepartDate" >Depart date</label>
-                                <input class="form-control" type="date" value="" name="DepartDate"  id="DepartDate">
+                            <div class="row justify-content-center my-sm-2">
+                                <div class="col-sm-6">
+                                    <label for="DepartDate"  class="form-label">Depart date</label>
+                                    <input class="form-control" type="date" value="" name="DepartDate"  id="DepartDate">
                                 </div>
                             </div>
-                        <div class="row justify-content-center">
+                        <div class="row justify-content-center my-sm-5">
                             <button type="submit" class="btn btn-primary">Find tickets</button>
                         </div>
                     </form>

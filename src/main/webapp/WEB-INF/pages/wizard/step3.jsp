@@ -40,18 +40,20 @@
             <div class="form-col">
                 <div class="row">
                     <label for="name">First name</label>
-                    <input type="text" class="form-control" name="name" id="name" value="${dto.name}"/>
+                    <input type="text" class="form-control" name="name" id="name" value="${dto.name}" required
+                           autofocus/>
                 </div>
                 <div class="row">
                     <label for="secondName">Second name</label>
                     <input type="text" class="form-control" name="secondName" id="secondName"
-                           value="${dto.secondName}"/>
+                           value="${dto.secondName}" required/>
                 </div>
                 <div class="row justify-content-start">
                     <label for="birthDate">Birth date</label>
                 </div>
                 <div class="row justify-content-start">
-                    <input class="form-control" type="date" value="${dto.birthDate}" name="birthDate" id="birthDate">
+                    <input class="form-control" type="date" value="${dto.birthDate}" name="birthDate" id="birthDate"
+                           required>
                 </div>
             </div>
         </div>

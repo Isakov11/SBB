@@ -93,9 +93,9 @@ public class SchedulesService {
         if (scheduleCreateDTO.getDepartureTime() !=null && !scheduleCreateDTO.getDepartureTime().equals(""))        {
             departureTime = LocalDateTime.parse(scheduleCreateDTO.getDepartureTime(),formatter);
         }
-        ScheduleNode entity = new ScheduleNode(0,train,scheduleCreateDTO.getStationOrder(),station,arrivalTime,departureTime);
+        ScheduleNode entity = new ScheduleNode(scheduleCreateDTO.getId(),train,scheduleCreateDTO.getStationOrder(),station,arrivalTime,departureTime);
         //------------------------------------------------------------------------------------------------
-        return mapper.toDto(dao.update(entity));
+        return mapper.toDto(update(entity));
     }
 
     public ScheduleNode delete(long id) {
@@ -109,4 +109,6 @@ public class SchedulesService {
     public Long getStationOrder(long stationId, long trainId){
         return dao.getStationOrder(stationId, trainId);
     }
+
+
 }

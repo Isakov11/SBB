@@ -42,18 +42,20 @@
                 <div class="form-col">
                     <div class="row">
                         <label for="username">username</label>
-                        <input type="text" class="form-control" name="username" id="username" value="${dto.username}"/>
+                        <input type="text" class="form-control" name="username" id="username" value="${dto.username}" required />
                     </div>
                     <div class="row">
                         <label for="password">password</label>
-                        <input type="text" class="form-control" name="password" id="password" value="${dto.password}"/>
+                        <input type="text" class="form-control" name="password" id="password" value="${dto.password}" required />
                     </div>
                     <div class="row">
                         <label for="role">role</label>
-                        <input type="text" class="form-control" name="role" id="role" value="${dto.role}"/>
+                        <input type="text" class="form-control" name="role" id="role" value="${dto.role}" required />
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Save</button>
+                <div class="row my-sm-5 justify-content-center">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
             </form>
         </div>
 
