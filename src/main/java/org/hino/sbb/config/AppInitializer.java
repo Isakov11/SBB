@@ -27,6 +27,7 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
         CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
         characterEncodingFilter.setEncoding("UTF-8");
         characterEncodingFilter.setForceEncoding(true);
+        //TODO HiddenHttpMethodFilter
         return new Filter[] {characterEncodingFilter};
     }
 

@@ -57,7 +57,7 @@
                         <td>${dto.station.name}</td>
                         <td>${dto.arrivalTime.toLocalDate()} ${dto.arrivalTime.toLocalTime()}</td>
                         <td>${dto.departureTime.toLocalDate()} ${dto.departureTime.toLocalTime()}</td>
-                        <td>
+                        <td class="align-items-center">
                             <form action="${viewName}/edit/${dto.id}" method="get">
                                 <button type="submit" class="btn btn-primary">Edit</button>
                             </form>

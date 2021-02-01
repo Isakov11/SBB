@@ -106,23 +106,25 @@ public class BusinessController {
         String firstStation = trainDTO.getTrainRoute().getFirst().getStationName();
         String lastStation = trainDTO.getTrainRoute().getLast().getStationName();
 
-        boolean passengerCheck = businessService.isPassengerRegisteredOnTrain(passengerDTO,trainId);
-        boolean trainCheck = businessService.checkTrainAvailability(trainId, departStationId);
+        boolean isPassengerRegistered = businessService.isPassengerRegisteredOnTrain(passengerDTO,trainId);
+        boolean isTrainAvailiable = businessService.checkTrainAvailability(trainId, departStationId);
         String resultMessage;
-        if (!passengerCheck && trainCheck) {
+        if (!isPassengerRegistered && isTrainAvailiable) {
             Ticket ticket = ticketService.create(passengerDTO, trainId);
             resultMessage = "Ticket № " + ticket.getId() + " successfully registered";
         }
         else{
-            resultMessage="Something goes wrong";
-            if (!passengerCheck) {
-                resultMessage="Passenger already registered";
+            resultMessage = "Something goes wrong";
+            if (isPassengerRegistered) {
+                resultMessage = "Passenger already registered";
             }
-            if (!trainCheck) {
-                resultMessage="Train left or less 10 minutes left before departure";
+            if (!isTrainAvailiable) {
+                resultMessage = "Train left or less 10 minutes left before departure";
             }
         }
         modelAndView.setViewName("wizard/step3");
+        modelAndView.addObject("trainId", trainDTO.getId());
+        modelAndView.addObject("departStationId", departStationId);
         modelAndView.addObject("trainDTO", trainDTO);
         modelAndView.addObject("firstStation", firstStation);
         modelAndView.addObject("lastStation", lastStation);

@@ -30,8 +30,6 @@ public class BusinessService {
     @Autowired
     private TicketService ticketService;
 
-
-
     public List<TrainDTO> getDirectTrains(long departStationId, long arrivalStationId, String departDate){
         List<TrainDTO> crossTrains = null;
         if (departDate == null || departDate.equals("")) {
