@@ -55,9 +55,22 @@ public class TrainDAO {
         return trains;
     }
 
-    public List<Train> getTrainsByDepartAndArrivalStationIds(long departId,long arrivalId)  {
+    /*public List<Train> getTrainsByDepartAndArrivalStationIds(long departId,long arrivalId)  {
         String query = "SELECT * from trains where id IN(SELECT train_id as id from schedules where station_id = :departId)" +
                 "AND id IN(SELECT train_id as id from schedules where station_id = :arrivalId)";
+        List<Train> trains = entityManager.createNativeQuery(query, Train.class).setParameter("departId",departId)
+                .setParameter("arrivalId",arrivalId)
+                .getResultList();
+        return trains;
+    }*/
+
+    //Improved query
+    public List<Train> getTrainsByDepartAndArrivalStationIds(long departId,long arrivalId)  {
+        String query = "SELECT t.id, t.name, t.number, t.seats_number from trains t\n" +
+                "INNER JOIN schedules s ON (s.train_id = t.id AND s.station_id = :departId)\n" +
+                "INNER JOIN schedules s1 ON (s1.train_id = t.id AND s1.station_id = :arrivalId)\n" +
+                "WHERE \n" +
+                "s.departure_time < s1.arrival_time";
         List<Train> trains = entityManager.createNativeQuery(query, Train.class).setParameter("departId",departId)
                 .setParameter("arrivalId",arrivalId)
                 .getResultList();
@@ -65,18 +78,21 @@ public class TrainDAO {
     }
 
     public List<Train> getTrainsByDepartAndArrivalStationIdsAndDate(long departId,long arrivalId, LocalDate departDate)  {
-        /*DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
-        String formattedDate = departDate.format(formatter);*/
-        String query = "SELECT * from trains where " +
-                "id IN(SELECT train_id as id from schedules where station_id = :departId " +
-                "and Date(departure_time) = \'" + departDate.toString() + "\') " +
-                "AND id IN(SELECT train_id as id from schedules where station_id = :arrivalId )";
+        String departDateS =departDate.toString();
+        String query = "SELECT t.id, t.name, t.number, t.seats_number from trains t\n" +
+                "INNER JOIN schedules s ON (s.train_id = t.id AND s.station_id = :departId)\n" +
+                "INNER JOIN schedules s1 ON (s1.train_id = t.id AND s1.station_id = :arrivalId)\n" +
+                "WHERE \n" +
+                "s.departure_time < s1.arrival_time \n" +
+                "AND \n" +
+                "Date(s.departure_time) = :departDate";
         List<Train> trains = entityManager.createNativeQuery(query, Train.class)
                 .setParameter("departId",departId)
                 .setParameter("arrivalId",arrivalId)
-                /*.setParameter("departDate",departDate.toString())*/
+                .setParameter("departDate",departDateS)
                 .getResultList();
         return trains;
+
     }
 
     public boolean isTrainHasFreeSeats(long trainId)  {

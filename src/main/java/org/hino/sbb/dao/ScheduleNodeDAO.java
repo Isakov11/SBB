@@ -1,6 +1,7 @@
 package org.hino.sbb.dao;
 
 import org.hino.sbb.model.ScheduleNode;
+import org.hino.sbb.model.Train;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -50,9 +51,16 @@ public class ScheduleNodeDAO {
                     .getSingleResult();
         }
         catch(NoResultException e){
-
         }
         return order.longValue();
-
     }
+
+/*    public List<ScheduleNode> getScheduleByTrain(long departId, long arrivalId)  {
+        String query = "SELECT * from trains where id IN(SELECT train_id as id from schedules where station_id = :departId)" +
+                "AND id IN(SELECT train_id as id from schedules where station_id = :arrivalId)";
+        List<Train> trains = entityManager.createNativeQuery(query, Train.class).setParameter("departId",departId)
+                .setParameter("arrivalId",arrivalId)
+                .getResultList();
+        return trains;
+    }*/
 }
