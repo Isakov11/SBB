@@ -16,9 +16,6 @@ public class ScheduleNode extends AbstractEntity{
     @JoinColumn(name = "train_id")
     private Train train;
 
-    @Column(name = "station_order")
-    private long stationOrder;
-
     @ManyToOne(fetch=FetchType.LAZY, optional = false)
     @JoinColumn(name = "station_id")
     private Station station;
@@ -32,10 +29,9 @@ public class ScheduleNode extends AbstractEntity{
     public ScheduleNode() {
     }
 
-    public ScheduleNode(long id, Train train, long stationOrder, Station station, LocalDateTime arrivalTime, LocalDateTime departureTime) {
+    public ScheduleNode(long id, Train train, Station station, LocalDateTime arrivalTime, LocalDateTime departureTime) {
         super.setId(id);
         this.train = train;
-        this.stationOrder = stationOrder;
         this.station = station;
         this.arrivalTime = arrivalTime;
         this.departureTime = departureTime;
@@ -47,14 +43,6 @@ public class ScheduleNode extends AbstractEntity{
 
     public void setTrain(Train train) {
         this.train = train;
-    }
-
-    public long getStationOrder() {
-        return stationOrder;
-    }
-
-    public void setStationOrder(long stationOrder) {
-        this.stationOrder = stationOrder;
     }
 
     public Station getStation() {

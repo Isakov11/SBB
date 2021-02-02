@@ -41,7 +41,7 @@ public class ScheduleNodeDAO {
         return entity;
     }
 
-    public long getStationOrder(long stationId, long trainId){
+/*    public long getStationOrder(long stationId, long trainId){
         Integer order = -1;
         try {
             String query = "SELECT station_order FROM schedules WHERE station_id = :stationId AND train_id = :trainId";
@@ -53,14 +53,5 @@ public class ScheduleNodeDAO {
         catch(NoResultException e){
         }
         return order.longValue();
-    }
-
-/*    public List<ScheduleNode> getScheduleByTrain(long departId, long arrivalId)  {
-        String query = "SELECT * from trains where id IN(SELECT train_id as id from schedules where station_id = :departId)" +
-                "AND id IN(SELECT train_id as id from schedules where station_id = :arrivalId)";
-        List<Train> trains = entityManager.createNativeQuery(query, Train.class).setParameter("departId",departId)
-                .setParameter("arrivalId",arrivalId)
-                .getResultList();
-        return trains;
     }*/
 }

@@ -86,27 +86,10 @@ public class TrainService {
 
     public List<TrainDTO> getTrainsByDepartAndArrivalStationIds(long departId,long arrivalId)  {
         List<Train> trainsFromDAO = dao.getTrainsByDepartAndArrivalStationIds(departId, arrivalId);
-        /*List<Train> trainsResultList = new LinkedList<>();
-        for (Train train : trainsFromDAO){
-           Long departOrder = schedulesService.getStationOrder(departId,train.getId());
-           Long arrivalOrder = schedulesService.getStationOrder(arrivalId,train.getId());
-           if (departOrder < arrivalOrder){
-               trainsResultList.add(train);
-           }
-        }
-        return mapper.toDto(trainsResultList);*/
         return mapper.toDto(trainsFromDAO);
     }
     public List<TrainDTO> getTrainsByDepartAndArrivalStationIdsAndDate(long departId,long arrivalId, LocalDate departDate)  {
         List<Train> trainsFromDAO = dao.getTrainsByDepartAndArrivalStationIdsAndDate(departId, arrivalId,departDate);
-        /*List<Train> trainsResultList = new LinkedList<>();
-        for (Train train : trainsFromDAO){
-            Long departOrder = schedulesService.getStationOrder(departId,train.getId());
-            Long arrivalOrder = schedulesService.getStationOrder(arrivalId,train.getId());
-            if (departOrder < arrivalOrder){
-                trainsResultList.add(train);
-            }
-        }*/
         return mapper.toDto(trainsFromDAO);
     }
 

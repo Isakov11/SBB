@@ -59,10 +59,6 @@
                     </div>
                 </div>
                 <div class="col">
-                    <label for="order">Station order</label>
-                    <input type="text" class="form-control" name="stationOrder" id="order" value="${dto.stationOrder}"/>
-                </div>
-                <div class="col">
                     <div class="form-group">
                         <label for="station">Station</label>
                         <select class="form-control" name="stationId"  id="station">

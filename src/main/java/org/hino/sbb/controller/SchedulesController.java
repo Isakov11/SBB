@@ -11,10 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 
@@ -35,7 +33,7 @@ public class SchedulesController {
 
     @GetMapping(value = viewName)
     public ModelAndView allSchedules() {
-        Set<ScheduleNodeDTO> dtoList = service.findAllDTO();
+        List<ScheduleNodeDTO> dtoList = service.findAllDTO();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName(viewName);
         modelAndView.addObject("DTOList", dtoList);
