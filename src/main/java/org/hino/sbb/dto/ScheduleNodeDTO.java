@@ -6,8 +6,6 @@ public class ScheduleNodeDTO extends AbstractDTO {
 
     private TrainDTO train;
 
-    private long stationOrder;
-
     private StationDTO station;
 
     private LocalDateTime arrivalTime;
@@ -16,11 +14,10 @@ public class ScheduleNodeDTO extends AbstractDTO {
 
     public ScheduleNodeDTO() {}
 
-    public ScheduleNodeDTO(long id, TrainDTO train, long stationOrder, StationDTO station,
+    public ScheduleNodeDTO(long id, TrainDTO train, StationDTO station,
                            LocalDateTime arrivalTime, LocalDateTime departureTime) {
         super.setId(id);
         this.train = train;
-        this.stationOrder = stationOrder;
         this.station = station;
         this.arrivalTime = arrivalTime;
         this.departureTime = departureTime;
@@ -32,14 +29,6 @@ public class ScheduleNodeDTO extends AbstractDTO {
 
     public void setTrain(TrainDTO train) {
         this.train = train;
-    }
-
-    public long getStationOrder() {
-        return stationOrder;
-    }
-
-    public void setStationOrder(long stationOrder) {
-        this.stationOrder = stationOrder;
     }
 
     public StationDTO getStation() {
@@ -70,8 +59,6 @@ public class ScheduleNodeDTO extends AbstractDTO {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append(train.getName()).
-                append(", ").
-                append(stationOrder).
                 append(", ").
                 append(station.getName()).
                 append(", ");

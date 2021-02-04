@@ -1,6 +1,7 @@
 package org.hino.sbb.dao;
 
 import org.hino.sbb.model.ScheduleNode;
+import org.hino.sbb.model.Train;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -40,7 +41,7 @@ public class ScheduleNodeDAO {
         return entity;
     }
 
-    public long getStationOrder(long stationId, long trainId){
+/*    public long getStationOrder(long stationId, long trainId){
         Integer order = -1;
         try {
             String query = "SELECT station_order FROM schedules WHERE station_id = :stationId AND train_id = :trainId";
@@ -50,9 +51,7 @@ public class ScheduleNodeDAO {
                     .getSingleResult();
         }
         catch(NoResultException e){
-
         }
         return order.longValue();
-
-    }
+    }*/
 }

@@ -32,20 +32,14 @@
        <div class="col-8">
            <table class="table table-striped table-bordered">
                <thead><tr>
-                   <th scope="col">Name</th>
-                   <th scope="col">Role</th>
+                   <th scope="col">Username</th>
                    <th scope="col">Action</th>
                </tr></thead>
                <tbody>
                     <c:forEach var="dto" items="${DTOList}">
                         <tr>
                             <td>${dto.username}</td>
-                            <td>${dto.role}</td>
                             <td>
-                                <form action="${viewName}/edit/${dto.id}" method="get">
-                                    <button type="submit" class="btn btn-primary">Edit</button>
-                                </form>
-                                <br>
                                 <form action="${viewName}/delete/${dto.id}" method="get">
                                     <button type="submit" class="btn btn-primary">Delete</button>
                                 </form>

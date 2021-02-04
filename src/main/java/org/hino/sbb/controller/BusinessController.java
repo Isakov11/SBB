@@ -1,9 +1,11 @@
 package org.hino.sbb.controller;
 
+import org.apache.log4j.Logger;
 import org.hino.sbb.dto.PassengerDTO;
 import org.hino.sbb.dto.StationDTO;
 import org.hino.sbb.dto.TrainDTO;
 import org.hino.sbb.model.Passenger;
+import org.hino.sbb.model.Ticket;
 import org.hino.sbb.model.Train;
 import org.hino.sbb.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,11 +45,6 @@ public class BusinessController {
         List<StationDTO> stationList = stationService.findAllDTO();
         modelAndView.addObject("stationList", stationList);
         modelAndView.addObject("adminPage", adminPage);
-        //modelAndView.addObject("viewName", "tickets");
-        //List<TrainDTO> trainsList = trainService.findAllDTO();
-        //List<PassengerDTO> passengerList = passengerService.findAllDTO();
-        //modelAndView.addObject("passengersList", passengerList);
-        //modelAndView.addObject("trainsList", trainsList);
         return modelAndView;
     }
 
@@ -100,17 +97,33 @@ public class BusinessController {
                                   ) {
         ModelAndView modelAndView = new ModelAndView();
         PassengerDTO passengerDTO = new PassengerDTO(name,secondName,birthDate);
-        boolean passengerCheck = businessService.isPassengerRegisteredOnTrain(passengerDTO,trainId);
-        boolean trainCheck = businessService.checkTrainAvailability(trainId, departStationId);
+
+        TrainDTO trainDTO = trainService.findDTObyId(trainId);
+        String firstStation = trainDTO.getTrainRoute().getFirst().getStationName();
+        String lastStation = trainDTO.getTrainRoute().getLast().getStationName();
+
+        boolean isPassengerRegistered = businessService.isPassengerRegisteredOnTrain(passengerDTO,trainId);
+        boolean isTrainAvailiable = businessService.checkTrainAvailability(trainId, departStationId);
         String resultMessage;
-        if (!passengerCheck && trainCheck) {
-            ticketService.create(passengerDTO, trainId);
-            resultMessage = "Ticket successfully registered";
+        if (!isPassengerRegistered && isTrainAvailiable) {
+            Ticket ticket = ticketService.create(passengerDTO, trainId);
+            resultMessage = "Ticket № " + ticket.getId() + " successfully registered";
         }
         else{
-            resultMessage="Something goes wrong";
+            resultMessage = "Something goes wrong";
+            if (isPassengerRegistered) {
+                resultMessage = "Passenger already registered";
+            }
+            if (!isTrainAvailiable) {
+                resultMessage = "Train left or less 10 minutes left before departure";
+            }
         }
         modelAndView.setViewName("wizard/step3");
+        modelAndView.addObject("trainId", trainDTO.getId());
+        modelAndView.addObject("departStationId", departStationId);
+        modelAndView.addObject("trainDTO", trainDTO);
+        modelAndView.addObject("firstStation", firstStation);
+        modelAndView.addObject("lastStation", lastStation);
         modelAndView.addObject("resultMessage", resultMessage);
         modelAndView.addObject("adminPage", adminPage);
         return modelAndView;

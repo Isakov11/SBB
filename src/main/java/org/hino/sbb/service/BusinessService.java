@@ -30,14 +30,11 @@ public class BusinessService {
     @Autowired
     private TicketService ticketService;
 
-
-
     public List<TrainDTO> getDirectTrains(long departStationId, long arrivalStationId, String departDate){
         List<TrainDTO> crossTrains = null;
         if (departDate == null || departDate.equals("")) {
             crossTrains = trainService.getTrainsByDepartAndArrivalStationIds(departStationId, arrivalStationId);
         }else{
-            //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd");
             LocalDate ldepartDate = LocalDate.parse(departDate,formatter);
             crossTrains = trainService.getTrainsByDepartAndArrivalStationIdsAndDate(departStationId, arrivalStationId,ldepartDate);

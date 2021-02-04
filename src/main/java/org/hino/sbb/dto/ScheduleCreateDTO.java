@@ -7,7 +7,7 @@ public class ScheduleCreateDTO extends AbstractDTO {
 
     private long trainId;
 
-    private long stationOrder;
+    //private long stationOrder;
 
     private long stationId;
 
@@ -26,13 +26,13 @@ public class ScheduleCreateDTO extends AbstractDTO {
         this.trainId = trainId;
     }
 
-    public long getStationOrder() {
+    /*public long getStationOrder() {
         return stationOrder;
     }
 
     public void setStationOrder(long stationOrder) {
         this.stationOrder = stationOrder;
-    }
+    }*/
 
     public long getStationId() {
         return stationId;

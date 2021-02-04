@@ -38,27 +38,29 @@
         </div>
         <div class="row justify-content-md-center">
             <div class="form-col">
-                <div class="row">
+                <div class="row  my-sm-2">
                     <label for="name">First name</label>
-                    <input type="text" class="form-control" name="name" id="name" value="${dto.name}"/>
+                    <input type="text" class="form-control" name="name" id="name" value="${dto.name}" required
+                           autofocus/>
                 </div>
-                <div class="row">
+                <div class="row  my-sm-2">
                     <label for="secondName">Second name</label>
                     <input type="text" class="form-control" name="secondName" id="secondName"
-                           value="${dto.secondName}"/>
+                           value="${dto.secondName}" required/>
                 </div>
-                <div class="row justify-content-start">
+                <div class="row justify-content-start my-sm-2">
                     <label for="birthDate">Birth date</label>
                 </div>
                 <div class="row justify-content-start">
-                    <input class="form-control" type="date" value="${dto.birthDate}" name="birthDate" id="birthDate">
+                    <input class="form-control" type="date" value="${dto.birthDate}" name="birthDate" id="birthDate"
+                           required>
                 </div>
             </div>
         </div>
         <input type="hidden" name="trainId" value="${trainDTO.id}">
         <input type="hidden" name="departStationId" value="${departStationId}">
     </div>
-    <div class="row my-sm-2 justify-content-center">
+    <div class="row my-sm-5 justify-content-center">
         <button type="submit" class="btn btn-primary">Save</button>
     </div>
     </div>
