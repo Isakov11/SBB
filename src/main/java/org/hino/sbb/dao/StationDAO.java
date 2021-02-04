@@ -1,19 +1,30 @@
 package org.hino.sbb.dao;
 
+import org.apache.log4j.Logger;
 import org.hino.sbb.model.Station;
+import org.hino.sbb.util.exceptions.SbbException;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.LinkedList;
 import java.util.List;
 
 @Repository
 public class StationDAO {
+    private static final Logger logger = Logger.getLogger(StationDAO.class);
 
     @PersistenceContext
     private EntityManager entityManager;
 
-    public List<Station> findAll(){
-        return entityManager.createNamedQuery(Station.FIND_ALL,Station.class).getResultList();
+    public List<Station> findAll() {
+        List<Station> stationList = new LinkedList<>();
+        try{
+            stationList = entityManager.createNamedQuery(Station.FIND_ALL, Station.class).getResultList();
+        }catch(Exception e){
+            logger.warn("Exception in StationDAO - delete()");
+            //throw new SbbException(e);
+        }
+        return stationList;
     }
 
     public Station findById(long id)  {
@@ -30,11 +41,12 @@ public class StationDAO {
         return station;
     }
 
-    public Station delete(Station station){
-        if (entityManager.contains(station)) {
+    public Station delete(Station station) {
+        try {
             entityManager.remove(station);
-        } else {
-            entityManager.remove(entityManager.merge(station));
+        }catch(Exception e){
+            logger.warn("Exception in StationDAO - delete()");
+            //throw new SbbException(e);
         }
         return station;
     }

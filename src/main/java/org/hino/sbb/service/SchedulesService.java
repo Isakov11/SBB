@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -66,16 +67,23 @@ public class SchedulesService {
         Train train = trainService.findById(scheduleCreateDTO.getTrainId());
         Station station = stationService.findById(scheduleCreateDTO.getStationId());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
+        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         LocalDateTime arrivalTime = null;
         LocalDateTime departureTime = null;
         if (scheduleCreateDTO.getArrivalTime() != null && !scheduleCreateDTO.getArrivalTime().equals("")) {
-            arrivalTime = LocalDateTime.parse(scheduleCreateDTO.getArrivalTime(), formatter);
+            arrivalTime = LocalDateTime.parse(scheduleCreateDTO.getArrivalTime(), formatter).
+                    plusYears(LocalDateTime.now().getYear()).
+                    plusMonths(LocalDateTime.now().getMonthValue()).
+                    plusDays(LocalDateTime.now().getDayOfMonth());
         }
         else{
             arrivalTime = LocalDateTime.parse("01.01.1753 00:00", formatter);
         }
         if (scheduleCreateDTO.getDepartureTime() != null && !scheduleCreateDTO.getDepartureTime().equals("")) {
-            departureTime = LocalDateTime.parse(scheduleCreateDTO.getDepartureTime(), formatter);
+            departureTime = LocalDateTime.parse(scheduleCreateDTO.getDepartureTime(), formatter).
+                    plusYears(LocalDateTime.now().getYear()).
+                    plusMonths(LocalDateTime.now().getMonthValue()).
+                    plusDays(LocalDateTime.now().getDayOfMonth());
         }
         else{
             departureTime = LocalDateTime.parse("01.01.9999 00:00", formatter);

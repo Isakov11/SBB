@@ -3,6 +3,7 @@ package org.hino.sbb.service;
 import org.hino.sbb.dao.StationDAO;
 import org.hino.sbb.dto.StationDTO;
 import org.hino.sbb.mappers.StationMapper;
+import org.hino.sbb.model.ScheduleNode;
 import org.hino.sbb.model.Station;
 import org.hino.sbb.model.Train;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,7 @@ public class StationService {
 
     @Transactional (readOnly = true)
     public StationDTO findDTObyId(long id) {
-        return mapper.toDto(dao.findById(id));
+        return mapper.toDto(findById(id));
     }
 
     public Station create(Station station) {
@@ -66,15 +67,22 @@ public class StationService {
     }
 
     public Station delete(long id) {
-        Station entity = dao.findById(id);
+        Station entity = findById(id);
         if (entity == null){
             return null;
         }
-        return dao.delete(entity);
+        List<ScheduleNode> stationSchedule = entity.getStationSchedule();
+        if (stationSchedule == null || stationSchedule.isEmpty()){
+            return dao.delete(entity);
+        }
+        return null;
     }
 
     public StationDTO deleteRetDTO(long id) {
-        Station entity = dao.findById(id);
-        return mapper.toDto(dao.delete(entity));
+        Station entity = findById(id);
+        if (entity == null){
+            return null;
+        }
+        return mapper.toDto(delete(id));
     }
 }

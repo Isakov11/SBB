@@ -1,8 +1,10 @@
 package org.hino.sbb.controller;
 
+import org.apache.log4j.Logger;
 import org.hino.sbb.dto.StationDTO;
 import org.hino.sbb.service.StationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -32,10 +34,14 @@ public class StationController  {
 
     @GetMapping(path = viewName + "/{id}")
     public ModelAndView stationById(@PathVariable("id") long id) {
-        StationDTO dto = service.findDTObyId(id);
-        List<StationDTO> dtoList = new LinkedList<>();
-        dtoList.add(dto);
         ModelAndView modelAndView = new ModelAndView();
+        List<StationDTO> dtoList = new LinkedList<>();
+
+        StationDTO dto = service.findDTObyId(id);
+        if (dto != null){
+            dtoList.add(dto);
+        }
+
         modelAndView.setViewName(viewName);
         modelAndView.addObject("DTOList", dtoList);
         modelAndView.addObject("viewName", viewName);
@@ -78,11 +84,12 @@ public class StationController  {
         return modelAndView;
     }
 
-    @GetMapping (value = viewName + "/delete/{id}")
-    public ModelAndView deleteStationById(@PathVariable("id") long id) {
+    @RequestMapping (value = viewName + "/{id}", method = RequestMethod.DELETE)
+    public @ResponseBody ResponseEntity deleteStationById(@PathVariable("id") long id) {
         StationDTO dto = service.deleteRetDTO(id);
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:" + viewName);
-        return modelAndView;
+        if (dto == null) {
+            return ResponseEntity.ok().body("Delete all routes first");
+        }
+        return ResponseEntity.ok().body("ok");
     }
 }

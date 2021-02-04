@@ -1,10 +1,7 @@
 package org.hino.sbb.controller;
 
-import org.hino.sbb.dto.PassengerDTO;
 import org.hino.sbb.dto.UserDTO;
-import org.hino.sbb.model.Passenger;
 import org.hino.sbb.model.User;
-import org.hino.sbb.service.PassengerService;
 import org.hino.sbb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -88,7 +85,7 @@ public class UserController {
         User entity = service.delete(id);
         ModelAndView modelAndView = new ModelAndView();
         if (entity == null){
-            modelAndView.setViewName("error");
+            modelAndView.setViewName("500");
             return modelAndView;
         }
         modelAndView.setViewName("redirect:" + viewName);

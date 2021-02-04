@@ -1,5 +1,6 @@
 package org.hino.sbb.controller;
 
+import org.apache.log4j.Logger;
 import org.hino.sbb.dto.PassengerDTO;
 import org.hino.sbb.dto.StationDTO;
 import org.hino.sbb.dto.TrainDTO;
@@ -44,11 +45,6 @@ public class BusinessController {
         List<StationDTO> stationList = stationService.findAllDTO();
         modelAndView.addObject("stationList", stationList);
         modelAndView.addObject("adminPage", adminPage);
-        //modelAndView.addObject("viewName", "tickets");
-        //List<TrainDTO> trainsList = trainService.findAllDTO();
-        //List<PassengerDTO> passengerList = passengerService.findAllDTO();
-        //modelAndView.addObject("passengersList", passengerList);
-        //modelAndView.addObject("trainsList", trainsList);
         return modelAndView;
     }
 

@@ -1,7 +1,6 @@
 package org.hino.sbb.controller;
 
 import org.hino.sbb.dto.PassengerDTO;
-import org.hino.sbb.mappers.PassengerMapper;
 import org.hino.sbb.model.Passenger;
 import org.hino.sbb.service.PassengerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,7 +85,7 @@ public class PassengerController {
         Passenger entity = service.delete(id);
         ModelAndView modelAndView = new ModelAndView();
         if (entity == null){
-            modelAndView.setViewName("error");
+            modelAndView.setViewName("500");
             return modelAndView;
         }
         modelAndView.setViewName("redirect:" + viewName);

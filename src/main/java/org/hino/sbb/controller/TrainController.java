@@ -4,6 +4,7 @@ import org.hino.sbb.dto.TrainDTO;
 import org.hino.sbb.service.BusinessService;
 import org.hino.sbb.service.TrainService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,10 +20,7 @@ public class TrainController {
     @Autowired
     private TrainService service;
 
-    @Autowired
-    private BusinessService businessService;
-
-        @GetMapping(value = viewName)
+    @GetMapping(value = viewName)
     public ModelAndView allTrains() {
         List<TrainDTO> dtoList = service.findAllDTO();
         ModelAndView modelAndView = new ModelAndView();
@@ -37,7 +35,9 @@ public class TrainController {
     public ModelAndView trainById(@PathVariable("id") long id) {
         TrainDTO dto = service.findDTObyId(id);
         List<TrainDTO> dtoList = new LinkedList<>();
-        dtoList.add(dto);
+        if (dto != null){
+            dtoList.add(dto);
+        }
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName(viewName);
         modelAndView.addObject("DTOList", dtoList);
@@ -45,8 +45,6 @@ public class TrainController {
         modelAndView.addObject("adminPage", adminPage);
         return modelAndView;
     }
-
-
 
     @GetMapping(value = viewName + "/add")
     public ModelAndView addPage() {
@@ -82,11 +80,9 @@ public class TrainController {
         return modelAndView;
     }
 
-    @GetMapping (value = viewName + "/delete/{id}")
-    public ModelAndView deleteTrainById(@PathVariable("id") long id) {
-        TrainDTO dto = service.deleteRetDTO(id);
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:" + viewName);
-        return modelAndView;
+    @RequestMapping (value = viewName + "/{id}", method = RequestMethod.DELETE)
+    public @ResponseBody ResponseEntity deleteTrainById(@PathVariable("id") long id) {
+        service.deleteRetDTO(id);
+        return ResponseEntity.ok().body("ok");
     }
 }
