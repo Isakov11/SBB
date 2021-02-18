@@ -2,6 +2,7 @@ package org.hino.sbb.config;
 
 import org.apache.log4j.Logger;
 import org.hino.sbb.controller.BusinessController;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
@@ -10,7 +11,6 @@ import org.springframework.web.servlet.FrameworkServlet;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import javax.servlet.Filter;
-
 
 public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     private static final Logger logger = Logger.getLogger(AppInitializer.class);

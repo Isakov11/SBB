@@ -1,5 +1,7 @@
 package org.hino.sbb.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.log4j.Logger;
 import org.hino.sbb.dto.StationDTO;
 import org.hino.sbb.service.StationService;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.json.Json;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,6 +19,7 @@ import java.util.List;
 public class StationController  {
     private final String viewName = "/admin/stations";
     private final String adminPage = "/index";
+    private ObjectMapper mapper = new ObjectMapper();
 
     @Autowired
     private StationService service;
@@ -47,6 +51,23 @@ public class StationController  {
         modelAndView.addObject("viewName", viewName);
         modelAndView.addObject("adminPage", adminPage);
         return modelAndView;
+    }
+
+    @GetMapping(path = viewName + "/api/{id}")
+    public String stationByIdApi(@PathVariable("id") long id) {
+        String jsonString = "";
+        List<StationDTO> dtoList = new LinkedList<>();
+
+        StationDTO dto = service.findDTObyId(id);
+        if (dto != null){
+            dtoList.add(dto);
+        }
+        try {
+            jsonString = mapper.writeValueAsString(dto);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return jsonString;
     }
 
     @GetMapping(value = viewName + "/add")
