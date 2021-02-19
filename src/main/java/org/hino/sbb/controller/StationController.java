@@ -19,7 +19,7 @@ import java.util.List;
 public class StationController  {
     private final String viewName = "/admin/stations";
     private final String adminPage = "/index";
-    private ObjectMapper mapper = new ObjectMapper();
+
 
     @Autowired
     private StationService service;
@@ -53,22 +53,7 @@ public class StationController  {
         return modelAndView;
     }
 
-    @GetMapping(path = viewName + "/api/{id}")
-    public String stationByIdApi(@PathVariable("id") long id) {
-        String jsonString = "";
-        List<StationDTO> dtoList = new LinkedList<>();
 
-        StationDTO dto = service.findDTObyId(id);
-        if (dto != null){
-            dtoList.add(dto);
-        }
-        try {
-            jsonString = mapper.writeValueAsString(dto);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return jsonString;
-    }
 
     @GetMapping(value = viewName + "/add")
     public ModelAndView addPage() {

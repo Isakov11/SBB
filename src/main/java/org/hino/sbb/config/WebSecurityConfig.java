@@ -1,4 +1,5 @@
 package org.hino.sbb.config;
+
 import org.hino.sbb.service.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -37,16 +38,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .antMatchers("/index","/login","/wizard/*", "/admin/stations", "/admin/trains").permitAll()
-                    //.antMatchers("/admin/*").access("hasRole('ADMIN')")
-                    //.antMatchers("/admin/**").hasRole("ADMIN")
-                    .anyRequest().authenticated()
+                .antMatchers("/index", "/login", "/wizard/*", "/admin/stations", "/admin/trains",
+                        "/admin/stations/api/*").permitAll()
+                //.antMatchers("/admin/*").access("hasRole('ADMIN')")
+                //.antMatchers("/admin/**").hasRole("ADMIN")
+                .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                    /*.loginPage("/login")*/
-                    .defaultSuccessUrl("/index")
-                    .failureUrl("/login?error=true")
-                    .permitAll()
+                /*.loginPage("/login")*/
+                .defaultSuccessUrl("/index")
+                .failureUrl("/login?error=true")
+                .permitAll()
                 .and()
                 .logout()
                 .permitAll()

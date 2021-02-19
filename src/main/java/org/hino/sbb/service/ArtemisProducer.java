@@ -3,7 +3,7 @@ package org.hino.sbb.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.jms.Destination;
 import javax.jms.JMSContext;
 import javax.jms.JMSProducer;
@@ -19,8 +19,7 @@ public class ArtemisProducer {
 
     private JMSProducer jMSProducer;
 
-    @PostConstruct
-    private void init(){
+    public ArtemisProducer() {
         this.jMSProducer = jMScontext.createProducer();
     }
 

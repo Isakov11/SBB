@@ -1,9 +1,11 @@
 package org.hino.sbb.config;
 
+import org.hino.sbb.service.ArtemisProducer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.core.JmsTemplate;
 
+import javax.annotation.PostConstruct;
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
 import javax.jms.JMSContext;
@@ -71,5 +73,11 @@ public class JMSConfig {
     JMSContext jMScontext(ConnectionFactory connectionFactory) {
         JMSContext context = connectionFactory.createContext(DEFAULT_USERNAME, DEFAULT_PASSWORD);
         return context;
+    }
+
+    @PostConstruct
+    private void init(){
+        ArtemisProducer producer = new ArtemisProducer();
+        producer.send("update");
     }
 }

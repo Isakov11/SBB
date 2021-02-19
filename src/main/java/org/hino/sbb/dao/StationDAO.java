@@ -21,7 +21,7 @@ public class StationDAO {
         try{
             stationList = entityManager.createNamedQuery(Station.FIND_ALL, Station.class).getResultList();
         }catch(Exception e){
-            logger.warn("Exception in StationDAO - delete()");
+            logger.warn("Exception in StationDAO - findAll()");
             //throw new SbbException(e);
         }
         return stationList;

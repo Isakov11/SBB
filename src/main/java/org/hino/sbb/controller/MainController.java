@@ -2,7 +2,6 @@ package org.hino.sbb.controller;
 
 //import org.hino.sbb.service.SimpleMessageSender;
 import org.hino.sbb.service.ArtemisProducer;
-import org.hino.sbb.service.JMSSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
