@@ -75,9 +75,5 @@ public class JMSConfig {
         return context;
     }
 
-    @PostConstruct
-    private void init(){
-        ArtemisProducer producer = new ArtemisProducer();
-        producer.send("update");
-    }
+
 }
