@@ -71,22 +71,6 @@ public class TicketService {
         return create(entity);
     }
 
-    /*public Ticket create(Train train, Passenger passenger) {
-        Ticket entity = new Ticket(LocalDateTime.now(), train, passenger);
-        return create(entity);
-    }*/
-
-    /*public TicketDTO create(TicketCreateDTO ticketDTO) {
-        //-----------------------------------------------------------------------------------------------
-        Train train = trainService.findById(ticketDTO.getTrainId());
-        Passenger passenger = passengerService.findById(ticketDTO.getPassengerId());
-
-        Ticket entity = new Ticket(LocalDateTime.now(), train, passenger);
-        //------------------------------------------------------------------------------------------------
-
-        return mapper.toDto(dao.create(entity));
-    }*/
-
     public Ticket update(Ticket entity) {
         return dao.update(entity);
     }

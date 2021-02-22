@@ -4,6 +4,7 @@ import org.hino.sbb.dto.ScheduleCreateDTO;
 import org.hino.sbb.dto.ScheduleNodeDTO;
 import org.hino.sbb.dto.StationDTO;
 import org.hino.sbb.dto.TrainDTO;
+import org.hino.sbb.service.ArtemisProducer;
 import org.hino.sbb.service.SchedulesService;
 import org.hino.sbb.service.StationService;
 import org.hino.sbb.service.TrainService;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -29,7 +31,11 @@ public class SchedulesController {
     @Autowired
     private SchedulesService service;
 
-    public SchedulesController(){}
+    @Autowired
+    private ArtemisProducer artemisProducer;
+
+    public SchedulesController() {
+    }
 
     @GetMapping(value = viewName)
     public ModelAndView allSchedules() {
@@ -59,7 +65,6 @@ public class SchedulesController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName(viewName + "Edit");
         modelAndView.addObject("viewName", viewName);
-
         List<TrainDTO> trainsList = trainService.findAllDTO();
         List<StationDTO> stationsList = stationService.findAllDTO();
         modelAndView.addObject("stationsList", stationsList);
@@ -68,15 +73,15 @@ public class SchedulesController {
     }
 
     @PostMapping(path = viewName + "/add")
-    public ModelAndView createSchedules(@ModelAttribute("ScheduleCreateDTO") ScheduleCreateDTO scheduleCreateDTO){
-
+    public ModelAndView createSchedules(@ModelAttribute("ScheduleCreateDTO") ScheduleCreateDTO scheduleCreateDTO) {
         service.create(scheduleCreateDTO);
+        artemisProducer.send("create schedule update");
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:" + viewName);
         return modelAndView;
     }
 
-    @GetMapping (value = viewName + "/edit/{id}")
+    @GetMapping(value = viewName + "/edit/{id}")
     public ModelAndView getEditSchedules(@PathVariable("id") long id) {
         ModelAndView modelAndView = new ModelAndView();
         ScheduleNodeDTO dto = service.findDTObyId(id);
@@ -98,12 +103,14 @@ public class SchedulesController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:" + viewName);
         service.update(scheduleCreateDTO);
+        artemisProducer.send("update schedule update");
         return modelAndView;
     }
 
-    @GetMapping (value = viewName + "/delete/{id}")
+    @GetMapping(value = viewName + "/delete/{id}")
     public ModelAndView deleteSchedulesById(@PathVariable("id") long id) {
         service.delete(id);
+        artemisProducer.send("delete schedule update");
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:" + viewName);
         return modelAndView;

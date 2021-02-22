@@ -3,7 +3,6 @@ package org.hino.sbb.service;
 import org.hino.sbb.dao.TrainDAO;
 import org.hino.sbb.dto.TrainDTO;
 import org.hino.sbb.mappers.TrainMapper;
-import org.hino.sbb.model.ScheduleNode;
 import org.hino.sbb.model.Train;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

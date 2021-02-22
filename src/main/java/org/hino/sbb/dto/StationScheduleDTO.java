@@ -1,14 +1,12 @@
 package org.hino.sbb.dto;
 
-import java.time.LocalDateTime;
-
 public class StationScheduleDTO {
 
     private String trainNumber;
 
-    private LocalDateTime arrivalTime;
+    private String arrivalTime;
 
-    private LocalDateTime departureTime;
+    private String departureTime;
 
     public StationScheduleDTO() {
     }
@@ -21,29 +19,26 @@ public class StationScheduleDTO {
         this.trainNumber = trainNumber;
     }
 
-    public LocalDateTime getArrivalTime() {
+    public String getArrivalTime() {
         return arrivalTime;
     }
 
-    public void setArrivalTime(LocalDateTime arrivalTime) {
+    public void setArrivalTime(String arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
 
-    public LocalDateTime getDepartureTime() {
+    public String getDepartureTime() {
         return departureTime;
     }
 
-    public void setDepartureTime(LocalDateTime departureTime) {
+    public void setDepartureTime(String departureTime) {
         this.departureTime = departureTime;
     }
 
     @Override
     public String toString() {
-        String result = "Train № " + trainNumber + ", "
-                + (arrivalTime == null ? "Initial station" : (arrivalTime.toLocalDate() + " " + arrivalTime.toLocalTime()))
-                + " — "
-                + (departureTime == null ? "Final station" : (departureTime.toLocalDate() + " " + departureTime.toLocalTime()));
-
-        return result;
+        return  "Train № " + trainNumber +
+                " arrival Time " + arrivalTime +
+                " departure Time " + departureTime;
     }
 }

@@ -6,9 +6,11 @@ import org.hino.sbb.service.TrainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -55,10 +57,14 @@ public class TrainController {
     }
 
     @PostMapping(path = viewName + "/add")
-    public ModelAndView createTrain(@ModelAttribute("dto") TrainDTO dto) {
-        service.create(dto);
+    public ModelAndView createTrain(@Valid @ModelAttribute("dto") TrainDTO dto,
+                                    BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:" + viewName);
+        if (bindingResult.hasErrors()) {
+            return modelAndView;
+        }
+        service.create(dto);
         return modelAndView;
     }
 
@@ -73,9 +79,13 @@ public class TrainController {
     }
 
     @PostMapping(value = viewName + "/edit")
-    public ModelAndView editTrain(@ModelAttribute("dto") TrainDTO dto) {
+    public ModelAndView editTrain(@Valid @ModelAttribute("dto") TrainDTO dto,
+                                  BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:" + viewName);
+        if (bindingResult.hasErrors()) {
+            return modelAndView;
+        }
         service.update(dto);
         return modelAndView;
     }

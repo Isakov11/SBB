@@ -1,14 +1,19 @@
 package org.hino.sbb.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.log4j.Logger;
 import org.hino.sbb.dto.StationDTO;
 import org.hino.sbb.service.StationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.json.Json;
+import javax.validation.Valid;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,7 +24,6 @@ public class StationController  {
 
     @Autowired
     private StationService service;
-
 
     @GetMapping(value = viewName)
     public ModelAndView allStations() {
@@ -58,11 +62,15 @@ public class StationController  {
     }
 
     @PostMapping(path = viewName + "/add")
-    public ModelAndView createStation(@ModelAttribute("dto") StationDTO dto) {
-
-        service.create(dto);
+    public ModelAndView createStation(@Valid @ModelAttribute("dto") StationDTO dto,
+                                      BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:" + viewName);
+        if (bindingResult.hasErrors()) {
+            modelAndView.setViewName("redirect:" + viewName + "/add");
+            return modelAndView;
+        }
+        service.create(dto);
         return modelAndView;
     }
 
@@ -77,9 +85,14 @@ public class StationController  {
     }
 
     @PostMapping(value = viewName + "/edit")
-    public ModelAndView editStation(@ModelAttribute("dto") StationDTO dto) {
+    public ModelAndView editStation(@Valid @ModelAttribute("dto") StationDTO dto,
+                                    BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:" + viewName);
+        if (bindingResult.hasErrors()) {
+            modelAndView.setViewName("redirect:" + viewName + "/edit/"+ dto.getId()+"?");
+            return modelAndView;
+        }
         service.update(dto);
         return modelAndView;
     }

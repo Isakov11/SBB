@@ -40,18 +40,4 @@ public class ScheduleNodeDAO {
         }
         return entity;
     }
-
-/*    public long getStationOrder(long stationId, long trainId){
-        Integer order = -1;
-        try {
-            String query = "SELECT station_order FROM schedules WHERE station_id = :stationId AND train_id = :trainId";
-             order = (Integer) entityManager.createNativeQuery(query)
-                    .setParameter("stationId",stationId)
-                     .setParameter("trainId",trainId)
-                    .getSingleResult();
-        }
-        catch(NoResultException e){
-        }
-        return order.longValue();
-    }*/
 }

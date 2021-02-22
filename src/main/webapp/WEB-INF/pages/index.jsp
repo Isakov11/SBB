@@ -36,9 +36,7 @@
         <div class="col-2 justify-content-center">
 
         </div>
-        <div class="col-8 justify-content-center">
 
-        </div>
     </div>
 </div>
 </body>

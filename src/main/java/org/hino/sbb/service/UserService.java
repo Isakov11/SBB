@@ -1,25 +1,16 @@
 package org.hino.sbb.service;
 
-import org.hino.sbb.dao.PassengerDAO;
 import org.hino.sbb.dao.RoleDAO;
 import org.hino.sbb.dao.UserDAO;
-import org.hino.sbb.dto.PassengerDTO;
 import org.hino.sbb.dto.UserDTO;
-import org.hino.sbb.mappers.PassengerMapper;
 import org.hino.sbb.mappers.UserMapper;
-import org.hino.sbb.model.Passenger;
-import org.hino.sbb.model.Role;
 import org.hino.sbb.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 
 @Service

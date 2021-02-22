@@ -1,11 +1,9 @@
 package org.hino.sbb.mappers;
 
-import org.hino.sbb.dto.ScheduleNodeDTO;
 import org.hino.sbb.dto.StationScheduleDTO;
 import org.hino.sbb.model.ScheduleNode;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-
 import java.util.Collection;
 import java.util.Set;
 

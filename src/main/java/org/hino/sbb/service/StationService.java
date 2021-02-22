@@ -5,7 +5,6 @@ import org.hino.sbb.dto.StationDTO;
 import org.hino.sbb.mappers.StationMapper;
 import org.hino.sbb.model.ScheduleNode;
 import org.hino.sbb.model.Station;
-import org.hino.sbb.model.Train;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

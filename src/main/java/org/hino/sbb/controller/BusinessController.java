@@ -4,23 +4,24 @@ import org.apache.log4j.Logger;
 import org.hino.sbb.dto.PassengerDTO;
 import org.hino.sbb.dto.StationDTO;
 import org.hino.sbb.dto.TrainDTO;
-import org.hino.sbb.model.Passenger;
 import org.hino.sbb.model.Ticket;
-import org.hino.sbb.model.Train;
 import org.hino.sbb.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Valid;
+import javax.validation.Validator;
 import java.util.List;
+import java.util.Set;
 
 
 @Controller
 public class BusinessController {
+    private static final Logger logger = Logger.getLogger(BusinessController.class);
     private final String adminPage = "/admin/index";
 
     @Autowired
@@ -35,6 +36,8 @@ public class BusinessController {
     @Autowired
     private StationService stationService;
 
+    @Autowired
+    Validator validator;
 
     //Wizard step 1
     @GetMapping(value = "/wizard/step1")
@@ -50,10 +53,10 @@ public class BusinessController {
 
     //Wizard step 2
     @GetMapping(value = "/wizard/trainfinder")
-    public ModelAndView findTrainsForRoute(@RequestParam (name = "departStationId") long departStationId,
-                                           @RequestParam (name = "arrivalStationId") long arrivalStationId,
-                                           @RequestParam (name = "DepartDate", required = false) String departDate
-    ){
+    public ModelAndView findTrainsForRoute(@RequestParam(name = "departStationId") long departStationId,
+                                           @RequestParam(name = "arrivalStationId") long arrivalStationId,
+                                           @RequestParam(name = "DepartDate", required = false) String departDate
+    ) {
         List<TrainDTO> trains = businessService.getDirectTrains(departStationId, arrivalStationId, departDate);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("/wizard/step2");
@@ -64,13 +67,12 @@ public class BusinessController {
     }
 
     //Wizard step 3
-    @GetMapping (value = "/wizard/trainselecter")
+    @GetMapping(value = "/wizard/trainselecter")
     public ModelAndView checkTrainAvailability(@RequestParam("trainId") long trainId,
                                                @RequestParam("departStationId") long departStationId) {
         ModelAndView modelAndView = new ModelAndView();
         boolean trainCheck = businessService.checkTrainAvailability(trainId, departStationId);
-
-        if (trainCheck){
+        if (trainCheck) {
             TrainDTO trainDTO = trainService.findDTObyId(trainId);
             String firstStation = trainDTO.getTrainRoute().getFirst().getStationName();
             String lastStation = trainDTO.getTrainRoute().getLast().getStationName();
@@ -81,7 +83,7 @@ public class BusinessController {
             modelAndView.addObject("departStationId", departStationId);
             modelAndView.addObject("adminPage", adminPage);
             modelAndView.setViewName("wizard/step3");
-        }else{
+        } else {
             modelAndView.setViewName("redirect:" + adminPage);
         }
         return modelAndView;
@@ -91,39 +93,38 @@ public class BusinessController {
     @PostMapping(value = "/wizard/passengerselecter")
     public ModelAndView BuyTicket(@RequestParam("trainId") long trainId,
                                   @RequestParam("departStationId") long departStationId,
-                                  @RequestParam("name") String name,
-                                  @RequestParam("secondName") String secondName,
-                                  @RequestParam("birthDate") String birthDate
-                                  ) {
+                                  @Valid @ModelAttribute("passengerDTO") PassengerDTO passengerDTO,
+                                  BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
-        PassengerDTO passengerDTO = new PassengerDTO(name,secondName,birthDate);
-
+        String resultMessage;
         TrainDTO trainDTO = trainService.findDTObyId(trainId);
         String firstStation = trainDTO.getTrainRoute().getFirst().getStationName();
         String lastStation = trainDTO.getTrainRoute().getLast().getStationName();
 
-        boolean isPassengerRegistered = businessService.isPassengerRegisteredOnTrain(passengerDTO,trainId);
-        boolean isTrainAvailiable = businessService.checkTrainAvailability(trainId, departStationId);
-        String resultMessage;
-        if (!isPassengerRegistered && isTrainAvailiable) {
-            Ticket ticket = ticketService.create(passengerDTO, trainId);
-            resultMessage = "Ticket № " + ticket.getId() + " successfully registered";
-        }
-        else{
-            resultMessage = "Something goes wrong";
-            if (isPassengerRegistered) {
-                resultMessage = "Passenger already registered";
-            }
-            if (!isTrainAvailiable) {
-                resultMessage = "Train left or less 10 minutes left before departure";
+        if (bindingResult.hasErrors()) {
+            resultMessage = "";
+        } else {
+            boolean isPassengerRegistered = businessService.isPassengerRegisteredOnTrain(passengerDTO, trainId);
+            boolean isTrainAvailable = businessService.checkTrainAvailability(trainId, departStationId);
+            if (!isPassengerRegistered && isTrainAvailable) {
+                Ticket ticket = ticketService.create(passengerDTO, trainId);
+                resultMessage = "Ticket № " + ticket.getId() + " successfully registered";
+            } else {
+                resultMessage = "Something goes wrong";
+                if (isPassengerRegistered) {
+                    resultMessage = "Passenger already registered";
+                }
+                if (!isTrainAvailable) {
+                    resultMessage = "Train left or less 10 minutes left before departure";
+                }
             }
         }
         modelAndView.setViewName("wizard/step3");
-        modelAndView.addObject("trainId", trainDTO.getId());
-        modelAndView.addObject("departStationId", departStationId);
         modelAndView.addObject("trainDTO", trainDTO);
         modelAndView.addObject("firstStation", firstStation);
         modelAndView.addObject("lastStation", lastStation);
+        modelAndView.addObject("trainId", trainId);
+        modelAndView.addObject("departStationId", departStationId);
         modelAndView.addObject("resultMessage", resultMessage);
         modelAndView.addObject("adminPage", adminPage);
         return modelAndView;
