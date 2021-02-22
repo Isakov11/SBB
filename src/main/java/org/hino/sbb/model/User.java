@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "users")
@@ -66,9 +65,6 @@ public class User extends AbstractEntity implements UserDetails {
             List<GrantedAuthority> authorities = new ArrayList<>();
             for (Role role: roles) {
                 authorities.add(new SimpleGrantedAuthority(role.getRole()));
-                /*role.getPrivileges().stream()
-                        .map(p -> new SimpleGrantedAuthority(p.getName()))
-                        .forEach(authorities::add);*/
             }
 
             return authorities;

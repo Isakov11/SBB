@@ -27,15 +27,4 @@ public class WebConfig implements WebMvcConfigurer {
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
     }
-
-    //TODO addViewControllers
-    /*@Override
-    puЫic void addViewControllers(ViewControllerRegistry registry}
-    registry.addViewController("/"} .setViewName("singers/list");*/
-
-    //TODO configureDefaultServletHandling
-    /*@Override
-    puЫic void configureDefaultServletHandling(
-            DefaultServletHandlerConfigurer configurer)
-configurer.enaЬle();*/
 }

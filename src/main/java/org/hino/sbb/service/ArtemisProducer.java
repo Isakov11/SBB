@@ -1,17 +1,17 @@
 package org.hino.sbb.service;
 
 import org.apache.log4j.Logger;
-import org.hino.sbb.controller.GlobalExceptionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import javax.jms.Destination;
 import javax.jms.JMSContext;
 import javax.jms.JMSProducer;
 
 @Component
+@Scope("singleton")
 public class ArtemisProducer {
     private static final Logger logger = Logger.getLogger(ArtemisProducer.class);
 

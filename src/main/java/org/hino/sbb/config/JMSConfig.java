@@ -1,11 +1,8 @@
 package org.hino.sbb.config;
 
-import org.hino.sbb.service.ArtemisProducer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jms.core.JmsTemplate;
 
-import javax.annotation.PostConstruct;
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
 import javax.jms.JMSContext;
@@ -15,7 +12,6 @@ import javax.naming.NamingException;
 import java.util.Properties;
 
 @Configuration
-
 public class JMSConfig {
 
     private static final String DEFAULT_CONNECTION_FACTORY = "jms/RemoteConnectionFactory";

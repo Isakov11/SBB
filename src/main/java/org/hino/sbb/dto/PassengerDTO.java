@@ -1,21 +1,20 @@
 package org.hino.sbb.dto;
 
-import org.hino.sbb.model.Ticket;
-
-import java.time.LocalDate;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Objects;
-import java.util.Set;
-
 
 public class PassengerDTO extends AbstractDTO {
 
+    @NotBlank(message ="Name should not be blank.")
+    @Size(min=1, max=45, message="Name length should be from 1 to 45.")
     private String name;
 
+    @NotBlank(message ="Second name should not be blank.")
     private String secondName;
 
+    @NotBlank(message ="Birth date should not be blank.")
     private String birthDate;
-
-    /*private Set<PassengerTicketDTO> tickets;*/
 
     public PassengerDTO() {
     }
@@ -49,14 +48,6 @@ public class PassengerDTO extends AbstractDTO {
     public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
-
-    /*public Set<Ticket> getTickets() {
-        return tickets;
-    }
-
-    public void setTickets(Set<Ticket> tickets) {
-        this.tickets = tickets;
-    }*/
 
     @Override
     public boolean equals(Object o) {

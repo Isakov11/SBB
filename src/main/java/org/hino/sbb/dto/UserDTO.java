@@ -1,15 +1,5 @@
 package org.hino.sbb.dto;
 
-import org.hino.sbb.model.AbstractEntity;
-import org.hino.sbb.model.Role;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import javax.persistence.*;
-import java.util.Collection;
-import java.util.Set;
-
-
 public class UserDTO extends AbstractDTO{
 
     private String username;

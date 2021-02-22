@@ -4,13 +4,11 @@ import org.hino.sbb.dao.PassengerDAO;
 import org.hino.sbb.dto.PassengerDTO;
 import org.hino.sbb.mappers.PassengerMapper;
 import org.hino.sbb.model.Passenger;
-import org.hino.sbb.model.Station;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -73,7 +71,6 @@ public class PassengerService {
             return passenger;
         }
     }
-
 
     public Passenger update(Passenger entity) {
         return dao.update(entity);

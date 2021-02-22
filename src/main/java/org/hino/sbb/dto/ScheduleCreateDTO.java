@@ -1,13 +1,8 @@
 package org.hino.sbb.dto;
 
-
-import java.time.LocalDateTime;
-
 public class ScheduleCreateDTO extends AbstractDTO {
 
     private long trainId;
-
-    //private long stationOrder;
 
     private long stationId;
 
@@ -25,14 +20,6 @@ public class ScheduleCreateDTO extends AbstractDTO {
     public void setTrainId(long trainId) {
         this.trainId = trainId;
     }
-
-    /*public long getStationOrder() {
-        return stationOrder;
-    }
-
-    public void setStationOrder(long stationOrder) {
-        this.stationOrder = stationOrder;
-    }*/
 
     public long getStationId() {
         return stationId;

@@ -3,7 +3,6 @@ package org.hino.sbb.mappers;
 import org.hino.sbb.dto.TrainDTO;
 import org.hino.sbb.dto.TrainScheduleDTO;
 import org.hino.sbb.model.ScheduleNode;
-import org.hino.sbb.model.Station;
 import org.hino.sbb.model.Train;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -33,17 +32,4 @@ public interface TrainMapper {
         }
         return result;
     }
-
-    /*default List<ScheduleNode> trainScheduleToschedule(List<TrainScheduleDTO> stations){
-        // TODO Всегда возвращает 0 поправить
-        List<ScheduleNode> scheduleNodes = new LinkedList<>();
-        for(TrainScheduleDTO dto: stations){
-            ScheduleNode ScheduleNodeEntity = new ScheduleNode();
-            Station station = new Station();
-            station.setName("0");
-            ScheduleNodeEntity.setStation(station);
-            scheduleNodes.add(ScheduleNodeEntity);
-        }
-        return scheduleNodes;
-    }*/
 }

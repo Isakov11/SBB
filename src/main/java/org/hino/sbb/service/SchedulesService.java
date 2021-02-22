@@ -10,12 +10,9 @@ import org.hino.sbb.model.Train;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,10 +21,12 @@ public class SchedulesService {
 
     @Autowired
     private ScheduleNodeDAO dao;
+
     @Autowired
-    StationService stationService;
+    private StationService stationService;
+
     @Autowired
-    TrainService trainService;
+    private TrainService trainService;
 
     @Autowired
     private ScheduleNodeMapper mapper;
@@ -59,7 +58,9 @@ public class SchedulesService {
     }
 
     public ScheduleNode create(ScheduleNode entity) {
-        return dao.create(entity);
+        ScheduleNode node = dao.create(entity);
+
+        return node;
     }
 
     public ScheduleNodeDTO create(ScheduleCreateDTO scheduleCreateDTO) {
@@ -67,7 +68,6 @@ public class SchedulesService {
         Train train = trainService.findById(scheduleCreateDTO.getTrainId());
         Station station = stationService.findById(scheduleCreateDTO.getStationId());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
-        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         LocalDateTime arrivalTime = null;
         LocalDateTime departureTime = null;
         if (scheduleCreateDTO.getArrivalTime() != null && !scheduleCreateDTO.getArrivalTime().equals("")) {
@@ -91,11 +91,12 @@ public class SchedulesService {
         ScheduleNode entity = new ScheduleNode(0, train, station, arrivalTime, departureTime);
         //------------------------------------------------------------------------------------------------
 
-        return mapper.toDto(dao.create(entity));
+        return mapper.toDto(create(entity));
     }
 
     public ScheduleNode update(ScheduleNode entity) {
-        return dao.update(entity);
+        ScheduleNode node = dao.update(entity);
+        return node;
     }
 
     public ScheduleNodeDTO update(ScheduleCreateDTO scheduleCreateDTO) {
@@ -127,6 +128,7 @@ public class SchedulesService {
         if (entity == null) {
             return null;
         }
-        return dao.delete(entity);
+        ScheduleNode node =dao.delete(entity);
+        return node;
     }
 }

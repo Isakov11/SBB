@@ -1,9 +1,13 @@
 package org.hino.sbb.dto;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.LinkedList;
 
 public class StationDTO extends AbstractDTO {
 
+    @NotBlank(message ="Station name should not be blank.")
+    @Size(min=1, max=55, message="Station name should be 1 to 55.")
     private String name;
 
     private LinkedList<StationScheduleDTO> stationScheduleTable;

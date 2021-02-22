@@ -1,15 +1,17 @@
 package org.hino.sbb.dto;
 
-
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.util.LinkedList;
-import java.util.Set;
 
 public class TrainDTO extends AbstractDTO {
 
     private String name;
 
+    @NotBlank(message="Train number should not be blank.")
     private String number;
 
+    @Min(1)
     private long seatsNumber;
 
     private LinkedList<TrainScheduleDTO> trainRoute;

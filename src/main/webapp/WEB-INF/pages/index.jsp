@@ -36,11 +36,7 @@
         <div class="col-2 justify-content-center">
 
         </div>
-        <div class="col-8 justify-content-center">
-            <form action="/send" method="post">
-                <button type="submit" class="btn btn-primary">Send</button>
-            </form>
-        </div>
+
     </div>
 </div>
 </body>

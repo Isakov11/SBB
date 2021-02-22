@@ -55,15 +55,6 @@ public class TrainDAO {
         return trains;
     }
 
-    /*public List<Train> getTrainsByDepartAndArrivalStationIds(long departId,long arrivalId)  {
-        String query = "SELECT * from trains where id IN(SELECT train_id as id from schedules where station_id = :departId)" +
-                "AND id IN(SELECT train_id as id from schedules where station_id = :arrivalId)";
-        List<Train> trains = entityManager.createNativeQuery(query, Train.class).setParameter("departId",departId)
-                .setParameter("arrivalId",arrivalId)
-                .getResultList();
-        return trains;
-    }*/
-
     //Improved query
     public List<Train> getTrainsByDepartAndArrivalStationIds(long departId,long arrivalId)  {
         String query = "SELECT t.id, t.name, t.number, t.seats_number from trains t\n" +

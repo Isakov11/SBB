@@ -1,5 +1,6 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <!doctype html>
 <html lang="en">
@@ -42,30 +43,32 @@
 <div class="container-fluid">
     <div class="row justify-content-md-center">
 
-        <form action="${var}" method="post">
+        <form:form modelAttribute="dto" action="${var}" method="post">
             <c:if test="${!empty dto.id}">
                 <input type="hidden" name="id" value="${dto.id}">
             </c:if>
             <div class="form-col">
                 <div class="row my-sm-2">
                     <label for="number">Train number</label>
-                    <input type="text" class="form-control" name="number" id="number" value="${dto.number}" required
+                    <input type="text" class="form-control" name="number" id="number" value="${dto.number}"
                            autofocus/>
+                    <form:errors path="number"/>
                 </div>
                 <div class="row my-sm-2">
                     <label for="name">Train name</label>
-                    <input type="text" class="form-control" name="name" id="name" value="${dto.name}" required/>
+                    <input type="text" class="form-control" name="name" id="name" value="${dto.name}" />
                 </div>
                 <div class="row my-sm-2">
                     <label for="seatsNumber">Train capacity</label>
                     <input type="text" class="form-control" name="seatsNumber" id="seatsNumber"
-                           value="${dto.seatsNumber}" required/>
+                           value="${dto.seatsNumber}" />
+                    <form:errors path="seatsNumber"/>
                 </div>
                 <div class="row my-sm-3 justify-content-center">
                     <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             </div>
-        </form>
+        </form:form>
     </div>
 
 </div>

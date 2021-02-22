@@ -2,12 +2,11 @@ package org.hino.sbb.service;
 
 import org.hino.sbb.dto.PassengerDTO;
 import org.hino.sbb.dto.TrainDTO;
-import org.hino.sbb.model.Passenger;
-import org.hino.sbb.model.Train;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -36,13 +35,13 @@ public class BusinessService {
             crossTrains = trainService.getTrainsByDepartAndArrivalStationIds(departStationId, arrivalStationId);
         }else{
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd");
-            LocalDate ldepartDate = LocalDate.parse(departDate,formatter);
-            crossTrains = trainService.getTrainsByDepartAndArrivalStationIdsAndDate(departStationId, arrivalStationId,ldepartDate);
+            LocalDate lDepartDate = LocalDate.parse(departDate,formatter);
+            crossTrains = trainService.getTrainsByDepartAndArrivalStationIdsAndDate(departStationId, arrivalStationId,lDepartDate);
         }
         return crossTrains;
     }
 
-    public boolean isPassengerRegisteredOnTrain(PassengerDTO passenger, long trainId){
+    public boolean isPassengerRegisteredOnTrain(@Valid PassengerDTO passenger, long trainId){
         return passengerService.isPassengerRegisteredOnTrain(passenger, trainId);
     }
 
@@ -58,6 +57,4 @@ public class BusinessService {
         if  (LocalDateTime.now().isBefore(departureTime.minusMinutes(timeOffsetCloseTicketSelling))){timeCheck = true;}
         return (timeCheck && seatsCheck);
     }
-
-
 }

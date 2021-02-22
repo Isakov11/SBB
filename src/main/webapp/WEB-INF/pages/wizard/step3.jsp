@@ -1,7 +1,7 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
-
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -28,7 +28,7 @@
 </head>
 <body>
 <jsp:include page="../navigation.jsp"/>
-<form action="/wizard/passengerselecter" method="post">
+<form:form  modelAttribute="passengerDTO" action="/wizard/passengerselecter" method="post">
     <div class="container-fluid">
         <div class="row justify-content-md-center">
             <h1>Train №: ${trainDTO.number} "${trainDTO.name}"</h1>
@@ -40,20 +40,23 @@
             <div class="form-col">
                 <div class="row  my-sm-2">
                     <label for="name">First name</label>
-                    <input type="text" class="form-control" name="name" id="name" value="${dto.name}" required
-                           autofocus/>
+                    <input type="text" class="form-control" name="name" id="name" value="${dto.name}"
+                        autofocus required/>
+                    <form:errors path="name"/>
                 </div>
                 <div class="row  my-sm-2">
                     <label for="secondName">Second name</label>
                     <input type="text" class="form-control" name="secondName" id="secondName"
-                           value="${dto.secondName}" required/>
+                        value="${dto.secondName}" required/>
+                    <form:errors path="secondName"/>
                 </div>
                 <div class="row justify-content-start my-sm-2">
                     <label for="birthDate">Birth date</label>
                 </div>
                 <div class="row justify-content-start">
                     <input class="form-control" type="date" value="${dto.birthDate}" name="birthDate" id="birthDate"
-                           required>
+                        required>
+                    <form:errors path="birthDate"/>
                 </div>
             </div>
         </div>
@@ -64,7 +67,7 @@
         <button type="submit" class="btn btn-primary">Save</button>
     </div>
     </div>
-</form>
+</form:form>
 <div class="row my-sm-5 justify-content-center">
     <h1>${resultMessage}</h1>
 </div>

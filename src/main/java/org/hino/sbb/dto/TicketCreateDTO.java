@@ -1,6 +1,5 @@
 package org.hino.sbb.dto;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class TicketCreateDTO extends AbstractDTO {
