@@ -6,9 +6,12 @@ import org.hino.sbb.service.PassengerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
+import javax.validation.Validator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,8 +19,10 @@ import java.util.List;
 public class PassengerController {
     private final String viewName = "/admin/passengers";
     private final String adminPage = "/index";
+
     @Autowired
     private PassengerService service;
+
 
     @GetMapping(value = viewName)
     public ModelAndView allPassengers() {
@@ -53,10 +58,15 @@ public class PassengerController {
     }
 
     @PostMapping(path = viewName + "/add")
-    public ModelAndView createPassenger(@ModelAttribute("dto") PassengerDTO dto) {
-        service.create(dto);
+    public ModelAndView createPassenger(@Valid @ModelAttribute("dto") PassengerDTO dto,
+                                        BindingResult bindingResult) {
+
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:" + viewName);
+        if (bindingResult.hasErrors()) {
+            return modelAndView;
+        }
+        service.create(dto);
         return modelAndView;
     }
 
@@ -71,9 +81,13 @@ public class PassengerController {
     }
 
     @PostMapping(value = viewName + "/edit")
-    public ModelAndView editPassenger(@ModelAttribute("dto") PassengerDTO dto) {
+    public ModelAndView editPassenger(@Valid @ModelAttribute("dto") PassengerDTO dto,
+                                      BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:" + viewName);
+        if (bindingResult.hasErrors()) {
+            return modelAndView;
+        }
         service.update(dto);
         return modelAndView;
     }

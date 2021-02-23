@@ -66,7 +66,6 @@ public class UserService{
 
     public UserDTO create(UserDTO dto) {
         User entity = mapper.toEntity(dto);
-
         return mapper.toDto(create(entity));
     }
 
@@ -81,6 +80,7 @@ public class UserService{
 
     public User delete(long id) {
         User entity = dao.findById(id);
+        entity.setRoles(null);
         if (entity == null){
             return null;
         }

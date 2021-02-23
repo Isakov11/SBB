@@ -50,12 +50,12 @@
                 <div class="row">
                     <label for="username">username</label>
                     <input type="text" class="form-control" name="username" id="username" value="${dto.username}"
-                           />
+                        required/>
                 </div>
                 <div class="row">
                     <label for="password">password</label>
                     <input type="text" class="form-control" name="password" id="password" value="${dto.password}"
-                           />
+                           required/>
                 </div>
             </div>
             <div class="row my-sm-5 justify-content-center">

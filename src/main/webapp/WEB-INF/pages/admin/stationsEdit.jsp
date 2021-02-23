@@ -50,7 +50,7 @@
                 <div class="row my-sm-2">
                     <label for="name">Station name</label>
                     <input type="text" class="form-control" name="name" id="name" value="${dto.name}"
-                           required autofocus/>
+                           required     autofocus/>
                     <form:errors path="name"/>
                 </div>
                 <div class="row my-sm-3 justify-content-center">

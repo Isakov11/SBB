@@ -78,10 +78,13 @@ public class SchedulesController {
     @PostMapping(path = viewName + "/add")
     public ModelAndView createSchedules(@Valid @ModelAttribute("ScheduleCreateDTO") ScheduleCreateDTO scheduleCreateDTO,
                                         BindingResult bindingResult) {
-        service.create(scheduleCreateDTO);
-        artemisProducer.send("create schedule update");
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:" + viewName);
+        if (bindingResult.hasErrors()) {
+            return modelAndView;
+        }
+        service.create(scheduleCreateDTO);
+        artemisProducer.send("create schedule update");
         return modelAndView;
     }
 
@@ -103,9 +106,13 @@ public class SchedulesController {
     }
 
     @PostMapping(value = viewName + "/edit")
-    public ModelAndView editSchedules(@ModelAttribute("ScheduleCreateDTO") ScheduleCreateDTO scheduleCreateDTO) {
+    public ModelAndView editSchedules(@Valid @ModelAttribute("ScheduleCreateDTO") ScheduleCreateDTO scheduleCreateDTO,
+                                      BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:" + viewName);
+        if (bindingResult.hasErrors()) {
+            return modelAndView;
+        }
         service.update(scheduleCreateDTO);
         artemisProducer.send("update schedule update");
         return modelAndView;

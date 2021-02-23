@@ -6,9 +6,12 @@ import org.hino.sbb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
+import javax.validation.Validator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,6 +19,7 @@ import java.util.List;
 public class UserController {
     private final String viewName = "/admin/users";
     private final String adminPage = "/index";
+
     @Autowired
     private UserService service;
 
@@ -53,28 +57,14 @@ public class UserController {
     }
 
     @PostMapping(path = viewName + "/add")
-    public ModelAndView createUser(@ModelAttribute("dto") UserDTO dto) {
+    public ModelAndView createUser(@Valid @ModelAttribute("dto") UserDTO dto,
+                                   BindingResult bindingResult) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:" + viewName);
+        if (bindingResult.hasErrors()) {
+            return modelAndView;
+        }
         service.create(dto);
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:" + viewName);
-        return modelAndView;
-    }
-
-    @GetMapping (value = viewName + "/edit/{id}")
-    public ModelAndView getEditUser(@PathVariable("id") long id) {
-        ModelAndView modelAndView = new ModelAndView();
-        UserDTO dto = service.findDTOById(id);
-        modelAndView.setViewName(viewName + "Edit");
-        modelAndView.addObject("viewName", viewName);
-        modelAndView.addObject("dto", dto);
-        return modelAndView;
-    }
-
-    @PostMapping(value = viewName + "/edit")
-    public ModelAndView editUser(@ModelAttribute("dto") UserDTO dto) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:" + viewName);
-        service.update(dto);
         return modelAndView;
     }
 

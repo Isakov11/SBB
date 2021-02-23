@@ -48,19 +48,19 @@
             </c:if>
             <div class="row justify-content-center">
                 <label for="name">First name</label>
-                <input type="text" class="form-control" name="name" id="name" value="${dto.name}"  autofocus/>
+                <input type="text" class="form-control" name="name" id="name" value="${dto.name}" required autofocus/>
             </div>
             <div class="row justify-content-center">
                 <label for="secondName">Second name</label>
                 <input type="text" class="form-control" name="secondName" id="secondName"
-                       value="${dto.secondName}"  />
+                       required       value="${dto.secondName}"  />
             </div>
             <div class="row justify-content-center">
                 <label for="birthDate">Birth date</label>
             </div>
             <div class="row justify-content-center">
                 <input class="form-control" type="date" value="${dto.birthDate}" name="birthDate"
-                       id="birthDate"  />
+                       required       id="birthDate"  />
             </div>
             <div class="row my-sm-5 justify-content-center">
                 <button type="submit" class="btn btn-primary">Save</button>

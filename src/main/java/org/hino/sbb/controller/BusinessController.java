@@ -33,8 +33,7 @@ public class BusinessController {
     @Autowired
     private StationService stationService;
 
-    @Autowired
-    Validator validator;
+
 
     //Wizard step 1
     @GetMapping(value = "/wizard/step1")

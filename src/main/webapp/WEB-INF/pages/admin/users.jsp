@@ -46,9 +46,11 @@
                     <tr>
                         <td>${dto.username}</td>
                         <td>
-                            <button type="submit" class="btn btn-primary"
-                                    onclick="deleteUser(${dto.id})">Delete
-                            </button>
+                            <c:if test="${dto.username ne 'admin'}">
+                                <button type="submit" class="btn btn-primary"
+                                        onclick="deleteUser(${dto.id})">Delete
+                                </button>
+                            </c:if>
                         </td>
                     </tr>
                 </c:forEach>

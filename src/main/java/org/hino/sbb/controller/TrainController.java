@@ -23,8 +23,6 @@ public class TrainController {
     @Autowired
     private TrainService service;
 
-    @Autowired
-    Validator validator;
 
     @GetMapping(value = viewName)
     public ModelAndView allTrains() {
