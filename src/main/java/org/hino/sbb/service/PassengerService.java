@@ -15,13 +15,17 @@ import java.util.List;
 @Transactional
 public class PassengerService {
 
-    @Autowired
     private PassengerDAO dao;
 
-    @Autowired
     private PassengerMapper mapper;
 
     public PassengerService() {}
+
+    @Autowired
+    public PassengerService(PassengerDAO dao, PassengerMapper mapper) {
+        this.dao = dao;
+        this.mapper = mapper;
+    }
 
     @Transactional (readOnly = true)
     public List<Passenger> findAll() {

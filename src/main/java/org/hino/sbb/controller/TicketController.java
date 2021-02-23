@@ -16,13 +16,19 @@ public class TicketController {
     private final String viewName = "/admin/tickets";
     private final String adminPage = "/index";
 
-    @Autowired
+    //@Autowired
     private TicketService service;
 
-    @Autowired
+
     private TrainService trainService;
 
     public TicketController(){}
+
+    @Autowired
+    public TicketController(TicketService service, TrainService trainService) {
+        this.service = service;
+        this.trainService = trainService;
+    }
 
     @GetMapping(value = viewName)
     public ModelAndView allTickets() {

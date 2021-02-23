@@ -22,8 +22,16 @@ public class StationController  {
     private final String viewName = "/admin/stations";
     private final String adminPage = "/index";
 
-    @Autowired
+
     private StationService service;
+
+    public StationController() {
+    }
+
+    @Autowired
+    public StationController(StationService service) {
+        this.service = service;
+    }
 
     @GetMapping(value = viewName)
     public ModelAndView allStations() {

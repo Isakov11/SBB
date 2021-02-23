@@ -19,19 +19,24 @@ import java.util.stream.Collectors;
 @Transactional
 public class SchedulesService {
 
-    @Autowired
     private ScheduleNodeDAO dao;
 
-    @Autowired
     private StationService stationService;
 
-    @Autowired
     private TrainService trainService;
 
-    @Autowired
     private ScheduleNodeMapper mapper;
 
     public SchedulesService() {
+    }
+
+    @Autowired
+    public SchedulesService(ScheduleNodeDAO dao, StationService stationService,
+                            TrainService trainService, ScheduleNodeMapper mapper) {
+        this.dao = dao;
+        this.stationService = stationService;
+        this.trainService = trainService;
+        this.mapper = mapper;
     }
 
     @Transactional(readOnly = true)

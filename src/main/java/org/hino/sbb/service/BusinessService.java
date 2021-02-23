@@ -17,11 +17,18 @@ import java.util.List;
 public class BusinessService {
     private long timeOffsetCloseTicketSelling = 10; //minutes
 
-    @Autowired
     private PassengerService passengerService;
 
-    @Autowired
     private TrainService trainService;
+
+    public BusinessService() {
+    }
+
+    @Autowired
+    public BusinessService(PassengerService passengerService, TrainService trainService) {
+        this.passengerService = passengerService;
+        this.trainService = trainService;
+    }
 
     public List<TrainDTO> getDirectTrains(long departStationId, long arrivalStationId, String departDate){
         List<TrainDTO> crossTrains;

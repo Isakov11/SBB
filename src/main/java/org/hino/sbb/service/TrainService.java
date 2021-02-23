@@ -17,13 +17,17 @@ import java.util.List;
 @Transactional
 public class TrainService {
 
-    @Autowired
     private TrainDAO dao;
 
-    @Autowired
     private TrainMapper mapper;
 
     public TrainService() { }
+
+    @Autowired
+    public TrainService(TrainDAO dao, TrainMapper mapper) {
+        this.dao = dao;
+        this.mapper = mapper;
+    }
 
     @Transactional (readOnly = true)
     public List<Train> findAll() {

@@ -17,19 +17,23 @@ import java.util.List;
 @Transactional
 public class UserService{
 
-    @Autowired
     private UserDAO dao;
 
-    @Autowired
     private RoleDAO roleDao;
 
-    @Autowired
     private UserMapper mapper;
 
-    @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public UserService() {}
+
+    @Autowired
+    public UserService(UserDAO dao, RoleDAO roleDao, UserMapper mapper, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.dao = dao;
+        this.roleDao = roleDao;
+        this.mapper = mapper;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
 
     @Transactional (readOnly = true)
     public List<User> findAll() {

@@ -17,12 +17,20 @@ import java.util.List;
 
 @Controller
 public class PassengerController {
+
     private final String viewName = "/admin/passengers";
+
     private final String adminPage = "/index";
 
-    @Autowired
     private PassengerService service;
 
+    public PassengerController() {
+    }
+
+    @Autowired
+    public PassengerController(PassengerService service) {
+        this.service = service;
+    }
 
     @GetMapping(value = viewName)
     public ModelAndView allPassengers() {

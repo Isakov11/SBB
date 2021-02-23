@@ -21,19 +21,29 @@ public class BusinessController {
     private static final Logger logger = Logger.getLogger(BusinessController.class);
     private final String adminPage = "/admin/index";
 
-    @Autowired
+    //@Autowired
     private BusinessService businessService;
 
-    @Autowired
+    //@Autowired
     private TrainService trainService;
 
-    @Autowired
+    //@Autowired
     private TicketService ticketService;
 
-    @Autowired
+    //@Autowired
     private StationService stationService;
 
+    public BusinessController() {
+    }
 
+    @Autowired
+    public BusinessController(BusinessService businessService, TrainService trainService,
+                              TicketService ticketService, StationService stationService) {
+        this.businessService = businessService;
+        this.trainService = trainService;
+        this.ticketService = ticketService;
+        this.stationService = stationService;
+    }
 
     //Wizard step 1
     @GetMapping(value = "/wizard/step1")

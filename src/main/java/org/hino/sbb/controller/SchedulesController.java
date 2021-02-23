@@ -25,19 +25,28 @@ public class SchedulesController {
     private final String viewName = "/admin/schedules";
     private final String adminPage = "/index";
 
-    @Autowired
+
     private TrainService trainService;
 
-    @Autowired
+    //@Autowired
     private StationService stationService;
 
-    @Autowired
+    //@Autowired
     private SchedulesService service;
 
-    @Autowired
+    //@Autowired
     private ArtemisProducer artemisProducer;
 
     public SchedulesController() {
+    }
+
+    @Autowired
+    public SchedulesController(TrainService trainService, StationService stationService,
+                               SchedulesService service, ArtemisProducer artemisProducer) {
+        this.trainService = trainService;
+        this.stationService = stationService;
+        this.service = service;
+        this.artemisProducer = artemisProducer;
     }
 
     @GetMapping(value = viewName)

@@ -20,8 +20,16 @@ public class UserController {
     private final String viewName = "/admin/users";
     private final String adminPage = "/index";
 
-    @Autowired
+
     private UserService service;
+
+    public UserController() {
+    }
+
+    @Autowired
+    public UserController(UserService service) {
+        this.service = service;
+    }
 
     @GetMapping(value = viewName)
     public ModelAndView allUsers() {

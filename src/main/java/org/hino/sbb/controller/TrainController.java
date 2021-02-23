@@ -18,11 +18,18 @@ import java.util.List;
 @Controller
 public class TrainController {
     private final String viewName = "/admin/trains";
+
     private final String adminPage = "/index";
 
-    @Autowired
     private TrainService service;
 
+    public TrainController() {
+    }
+
+    @Autowired
+    public TrainController(TrainService service) {
+        this.service = service;
+    }
 
     @GetMapping(value = viewName)
     public ModelAndView allTrains() {
