@@ -23,9 +23,6 @@ public class TrainService {
     @Autowired
     private TrainMapper mapper;
 
-    @Autowired
-    private SchedulesService schedulesService;
-
     public TrainService() { }
 
     @Transactional (readOnly = true)
@@ -77,10 +74,6 @@ public class TrainService {
     public TrainDTO deleteRetDTO(long id) {
         Train train = dao.findById(id);
         return mapper.toDto(dao.delete(train));
-    }
-
-    public List<TrainDTO> getTrainsByStationId(long id){
-        return mapper.toDto(dao.getTrainsByStationId(id));
     }
 
     public List<TrainDTO> getTrainsByDepartAndArrivalStationIds(long departId,long arrivalId)  {

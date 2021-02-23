@@ -1,20 +1,14 @@
 package org.hino.sbb.dao;
 
-import org.hino.sbb.model.Station;
 import org.hino.sbb.model.Train;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 @Repository
 public class TrainDAO {

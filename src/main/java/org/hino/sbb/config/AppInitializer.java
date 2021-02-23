@@ -2,12 +2,8 @@ package org.hino.sbb.config;
 
 import org.apache.log4j.Logger;
 import org.hibernate.validator.HibernateValidator;
-import org.hino.sbb.controller.BusinessController;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
@@ -17,7 +13,6 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 import javax.servlet.Filter;
 import javax.validation.Validation;
 import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 
 @Configuration
 public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {

@@ -9,10 +9,13 @@ import org.hino.sbb.service.SchedulesService;
 import org.hino.sbb.service.StationService;
 import org.hino.sbb.service.TrainService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -73,7 +76,8 @@ public class SchedulesController {
     }
 
     @PostMapping(path = viewName + "/add")
-    public ModelAndView createSchedules(@ModelAttribute("ScheduleCreateDTO") ScheduleCreateDTO scheduleCreateDTO) {
+    public ModelAndView createSchedules(@Valid @ModelAttribute("ScheduleCreateDTO") ScheduleCreateDTO scheduleCreateDTO,
+                                        BindingResult bindingResult) {
         service.create(scheduleCreateDTO);
         artemisProducer.send("create schedule update");
         ModelAndView modelAndView = new ModelAndView();
@@ -107,12 +111,10 @@ public class SchedulesController {
         return modelAndView;
     }
 
-    @GetMapping(value = viewName + "/delete/{id}")
-    public ModelAndView deleteSchedulesById(@PathVariable("id") long id) {
+    @RequestMapping (value = viewName + "/{id}", method = RequestMethod.DELETE)
+    public @ResponseBody ResponseEntity deleteSchedulesById(@PathVariable("id") long id) {
         service.delete(id);
         artemisProducer.send("delete schedule update");
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:" + viewName);
-        return modelAndView;
+        return ResponseEntity.ok().body("ok");
     }
 }

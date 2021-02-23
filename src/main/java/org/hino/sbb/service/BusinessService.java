@@ -23,14 +23,8 @@ public class BusinessService {
     @Autowired
     private TrainService trainService;
 
-    @Autowired
-    private StationService stationService;
-
-    @Autowired
-    private TicketService ticketService;
-
     public List<TrainDTO> getDirectTrains(long departStationId, long arrivalStationId, String departDate){
-        List<TrainDTO> crossTrains = null;
+        List<TrainDTO> crossTrains;
         if (departDate == null || departDate.equals("")) {
             crossTrains = trainService.getTrainsByDepartAndArrivalStationIds(departStationId, arrivalStationId);
         }else{
@@ -41,12 +35,8 @@ public class BusinessService {
         return crossTrains;
     }
 
-    public boolean isPassengerRegisteredOnTrain(@Valid PassengerDTO passenger, long trainId){
+    public boolean isPassengerRegisteredOnTrain(PassengerDTO passenger, long trainId){
         return passengerService.isPassengerRegisteredOnTrain(passenger, trainId);
-    }
-
-    public boolean isTrainHasFreeSeats(long trainId){
-        return trainService.isTrainHasFreeSeats(trainId);
     }
 
     public boolean checkTrainAvailability(long trainId, long stationId){

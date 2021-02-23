@@ -1,10 +1,7 @@
 package org.hino.sbb.dao;
 
 import org.hino.sbb.model.Ticket;
-import org.hino.sbb.model.Train;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import javax.validation.Validator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,6 +22,9 @@ public class TrainController {
 
     @Autowired
     private TrainService service;
+
+    @Autowired
+    Validator validator;
 
     @GetMapping(value = viewName)
     public ModelAndView allTrains() {

@@ -4,11 +4,9 @@ import org.hino.sbb.dto.UserDTO;
 import org.hino.sbb.model.User;
 import org.hino.sbb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.LinkedList;
@@ -80,15 +78,9 @@ public class UserController {
         return modelAndView;
     }
 
-    @GetMapping (value = viewName + "/delete/{id}")
-    public ModelAndView deleteUserById(@PathVariable("id") long id) {
-        User entity = service.delete(id);
-        ModelAndView modelAndView = new ModelAndView();
-        if (entity == null){
-            modelAndView.setViewName("500");
-            return modelAndView;
-        }
-        modelAndView.setViewName("redirect:" + viewName);
-        return modelAndView;
+    @RequestMapping(value = viewName + "/{id}", method = RequestMethod.DELETE)
+    public @ResponseBody ResponseEntity deleteUserById(@PathVariable("id") long id) {
+        service.delete(id);
+        return ResponseEntity.ok().body("ok");
     }
 }
