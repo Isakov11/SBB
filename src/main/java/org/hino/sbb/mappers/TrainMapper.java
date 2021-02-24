@@ -7,6 +7,7 @@ import org.hino.sbb.model.Train;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 
@@ -26,8 +27,20 @@ public interface TrainMapper {
         for(ScheduleNode scheduleNode: trainSchedule){
             TrainScheduleDTO trainScheduleDTO = new TrainScheduleDTO();
             trainScheduleDTO.setStationName(scheduleNode.getStation().getName());
-            trainScheduleDTO.setArrivalTime(scheduleNode.getArrivalTime());
-            trainScheduleDTO.setDepartureTime(scheduleNode.getDepartureTime());
+            LocalDateTime min = LocalDateTime.of(1753,02,01,0,0);
+            LocalDateTime max = LocalDateTime.of(9998,12,31,0,0);
+            LocalDateTime arrival = scheduleNode.getArrivalTime();
+            LocalDateTime departure = scheduleNode.getDepartureTime();
+            if (arrival.isBefore(min)){
+                trainScheduleDTO.setArrivalTime(" --:-- ");
+            }else{
+                trainScheduleDTO.setArrivalTime(arrival.toLocalTime().toString());
+            }
+            if (departure.isAfter(max)){
+                trainScheduleDTO.setDepartureTime(" --:-- ");
+            }else{
+                trainScheduleDTO.setDepartureTime(departure.toLocalTime().toString());
+            }
             result.add(trainScheduleDTO);
         }
         return result;

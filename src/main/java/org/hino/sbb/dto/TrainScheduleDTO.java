@@ -6,32 +6,26 @@ public class TrainScheduleDTO {
 
     private String stationName;
 
-    private LocalDateTime arrivalTime;
+    private String arrivalTime;
 
-    private LocalDateTime departureTime;
+    private String departureTime;
 
     public TrainScheduleDTO() {
     }
 
-    public TrainScheduleDTO(String stationName, LocalDateTime arrivalTime, LocalDateTime departureTime) {
-        this.stationName = stationName;
-        this.arrivalTime = arrivalTime;
-        this.departureTime = departureTime;
-    }
-
-    public LocalDateTime getArrivalTime() {
+    public String getArrivalTime() {
         return arrivalTime;
     }
 
-    public void setArrivalTime(LocalDateTime arrivalTime) {
+    public void setArrivalTime(String arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
 
-    public LocalDateTime getDepartureTime() {
+    public String getDepartureTime() {
         return departureTime;
     }
 
-    public void setDepartureTime(LocalDateTime departureTime) {
+    public void setDepartureTime(String departureTime) {
         this.departureTime = departureTime;
     }
 
