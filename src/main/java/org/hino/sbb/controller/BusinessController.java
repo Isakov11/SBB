@@ -21,16 +21,12 @@ public class BusinessController {
     private static final Logger logger = Logger.getLogger(BusinessController.class);
     private final String adminPage = "/admin/index";
 
-    //@Autowired
     private BusinessService businessService;
 
-    //@Autowired
     private TrainService trainService;
 
-    //@Autowired
     private TicketService ticketService;
 
-    //@Autowired
     private StationService stationService;
 
     public BusinessController() {

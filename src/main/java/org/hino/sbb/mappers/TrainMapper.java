@@ -34,12 +34,12 @@ public interface TrainMapper {
             if (arrival.isBefore(min)){
                 trainScheduleDTO.setArrivalTime(" --:-- ");
             }else{
-                trainScheduleDTO.setArrivalTime(arrival.toLocalTime().toString());
+                trainScheduleDTO.setArrivalTime(arrival.toLocalDate().toString() +" " + arrival.toLocalTime().toString());
             }
             if (departure.isAfter(max)){
                 trainScheduleDTO.setDepartureTime(" --:-- ");
             }else{
-                trainScheduleDTO.setDepartureTime(departure.toLocalTime().toString());
+                trainScheduleDTO.setDepartureTime(departure.toLocalDate().toString() + " " +departure.toLocalTime().toString());
             }
             result.add(trainScheduleDTO);
         }

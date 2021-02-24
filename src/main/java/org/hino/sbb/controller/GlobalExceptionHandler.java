@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
+import java.util.Arrays;
+
 @ControllerAdvice
 public class GlobalExceptionHandler {
     private static final Logger logger = Logger.getLogger(GlobalExceptionHandler.class);
@@ -25,8 +27,13 @@ public class GlobalExceptionHandler {
     public String handleException(Exception exception, Model model) {
         String errorMsg = "Http Error Code: 500. Something went wrong.";
         model.addAttribute("errorMsg", errorMsg);
-        logger.error(exception.getMessage());
-        logger.error(exception.getStackTrace().toString());
+        StackTraceElement[] stackTrace = exception.getStackTrace();
+        String str = "";
+        for (StackTraceElement traceElement : stackTrace ) {
+            str = str +  traceElement.toString();
+        }
+        logger.error(exception.getMessage() + "Stack trace:\n");
+        logger.error(str);
         return "errors";
     }
 
