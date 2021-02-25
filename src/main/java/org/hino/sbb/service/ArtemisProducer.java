@@ -15,16 +15,16 @@ import javax.jms.JMSProducer;
 public class ArtemisProducer {
     private static final Logger logger = Logger.getLogger(ArtemisProducer.class);
 
-    @Autowired
     private JMSContext jMScontext;
 
-    @Autowired
     private Destination destination;
 
     private JMSProducer jMSProducer;
 
-    @PostConstruct
-    private void init() {
+    @Autowired
+    public ArtemisProducer(JMSContext jMScontext, Destination destination) {
+        this.jMScontext = jMScontext;
+        this.destination = destination;
         this.jMSProducer = jMScontext.createProducer();
         logger.info("jMSProducer created ");
     }

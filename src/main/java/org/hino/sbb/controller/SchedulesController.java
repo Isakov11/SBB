@@ -9,10 +9,13 @@ import org.hino.sbb.service.SchedulesService;
 import org.hino.sbb.service.StationService;
 import org.hino.sbb.service.TrainService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,19 +25,28 @@ public class SchedulesController {
     private final String viewName = "/admin/schedules";
     private final String adminPage = "/index";
 
-    @Autowired
+
     private TrainService trainService;
 
-    @Autowired
+    //@Autowired
     private StationService stationService;
 
-    @Autowired
+    //@Autowired
     private SchedulesService service;
 
-    @Autowired
+    //@Autowired
     private ArtemisProducer artemisProducer;
 
     public SchedulesController() {
+    }
+
+    @Autowired
+    public SchedulesController(TrainService trainService, StationService stationService,
+                               SchedulesService service, ArtemisProducer artemisProducer) {
+        this.trainService = trainService;
+        this.stationService = stationService;
+        this.service = service;
+        this.artemisProducer = artemisProducer;
     }
 
     @GetMapping(value = viewName)
@@ -73,11 +85,15 @@ public class SchedulesController {
     }
 
     @PostMapping(path = viewName + "/add")
-    public ModelAndView createSchedules(@ModelAttribute("ScheduleCreateDTO") ScheduleCreateDTO scheduleCreateDTO) {
-        service.create(scheduleCreateDTO);
-        artemisProducer.send("create schedule update");
+    public ModelAndView createSchedules(@Valid @ModelAttribute("ScheduleCreateDTO") ScheduleCreateDTO scheduleCreateDTO,
+                                        BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:" + viewName);
+        if (bindingResult.hasErrors()) {
+            return modelAndView;
+        }
+        service.create(scheduleCreateDTO);
+        artemisProducer.send("create schedule update");
         return modelAndView;
     }
 
@@ -99,20 +115,22 @@ public class SchedulesController {
     }
 
     @PostMapping(value = viewName + "/edit")
-    public ModelAndView editSchedules(@ModelAttribute("ScheduleCreateDTO") ScheduleCreateDTO scheduleCreateDTO) {
+    public ModelAndView editSchedules(@Valid @ModelAttribute("ScheduleCreateDTO") ScheduleCreateDTO scheduleCreateDTO,
+                                      BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:" + viewName);
+        if (bindingResult.hasErrors()) {
+            return modelAndView;
+        }
         service.update(scheduleCreateDTO);
         artemisProducer.send("update schedule update");
         return modelAndView;
     }
 
-    @GetMapping(value = viewName + "/delete/{id}")
-    public ModelAndView deleteSchedulesById(@PathVariable("id") long id) {
+    @RequestMapping (value = viewName + "/{id}", method = RequestMethod.DELETE)
+    public @ResponseBody ResponseEntity deleteSchedulesById(@PathVariable("id") long id) {
         service.delete(id);
         artemisProducer.send("delete schedule update");
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:" + viewName);
-        return modelAndView;
+        return ResponseEntity.ok().body("ok");
     }
 }

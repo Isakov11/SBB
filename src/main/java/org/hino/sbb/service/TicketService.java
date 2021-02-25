@@ -17,15 +17,21 @@ import java.util.List;
 @Transactional
 public class TicketService {
 
-    @Autowired
     private TicketDAO dao;
-    @Autowired
-    PassengerService passengerService;
-    @Autowired
-    TrainService trainService;
+
+    private PassengerService passengerService;
+
+    private TrainService trainService;
+
+    private TicketMapper mapper;
 
     @Autowired
-    private TicketMapper mapper;
+    public TicketService(TicketDAO dao, PassengerService passengerService, TrainService trainService, TicketMapper mapper) {
+        this.dao = dao;
+        this.passengerService = passengerService;
+        this.trainService = trainService;
+        this.mapper = mapper;
+    }
 
     public TicketService() {}
 

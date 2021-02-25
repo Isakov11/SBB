@@ -1,52 +1,59 @@
 package org.hino.sbb.service;
 
+import org.apache.log4j.Logger;
+import org.hino.sbb.controller.BusinessController;
 import org.hino.sbb.dto.PassengerDTO;
 import org.hino.sbb.dto.TrainDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import javax.validation.Valid;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 @Service
 @Transactional
 public class BusinessService {
+    private static final Logger logger = Logger.getLogger(BusinessService.class);
     private long timeOffsetCloseTicketSelling = 10; //minutes
 
-    @Autowired
     private PassengerService passengerService;
 
-    @Autowired
     private TrainService trainService;
 
-    @Autowired
-    private StationService stationService;
+    public BusinessService() {
+    }
 
     @Autowired
-    private TicketService ticketService;
+    public BusinessService(PassengerService passengerService, TrainService trainService) {
+        this.passengerService = passengerService;
+        this.trainService = trainService;
+    }
 
     public List<TrainDTO> getDirectTrains(long departStationId, long arrivalStationId, String departDate){
-        List<TrainDTO> crossTrains = null;
+        List<TrainDTO> crossTrains;
+        LocalDate lDepartDate;
         if (departDate == null || departDate.equals("")) {
             crossTrains = trainService.getTrainsByDepartAndArrivalStationIds(departStationId, arrivalStationId);
         }else{
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd");
-            LocalDate lDepartDate = LocalDate.parse(departDate,formatter);
+            try{
+                lDepartDate = LocalDate.parse(departDate,formatter);
+            }
+            catch(DateTimeParseException e){
+                logger.error(e.getMessage());
+                lDepartDate = LocalDate.of(1752,01,01);
+            }
             crossTrains = trainService.getTrainsByDepartAndArrivalStationIdsAndDate(departStationId, arrivalStationId,lDepartDate);
         }
         return crossTrains;
     }
 
-    public boolean isPassengerRegisteredOnTrain(@Valid PassengerDTO passenger, long trainId){
+    public boolean isPassengerRegisteredOnTrain(PassengerDTO passenger, long trainId){
         return passengerService.isPassengerRegisteredOnTrain(passenger, trainId);
-    }
-
-    public boolean isTrainHasFreeSeats(long trainId){
-        return trainService.isTrainHasFreeSeats(trainId);
     }
 
     public boolean checkTrainAvailability(long trainId, long stationId){

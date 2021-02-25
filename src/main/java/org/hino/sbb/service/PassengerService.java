@@ -15,13 +15,17 @@ import java.util.List;
 @Transactional
 public class PassengerService {
 
-    @Autowired
     private PassengerDAO dao;
 
-    @Autowired
     private PassengerMapper mapper;
 
     public PassengerService() {}
+
+    @Autowired
+    public PassengerService(PassengerDAO dao, PassengerMapper mapper) {
+        this.dao = dao;
+        this.mapper = mapper;
+    }
 
     @Transactional (readOnly = true)
     public List<Passenger> findAll() {
@@ -61,7 +65,9 @@ public class PassengerService {
         entity.setTickets(new HashSet<>());
         return mapper.toDto(create(entity));
     }
+
     public Passenger findOrCreate(PassengerDTO dto) {
+
         Passenger passenger = findByAllCols(mapper.toEntity(dto));
         if (passenger == null){
             Passenger entity = mapper.toEntity(dto);

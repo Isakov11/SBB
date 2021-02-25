@@ -3,6 +3,7 @@ package org.hino.sbb.controller;
 import org.hino.sbb.dto.*;
 import org.hino.sbb.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -15,13 +16,19 @@ public class TicketController {
     private final String viewName = "/admin/tickets";
     private final String adminPage = "/index";
 
-    @Autowired
+    //@Autowired
     private TicketService service;
 
-    @Autowired
+
     private TrainService trainService;
 
     public TicketController(){}
+
+    @Autowired
+    public TicketController(TicketService service, TrainService trainService) {
+        this.service = service;
+        this.trainService = trainService;
+    }
 
     @GetMapping(value = viewName)
     public ModelAndView allTickets() {
@@ -48,11 +55,9 @@ public class TicketController {
         return modelAndView;
     }
 
-    @GetMapping (value = viewName + "/delete/{id}")
-    public ModelAndView deleteTicketById(@PathVariable("id") long id) {
+    @RequestMapping (value = viewName + "/{id}", method = RequestMethod.DELETE)
+    public @ResponseBody ResponseEntity deleteTicketById(@PathVariable("id") long id) {
         service.delete(id);
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:" + viewName);
-        return modelAndView;
+        return ResponseEntity.ok().body("ok");
     }
 }

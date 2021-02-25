@@ -17,16 +17,17 @@ import java.util.List;
 @Transactional
 public class TrainService {
 
-    @Autowired
     private TrainDAO dao;
 
-    @Autowired
     private TrainMapper mapper;
 
-    @Autowired
-    private SchedulesService schedulesService;
-
     public TrainService() { }
+
+    @Autowired
+    public TrainService(TrainDAO dao, TrainMapper mapper) {
+        this.dao = dao;
+        this.mapper = mapper;
+    }
 
     @Transactional (readOnly = true)
     public List<Train> findAll() {
@@ -55,8 +56,12 @@ public class TrainService {
 
     public TrainDTO create(TrainDTO dto) {
         Train entity = mapper.toEntity(dto);
-        entity.setTrainSchedule(new LinkedList<>());
-        return mapper.toDto(dao.create(entity));
+        if (dao.isTrainNumberExist(entity.getNumber())){
+            throw new IllegalArgumentException("Train number used already");
+        }else {
+            entity.setTrainSchedule(new LinkedList<>());
+            return mapper.toDto(dao.create(entity));
+        }
     }
 
     public Train update(Train train) {
@@ -65,8 +70,12 @@ public class TrainService {
 
     public TrainDTO update(TrainDTO dto) {
         Train entity = mapper.toEntity(dto);
-        entity.setTrainSchedule(new LinkedList<>());
-        return mapper.toDto(dao.update(entity));
+        if (dao.isTrainNumberExist(entity.getNumber())){
+            throw new IllegalArgumentException("Train number used already");
+        }else {
+            entity.setTrainSchedule(new LinkedList<>());
+            return mapper.toDto(dao.update(entity));
+        }
     }
 
     public Train delete(long id) {
@@ -77,10 +86,6 @@ public class TrainService {
     public TrainDTO deleteRetDTO(long id) {
         Train train = dao.findById(id);
         return mapper.toDto(dao.delete(train));
-    }
-
-    public List<TrainDTO> getTrainsByStationId(long id){
-        return mapper.toDto(dao.getTrainsByStationId(id));
     }
 
     public List<TrainDTO> getTrainsByDepartAndArrivalStationIds(long departId,long arrivalId)  {

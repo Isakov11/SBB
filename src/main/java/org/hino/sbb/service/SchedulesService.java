@@ -19,19 +19,24 @@ import java.util.stream.Collectors;
 @Transactional
 public class SchedulesService {
 
-    @Autowired
     private ScheduleNodeDAO dao;
 
-    @Autowired
     private StationService stationService;
 
-    @Autowired
     private TrainService trainService;
 
-    @Autowired
     private ScheduleNodeMapper mapper;
 
     public SchedulesService() {
+    }
+
+    @Autowired
+    public SchedulesService(ScheduleNodeDAO dao, StationService stationService,
+                            TrainService trainService, ScheduleNodeMapper mapper) {
+        this.dao = dao;
+        this.stationService = stationService;
+        this.trainService = trainService;
+        this.mapper = mapper;
     }
 
     @Transactional(readOnly = true)
@@ -71,19 +76,14 @@ public class SchedulesService {
         LocalDateTime arrivalTime = null;
         LocalDateTime departureTime = null;
         if (scheduleCreateDTO.getArrivalTime() != null && !scheduleCreateDTO.getArrivalTime().equals("")) {
-            arrivalTime = LocalDateTime.parse(scheduleCreateDTO.getArrivalTime(), formatter).
-                    plusYears(LocalDateTime.now().getYear()).
-                    plusMonths(LocalDateTime.now().getMonthValue()).
-                    plusDays(LocalDateTime.now().getDayOfMonth());
+            arrivalTime = LocalDateTime.parse(scheduleCreateDTO.getArrivalTime(), formatter);
+
         }
         else{
             arrivalTime = LocalDateTime.parse("01.01.1753 00:00", formatter);
         }
         if (scheduleCreateDTO.getDepartureTime() != null && !scheduleCreateDTO.getDepartureTime().equals("")) {
-            departureTime = LocalDateTime.parse(scheduleCreateDTO.getDepartureTime(), formatter).
-                    plusYears(LocalDateTime.now().getYear()).
-                    plusMonths(LocalDateTime.now().getMonthValue()).
-                    plusDays(LocalDateTime.now().getDayOfMonth());
+            departureTime = LocalDateTime.parse(scheduleCreateDTO.getDepartureTime(), formatter);
         }
         else{
             departureTime = LocalDateTime.parse("01.01.9999 00:00", formatter);

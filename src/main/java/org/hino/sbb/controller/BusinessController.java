@@ -12,32 +12,34 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.validation.ConstraintViolation;
 import javax.validation.Valid;
 import javax.validation.Validator;
 import java.util.List;
-import java.util.Set;
-
 
 @Controller
 public class BusinessController {
     private static final Logger logger = Logger.getLogger(BusinessController.class);
     private final String adminPage = "/admin/index";
 
-    @Autowired
     private BusinessService businessService;
 
-    @Autowired
     private TrainService trainService;
 
-    @Autowired
     private TicketService ticketService;
 
-    @Autowired
     private StationService stationService;
 
+    public BusinessController() {
+    }
+
     @Autowired
-    Validator validator;
+    public BusinessController(BusinessService businessService, TrainService trainService,
+                              TicketService ticketService, StationService stationService) {
+        this.businessService = businessService;
+        this.trainService = trainService;
+        this.ticketService = ticketService;
+        this.stationService = stationService;
+    }
 
     //Wizard step 1
     @GetMapping(value = "/wizard/step1")

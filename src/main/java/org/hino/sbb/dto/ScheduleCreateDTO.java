@@ -1,9 +1,13 @@
 package org.hino.sbb.dto;
 
+import javax.validation.constraints.Min;
+
 public class ScheduleCreateDTO extends AbstractDTO {
 
+    @Min(0)
     private long trainId;
 
+    @Min(0)
     private long stationId;
 
     private String arrivalTime;

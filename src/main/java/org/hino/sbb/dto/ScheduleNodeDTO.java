@@ -43,6 +43,18 @@ public class ScheduleNodeDTO extends AbstractDTO {
         return arrivalTime;
     }
 
+    public String getArrivalTimeString() {
+        String result;
+        LocalDateTime min = LocalDateTime.of(1753,02,01,0,0);
+
+        if (arrivalTime.isBefore(min)){
+            result = " --:-- ";
+        }else{
+            result = arrivalTime.toLocalTime().toString();
+        }
+        return result;
+    }
+
     public void setArrivalTime(LocalDateTime arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
@@ -51,6 +63,16 @@ public class ScheduleNodeDTO extends AbstractDTO {
         return departureTime;
     }
 
+    public String getDepartureTimeString() {
+        String result;
+        LocalDateTime max = LocalDateTime.of(9998,12,31,0,0);
+        if (departureTime.isAfter(max)){
+            result= " --:-- ";
+        }else{
+            result= departureTime.toLocalTime().toString();
+        }
+        return result;
+    }
     public void setDepartureTime(LocalDateTime departureTime) {
         this.departureTime = departureTime;
     }

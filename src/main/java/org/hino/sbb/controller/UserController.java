@@ -4,13 +4,14 @@ import org.hino.sbb.dto.UserDTO;
 import org.hino.sbb.model.User;
 import org.hino.sbb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
+import javax.validation.Validator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,8 +19,17 @@ import java.util.List;
 public class UserController {
     private final String viewName = "/admin/users";
     private final String adminPage = "/index";
-    @Autowired
+
+
     private UserService service;
+
+    public UserController() {
+    }
+
+    @Autowired
+    public UserController(UserService service) {
+        this.service = service;
+    }
 
     @GetMapping(value = viewName)
     public ModelAndView allUsers() {
@@ -55,40 +65,20 @@ public class UserController {
     }
 
     @PostMapping(path = viewName + "/add")
-    public ModelAndView createUser(@ModelAttribute("dto") UserDTO dto) {
-        service.create(dto);
+    public ModelAndView createUser(@Valid @ModelAttribute("dto") UserDTO dto,
+                                   BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:" + viewName);
-        return modelAndView;
-    }
-
-    @GetMapping (value = viewName + "/edit/{id}")
-    public ModelAndView getEditUser(@PathVariable("id") long id) {
-        ModelAndView modelAndView = new ModelAndView();
-        UserDTO dto = service.findDTOById(id);
-        modelAndView.setViewName(viewName + "Edit");
-        modelAndView.addObject("viewName", viewName);
-        modelAndView.addObject("dto", dto);
-        return modelAndView;
-    }
-
-    @PostMapping(value = viewName + "/edit")
-    public ModelAndView editUser(@ModelAttribute("dto") UserDTO dto) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:" + viewName);
-        service.update(dto);
-        return modelAndView;
-    }
-
-    @GetMapping (value = viewName + "/delete/{id}")
-    public ModelAndView deleteUserById(@PathVariable("id") long id) {
-        User entity = service.delete(id);
-        ModelAndView modelAndView = new ModelAndView();
-        if (entity == null){
-            modelAndView.setViewName("500");
+        if (bindingResult.hasErrors()) {
             return modelAndView;
         }
-        modelAndView.setViewName("redirect:" + viewName);
+        service.create(dto);
         return modelAndView;
+    }
+
+    @RequestMapping(value = viewName + "/{id}", method = RequestMethod.DELETE)
+    public @ResponseBody ResponseEntity deleteUserById(@PathVariable("id") long id) {
+        service.delete(id);
+        return ResponseEntity.ok().body("ok");
     }
 }

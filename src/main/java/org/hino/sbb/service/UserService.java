@@ -17,19 +17,23 @@ import java.util.List;
 @Transactional
 public class UserService{
 
-    @Autowired
     private UserDAO dao;
 
-    @Autowired
     private RoleDAO roleDao;
 
-    @Autowired
     private UserMapper mapper;
 
-    @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public UserService() {}
+
+    @Autowired
+    public UserService(UserDAO dao, RoleDAO roleDao, UserMapper mapper, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.dao = dao;
+        this.roleDao = roleDao;
+        this.mapper = mapper;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
 
     @Transactional (readOnly = true)
     public List<User> findAll() {
@@ -66,7 +70,6 @@ public class UserService{
 
     public UserDTO create(UserDTO dto) {
         User entity = mapper.toEntity(dto);
-
         return mapper.toDto(create(entity));
     }
 
@@ -81,6 +84,7 @@ public class UserService{
 
     public User delete(long id) {
         User entity = dao.findById(id);
+        entity.setRoles(null);
         if (entity == null){
             return null;
         }

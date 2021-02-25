@@ -76,8 +76,8 @@
                                     <c:forEach var="sched" items="${dto.trainRoute}">
                                         <tr>
                                             <td>${sched.stationName}</td>
-                                            <td>${sched.arrivalTime.toLocalDate()} ${sched.arrivalTime.toLocalTime()}</td>
-                                            <td>${sched.departureTime.toLocalDate()} ${sched.departureTime.toLocalTime()}</td>
+                                            <td>${sched.arrivalTime} </td>
+                                            <td>${sched.departureTime}</td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>

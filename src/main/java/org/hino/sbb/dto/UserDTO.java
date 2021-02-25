@@ -1,9 +1,13 @@
 package org.hino.sbb.dto;
 
+import javax.validation.constraints.NotBlank;
+
 public class UserDTO extends AbstractDTO{
 
+    @NotBlank(message="Username should not be blank")
     private String username;
 
+    @NotBlank(message="Password should not be blank")
     private String password;
 
     private String role;

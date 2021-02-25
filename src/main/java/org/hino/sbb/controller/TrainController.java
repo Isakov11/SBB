@@ -11,16 +11,25 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import javax.validation.Validator;
 import java.util.LinkedList;
 import java.util.List;
 
 @Controller
 public class TrainController {
     private final String viewName = "/admin/trains";
+
     private final String adminPage = "/index";
 
-    @Autowired
     private TrainService service;
+
+    public TrainController() {
+    }
+
+    @Autowired
+    public TrainController(TrainService service) {
+        this.service = service;
+    }
 
     @GetMapping(value = viewName)
     public ModelAndView allTrains() {
@@ -61,10 +70,17 @@ public class TrainController {
                                     BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:" + viewName);
+        String resultMessage;
         if (bindingResult.hasErrors()) {
             return modelAndView;
         }
-        service.create(dto);
+        try {
+            service.create(dto);
+        }catch (IllegalArgumentException e){
+            resultMessage = "Train number used already";
+            modelAndView.addObject("resultMessage", resultMessage);
+            modelAndView.setViewName("redirect:" + viewName + "/add");
+        }
         return modelAndView;
     }
 
@@ -83,10 +99,17 @@ public class TrainController {
                                   BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:" + viewName);
+        String resultMessage;
         if (bindingResult.hasErrors()) {
             return modelAndView;
         }
-        service.update(dto);
+        try {
+            service.update(dto);
+        }catch (IllegalArgumentException e){
+            resultMessage = "Train number used already";
+            modelAndView.addObject("resultMessage", resultMessage);
+            modelAndView.setViewName("redirect:" + viewName + "/edit");
+        }
         return modelAndView;
     }
 

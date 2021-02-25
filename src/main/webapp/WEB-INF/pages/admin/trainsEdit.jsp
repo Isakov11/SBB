@@ -51,7 +51,7 @@
                 <div class="row my-sm-2">
                     <label for="number">Train number</label>
                     <input type="text" class="form-control" name="number" id="number" value="${dto.number}"
-                           autofocus/>
+                           required autofocus/>
                     <form:errors path="number"/>
                 </div>
                 <div class="row my-sm-2">
@@ -61,7 +61,7 @@
                 <div class="row my-sm-2">
                     <label for="seatsNumber">Train capacity</label>
                     <input type="text" class="form-control" name="seatsNumber" id="seatsNumber"
-                           value="${dto.seatsNumber}" />
+                           required value="${dto.seatsNumber}" />
                     <form:errors path="seatsNumber"/>
                 </div>
                 <div class="row my-sm-3 justify-content-center">
@@ -69,6 +69,7 @@
                 </div>
             </div>
         </form:form>
+        <div class="row my-sm-5 justify-content-center"><h1>${resultMessage}</h1></div>
     </div>
 
 </div>

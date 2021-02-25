@@ -14,10 +14,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class BBRestController {
     private static final Logger logger = Logger.getLogger(BBRestController.class);
 
-    @Autowired
     private StationService service;
 
     private ObjectMapper mapper = new ObjectMapper();
+
+    public BBRestController() {
+    }
+
+    @Autowired
+    public BBRestController(StationService service) {
+        this.service = service;
+    }
 
     @GetMapping(path =  "/admin/stations/api/{id}")
     public String stationSchedule(@PathVariable("id") long id) {
@@ -25,9 +32,9 @@ public class BBRestController {
         StationDTO dto = service.findDTObyId(id);
         try {
             jsonString = mapper.writeValueAsString(dto.getStationScheduleTable());
-            logger.info("Send by rest:\n" + jsonString);
+            logger.info("Sent by REST:\n" + jsonString);
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
         return jsonString;
     }
