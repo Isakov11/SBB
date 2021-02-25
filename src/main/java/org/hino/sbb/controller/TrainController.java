@@ -70,10 +70,17 @@ public class TrainController {
                                     BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:" + viewName);
+        String resultMessage;
         if (bindingResult.hasErrors()) {
             return modelAndView;
         }
-        service.create(dto);
+        try {
+            service.create(dto);
+        }catch (IllegalArgumentException e){
+            resultMessage = "Train number used already";
+            modelAndView.addObject("resultMessage", resultMessage);
+            modelAndView.setViewName("redirect:" + viewName + "/add");
+        }
         return modelAndView;
     }
 
@@ -92,10 +99,17 @@ public class TrainController {
                                   BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:" + viewName);
+        String resultMessage;
         if (bindingResult.hasErrors()) {
             return modelAndView;
         }
-        service.update(dto);
+        try {
+            service.update(dto);
+        }catch (IllegalArgumentException e){
+            resultMessage = "Train number used already";
+            modelAndView.addObject("resultMessage", resultMessage);
+            modelAndView.setViewName("redirect:" + viewName + "/edit");
+        }
         return modelAndView;
     }
 

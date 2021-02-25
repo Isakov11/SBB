@@ -30,6 +30,11 @@
 </head>
 <body>
 <jsp:include page ="../navigation.jsp"/>
+<style type="text/css">
+    .nav-link {
+        display: inline-block !important;
+    }
+</style>
 <div class="container-fluid">
     <c:if test="${empty dto.id}">
         <c:url value="${viewName}/add" var="var"/>

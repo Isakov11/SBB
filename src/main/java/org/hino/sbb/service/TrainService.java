@@ -56,8 +56,12 @@ public class TrainService {
 
     public TrainDTO create(TrainDTO dto) {
         Train entity = mapper.toEntity(dto);
-        entity.setTrainSchedule(new LinkedList<>());
-        return mapper.toDto(dao.create(entity));
+        if (dao.isTrainNumberExist(entity.getNumber())){
+            throw new IllegalArgumentException("Train number used already");
+        }else {
+            entity.setTrainSchedule(new LinkedList<>());
+            return mapper.toDto(dao.create(entity));
+        }
     }
 
     public Train update(Train train) {
@@ -66,8 +70,12 @@ public class TrainService {
 
     public TrainDTO update(TrainDTO dto) {
         Train entity = mapper.toEntity(dto);
-        entity.setTrainSchedule(new LinkedList<>());
-        return mapper.toDto(dao.update(entity));
+        if (dao.isTrainNumberExist(entity.getNumber())){
+            throw new IllegalArgumentException("Train number used already");
+        }else {
+            entity.setTrainSchedule(new LinkedList<>());
+            return mapper.toDto(dao.update(entity));
+        }
     }
 
     public Train delete(long id) {

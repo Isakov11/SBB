@@ -10,6 +10,8 @@ import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @Repository
@@ -36,7 +38,13 @@ public class TrainDAO {
         }
         return null;
     }
-
+    public boolean isTrainNumberExist(String trainNumber)  {
+        String query ="SELECT t from Train t where t.number= :number";
+        ArrayList<Train> trains = new ArrayList<Train>();
+        trains = (ArrayList<Train>) entityManager.createQuery(query, Train.class).
+                setParameter("number",trainNumber).getResultList();
+        return trains.size() !=0;
+    }
     public Train create(Train train){
         try {
             entityManager.persist(train);

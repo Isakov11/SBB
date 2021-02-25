@@ -30,10 +30,10 @@ public class GlobalExceptionHandler {
         StackTraceElement[] stackTrace = exception.getStackTrace();
         String str = "";
         for (StackTraceElement traceElement : stackTrace ) {
-            str = str +  traceElement.toString();
+            str = str + traceElement.toString() + "\n";
         }
-        logger.error(exception.getMessage() + "Stack trace:\n");
-        logger.error(str);
+        logger.error(exception.getMessage() );
+        logger.error("Stack trace:\n" + str);
         return "errors";
     }
 

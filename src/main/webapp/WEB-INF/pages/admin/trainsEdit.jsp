@@ -69,6 +69,7 @@
                 </div>
             </div>
         </form:form>
+        <div class="row my-sm-5 justify-content-center"><h1>${resultMessage}</h1></div>
     </div>
 
 </div>
